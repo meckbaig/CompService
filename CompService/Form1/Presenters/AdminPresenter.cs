@@ -26,32 +26,20 @@ namespace Form1.Presenters
             model.OrdersLoad(Services, Masters);
         }
 
-        public void EditOrdersLoad(int SelectedId,
-                                   TextBox fullName,
-                                   MaskedTextBox phoneNumber,
-                                   DateTimePicker receiptDate,
-                                   CheckBox completedCheckBox,
-                                   TextBox defectDescription,
-                                   TextBox serialNumber,
-                                   ListBox.ObjectCollection ServicesInOrder,
-                                   ListBox.ObjectCollection MastersInOrder,
-                                   ListBox.ObjectCollection Services,
-                                   ListBox.ObjectCollection Masters,
-                                   ListBox.ObjectCollection Parts)
+        public void EditOrdersLoad(int SelectedId)
         {
-            model.EditOrdersLoad(SelectedId,
-                                 fullName,
-                                 phoneNumber,
-                                 receiptDate,
-                                 completedCheckBox,
-                                 defectDescription,
-                                 serialNumber,
-                                 ServicesInOrder,
-                                 MastersInOrder,
-                                 Services,
-                                 Masters,
-                                 Parts);
-            //Воркаю
+            model.LoadEditOrders(SelectedId, 
+                                 view.EditFullName, 
+                                 view.EditPhoneNumber, 
+                                 view.EditDate, 
+                                 view.EditCompletedSearch, 
+                                 view.EditDefectDescription, 
+                                 view.EditserialNumber, 
+                                 view.EditServicesInOrder, 
+                                 view.EditMastersInOrder,
+                                 view.EditServices,
+                                 view.EditMasters,
+                                 view.EditParts);
         }
 
         public void SortOrders(bool checkBoxChecked)

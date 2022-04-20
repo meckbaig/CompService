@@ -13,7 +13,7 @@ namespace Form1.Models
 
         void AddNewOrder(string fullName, string phoneNumber, DateTime receiptDate,
             string defectDescription, string serialNumber, object servicesInOrder,
-            object mastersInOrder, object parts); // сюда не смотреть!!
+            object mastersInOrder, object parts);
 
         List<MostFullOrderInfo> SearchOrder(string idSearchOrder,
                                string fullNameSearch,
@@ -23,20 +23,20 @@ namespace Form1.Models
                                string defectDescriptionSearch,
                                string serialNumberSearch,
                                bool completedSearchCheckBox);
-
         void OrdersLoad(ListBox.ObjectCollection Services, ListBox.ObjectCollection Masters);
 
-        void EditOrdersLoad(int SelectedId,
-                            TextBox fullName,
-                            MaskedTextBox phoneNumber,
-                            DateTimePicker receiptDate,
-                            CheckBox completedCheckBox,
-                            TextBox defectDescription,
-                            TextBox serialNumber,
-                            ListBox.ObjectCollection ServicesInOrder,
-                            ListBox.ObjectCollection MastersInOrder,
-                            ListBox.ObjectCollection Services,
-                            ListBox.ObjectCollection Masters,
-                            ListBox.ObjectCollection Parts);
+        object EditOrdersLoad(int SelectedId);
+        void LoadEditOrders(int SelectedId,
+                                   string editFullName,
+                                   string editPhoneNumber,
+                                   DateTime editDate,
+                                   bool editCompletedSearch,
+                                   string editDefectDescription,
+                                   string editserialNumber,
+                                   object[] editServicesInOrder,
+                                   object[] editMastersInOrder,
+                                   object[] editServices,
+                                   object[] editMasters,
+                                   object[] editParts);
     }
 }

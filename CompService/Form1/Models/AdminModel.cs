@@ -21,58 +21,64 @@ namespace Form1.Models
             }
         }
 
-        public void EditOrdersLoad(int SelectedId,
-                                   TextBox fullName,
-                                   MaskedTextBox phoneNumber,
-                                   DateTimePicker receiptDate,
-                                   CheckBox completedCheckBox,
-                                   TextBox defectDescription, 
-                                   TextBox serialNumber,
-                                   ListBox.ObjectCollection ServicesInOrder,
-                                   ListBox.ObjectCollection MastersInOrder,
-                                   ListBox.ObjectCollection Services,
-                                   ListBox.ObjectCollection Masters,
-                                   ListBox.ObjectCollection Parts)
+        public void EditOrdersLoad(int SelectedId)
+        {
+            var order = Core.Context.Orders.FirstOrDefault(o => o.IdOrder == SelectedId);
+
+        }
+
+        public void LoadEditOrders(int SelectedId, 
+                                   string editFullName, 
+                                   string editPhoneNumber, 
+                                   DateTime editDate, 
+                                   bool editCompletedSearch, 
+                                   string editDefectDescription,
+                                   string editserialNumber,
+                                   object[] editServicesInOrder,
+                                   object[] editMastersInOrder,
+                                   object[] editServices,
+                                   object[] editMasters,
+                                   object[] editParts)
         {
             var orders = Core.Context.Orders.FirstOrDefault(o => o.IdOrder == SelectedId);
-            fullName.Text = orders.FullName;
-            phoneNumber.Text = orders.PhoneNumber;
-            receiptDate.Value = orders.ReceiptDate;
-            completedCheckBox.Checked = orders.Completed.Value;
-            defectDescription.Text = orders.DefectDescription;
-            serialNumber.Text = orders.SerialNumber;
-            ServicesInOrder.Clear();
-            MastersInOrder.Clear();
-            Services.Clear();
-            Masters.Clear();
-            Parts.Clear();
+            editFullName = orders.FullName;
+            editPhoneNumber = orders.PhoneNumber;
+            editDate = orders.ReceiptDate;
+            editCompletedSearch = orders.Completed.Value;
+            editDefectDescription = orders.DefectDescription;
+            editserialNumber = orders.SerialNumber;
+            editServicesInOrder.Clear();
+            editMastersInOrder.Clear();
+            editServices.Clear();
+            editMasters.Clear();
+            editParts.Clear();
             foreach (var item in orders.Services.ToList())
             {
-                ServicesInOrder.Add(item);
+                editServicesInOrder.Add(item);
             }
             foreach (var item in orders.Masters.ToList())
             {
-                MastersInOrder.Add(item);
+                editMastersInOrder.Add(item);
             }
             foreach (var item in Core.Context.Services.ToList())
             {
-                Services.Add(item);
+                editServices.Add(item);
             }
             foreach (var item in Core.Context.Masters.ToList())
             {
-                Masters.Add(item);
+                editMasters.Add(item);
             }
             foreach (var item in orders.Parts.ToList())
             {
-                Parts.Add(item);
+                editParts.Add(item);
             }
-            foreach (var item in ServicesInOrder)
+            foreach (var item in editServicesInOrder)
             {
-                Services.Remove(item);
+                editServices.Remove(item);
             }
-            foreach (var item in MastersInOrder)
+            foreach (var item in editMastersInOrder)
             {
-                Masters.Remove(item);
+                editMasters.Remove(item);
             }
         }
 
@@ -109,7 +115,6 @@ namespace Form1.Models
             }
             Core.Context.Orders.Add(order);
             Core.Context.SaveChanges();
-            
         }
 
         public List<MostFullOrderInfo> SearchOrder(string idSearchOrder,

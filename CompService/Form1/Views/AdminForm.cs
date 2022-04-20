@@ -78,6 +78,169 @@ namespace Form1
                 return data;
             }
         }
+
+        public string EditFullName
+        {
+            set
+            {
+                editFullNameTextBox.Text = value;
+            }
+            get
+            {
+                return editFullNameTextBox.Text;
+            }
+        }
+        public string EditPhoneNumber
+        {
+            set
+            {
+                editPhoneNumberTextBox.Text = value;
+            }
+            get
+            {
+                return editPhoneNumberTextBox.Text;
+            }
+        }
+        public DateTime EditDate
+        {
+            set
+            {
+                editReceiptDateDateTimePicker.Value = value;
+            }
+            get
+            {
+                return editReceiptDateDateTimePicker.Value;
+            }
+        }
+        public bool EditCompletedSearch
+        {
+            set
+            {
+                editCompletedSearchCheckBox.Checked = value;
+            }
+            get
+            {
+                return editCompletedSearchCheckBox.Checked;
+            }
+        }
+        public string EditDefectDescription
+        {
+            set
+            {
+                editDefectDescriptionTextBox.Text = value;
+            }
+            get
+            {
+                return editDefectDescriptionTextBox.Text;
+            }
+        }
+        public string EditserialNumber
+        {
+            set
+            {
+                editSerialNumberTextBox.Text = value;
+            }
+            get
+            {
+                return editSerialNumberTextBox.Text;
+            }
+        }
+        public object[] EditServicesInOrder
+        {
+            set
+            {
+                foreach (var item in value)
+                {
+                    editServicesInOrderListBox.Items.Add(item);
+                }
+            }
+            get
+            {
+                var data = new object[editServicesInOrderListBox.Items.Count];
+                for (int i = 0; i < data.Length; i++)
+                {
+                    data[i] = editServicesInOrderListBox.Items[i];
+                }
+                return data;
+            }
+        }
+        public object[] EditMastersInOrder
+        {
+            set
+            {
+                foreach (var item in value)
+                {
+                    editMastersInOrderListBox.Items.Add(item);
+                }
+            }
+            get
+            {
+                var data = new object[editMastersInOrderListBox.Items.Count];
+                for (int i = 0; i < data.Length; i++)
+                {
+                    data[i] = editMastersInOrderListBox.Items[i];
+                }
+                return data;
+            }
+        }
+        public object[] EditServices
+        {
+            set
+            {
+                foreach (var item in value)
+                {
+                    editServicesListBox.Items.Add(item);
+                }
+            }
+            get
+            {
+                var data = new object[editServicesListBox.Items.Count];
+                for (int i = 0; i < data.Length; i++)
+                {
+                    data[i] = editServicesListBox.Items[i];
+                }
+                return data;
+            }
+        }
+        public object[] EditMasters
+        {
+            set
+            {
+                foreach (var item in value)
+                {
+                    editMastersListBox.Items.Add(item);
+                }
+            }
+            get
+            {
+                var data = new object[editMastersListBox.Items.Count];
+                for (int i = 0; i < data.Length; i++)
+                {
+                    data[i] = editMastersListBox.Items[i];
+                }
+                return data;
+            }
+        }
+        public object[] EditParts
+        {
+            set
+            {
+                foreach (var item in value)
+                {
+                    editPartsListBox.Items.Add(item);
+                }
+            }
+            get
+            {
+                var data = new object[editPartsListBox.Items.Count];
+                for (int i = 0; i < data.Length; i++)
+                {
+                    data[i] = editPartsListBox.Items[i];
+                }
+                return data;
+            }
+        }
+
         public object SortData
         {
             set
@@ -194,18 +357,7 @@ namespace Form1
             if (searchGridView.CurrentRow != null)
             {
                 SelectedOrderId = Convert.ToInt32(searchGridView.CurrentRow.Cells[0].Value);  // пока типа проверяю, что передаёт выделенный ID
-                presenter.EditOrdersLoad(SelectedOrderId,
-                                   editFullNameTextBox,
-                                   editPhoneNumberTextBox,
-                                   editReceiptDateDateTimePicker,
-                                   editCompletedSearchCheckBox,
-                                   defectDescriptionTextBox,
-                                   serialNumberTextBox,
-                                   editServicesInOrderListBox.Items,
-                                   editMastersInOrderListBox.Items,
-                                   editServicesListBox.Items,
-                                   editMastersListBox.Items,
-                                   editPartsListBox.Items);
+                presenter.EditOrdersLoad(SelectedOrderId);
                 editServicesListBox.DisplayMember = "ServiceName";
                 editServicesInOrderListBox.DisplayMember = "ServiceName";
                 editMastersListBox.DisplayMember = "FullName";
