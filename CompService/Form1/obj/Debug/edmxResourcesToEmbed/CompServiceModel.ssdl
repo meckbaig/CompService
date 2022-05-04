@@ -1,11 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Хранилище CompServiceModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="IdCustomer" />
+    </Key>
+    <Property Name="IdCustomer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdUser" Type="int" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PhoneNumber" Type="char" MaxLength="11" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DeletedService">
+    <Key>
+      <PropertyRef Name="IdService" />
+    </Key>
+    <Property Name="IdService" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Category" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Price" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+  </EntityType>
   <EntityType Name="Master">
     <Key>
       <PropertyRef Name="IdMaster" />
     </Key>
     <Property Name="IdMaster" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IdUser" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="MasterInOrder">
     <Key>
@@ -22,10 +41,12 @@
     <Property Name="IdOrder" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="PhoneNumber" Type="char" MaxLength="11" Nullable="false" />
-    <Property Name="ReceiptDate" Type="smalldatetime" Nullable="false" />
+    <Property Name="ReceiptDate" Type="date" Nullable="false" />
+    <Property Name="CompletionDate" Type="date" />
     <Property Name="DefectDescription" Type="nvarchar" MaxLength="1000" Nullable="false" />
     <Property Name="SerialNumber" Type="nvarchar" MaxLength="30" />
     <Property Name="Completed" Type="bit" />
+    <Property Name="IdCustomer" Type="int" />
   </EntityType>
   <EntityType Name="Parts">
     <Key>
@@ -81,6 +102,21 @@
     <Property Name="IdRole" Type="int" Nullable="false" />
   </EntityType>
   <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "CompService.dbo.CustomerInfo" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="CustomerInfo">
+    <Key>
+      <PropertyRef Name="IdCustomer" />
+      <PropertyRef Name="IdUser" />
+      <PropertyRef Name="FullName" />
+      <PropertyRef Name="PhoneNumber" />
+    </Key>
+    <Property Name="IdCustomer" Type="int" Nullable="false" />
+    <Property Name="IdUser" Type="int" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PhoneNumber" Type="char" MaxLength="11" Nullable="false" />
+    <Property Name="Login" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "CompService.dbo.FullOrderInfo" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
   <EntityType Name="FullOrderInfo">
     <Key>
@@ -93,17 +129,20 @@
     <Property Name="IdOrder" Type="int" Nullable="false" />
     <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="PhoneNumber" Type="char" MaxLength="11" Nullable="false" />
-    <Property Name="ReceiptDate" Type="smalldatetime" Nullable="false" />
+    <Property Name="ReceiptDate" Type="date" Nullable="false" />
+    <Property Name="CompletionDate" Type="date" />
     <Property Name="DefectDescription" Type="nvarchar" MaxLength="1000" Nullable="false" />
     <Property Name="SerialNumber" Type="nvarchar" MaxLength="30" />
     <Property Name="Completed" Type="bit" />
     <Property Name="ServiceNames" Type="nvarchar" MaxLength="4000" />
-    <Property Name="IdPart" Type="int" />
-    <Property Name="PartName" Type="nvarchar" MaxLength="50" />
+    <Property Name="MasterNames" Type="nvarchar" MaxLength="4000" />
+    <Property Name="IdPart" Type="nvarchar" MaxLength="4000" />
+    <Property Name="PartName" Type="nvarchar" MaxLength="4000" />
+    <Property Name="IdCustomer" Type="int" />
   </EntityType>
   <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "CompService.dbo.MostFullOrderInfo" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
-  <EntityType Name="MostFullOrderInfo">
+предупреждение 6002: В таблице или представлении "CompService.dbo.FullOrderInfoWhenNotCompleted" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="FullOrderInfoWhenNotCompleted">
     <Key>
       <PropertyRef Name="IdOrder" />
       <PropertyRef Name="FullName" />
@@ -114,18 +153,34 @@
     <Property Name="IdOrder" Type="int" Nullable="false" />
     <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="PhoneNumber" Type="char" MaxLength="11" Nullable="false" />
-    <Property Name="ReceiptDate" Type="smalldatetime" Nullable="false" />
+    <Property Name="ReceiptDate" Type="date" Nullable="false" />
     <Property Name="DefectDescription" Type="nvarchar" MaxLength="1000" Nullable="false" />
     <Property Name="SerialNumber" Type="nvarchar" MaxLength="30" />
     <Property Name="Completed" Type="bit" />
     <Property Name="ServiceNames" Type="nvarchar" MaxLength="4000" />
     <Property Name="MasterNames" Type="nvarchar" MaxLength="4000" />
-    <Property Name="IdPart" Type="int" />
-    <Property Name="PartName" Type="nvarchar" MaxLength="50" />
+    <Property Name="IdPart" Type="nvarchar" MaxLength="4000" />
+    <Property Name="PartName" Type="nvarchar" MaxLength="4000" />
+    <Property Name="IdCustomer" Type="int" />
+    <Property Name="CompletionDate" Type="date" />
   </EntityType>
   <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "CompService.dbo.MostFullOrderInfoWhenNotCompleted" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
-  <EntityType Name="MostFullOrderInfoWhenNotCompleted">
+предупреждение 6002: В таблице или представлении "CompService.dbo.MasterInfo" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="MasterInfo">
+    <Key>
+      <PropertyRef Name="IdMaster" />
+      <PropertyRef Name="IdUser" />
+      <PropertyRef Name="FullName" />
+    </Key>
+    <Property Name="IdMaster" Type="int" Nullable="false" />
+    <Property Name="IdUser" Type="int" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Login" Type="nvarchar" MaxLength="30" />
+    <Property Name="Password" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "CompService.dbo.OrderInfo" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="OrderInfo">
     <Key>
       <PropertyRef Name="IdOrder" />
       <PropertyRef Name="FullName" />
@@ -136,15 +191,66 @@
     <Property Name="IdOrder" Type="int" Nullable="false" />
     <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="PhoneNumber" Type="char" MaxLength="11" Nullable="false" />
-    <Property Name="ReceiptDate" Type="smalldatetime" Nullable="false" />
+    <Property Name="ReceiptDate" Type="date" Nullable="false" />
+    <Property Name="CompletionDate" Type="date" />
     <Property Name="DefectDescription" Type="nvarchar" MaxLength="1000" Nullable="false" />
     <Property Name="SerialNumber" Type="nvarchar" MaxLength="30" />
     <Property Name="Completed" Type="bit" />
     <Property Name="ServiceNames" Type="nvarchar" MaxLength="4000" />
-    <Property Name="MasterNames" Type="nvarchar" MaxLength="4000" />
-    <Property Name="IdPart" Type="int" />
-    <Property Name="PartName" Type="nvarchar" MaxLength="50" />
+    <Property Name="IdPart" Type="nvarchar" MaxLength="4000" />
+    <Property Name="PartName" Type="nvarchar" MaxLength="4000" />
+    <Property Name="IdCustomer" Type="int" />
   </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "CompService.dbo.OrderInfoWithParts" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="OrderInfoWithParts">
+    <Key>
+      <PropertyRef Name="IdOrder" />
+      <PropertyRef Name="FullName" />
+      <PropertyRef Name="PhoneNumber" />
+      <PropertyRef Name="ReceiptDate" />
+      <PropertyRef Name="DefectDescription" />
+    </Key>
+    <Property Name="IdOrder" Type="int" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PhoneNumber" Type="char" MaxLength="11" Nullable="false" />
+    <Property Name="ReceiptDate" Type="date" Nullable="false" />
+    <Property Name="CompletionDate" Type="date" />
+    <Property Name="DefectDescription" Type="nvarchar" MaxLength="1000" Nullable="false" />
+    <Property Name="SerialNumber" Type="nvarchar" MaxLength="30" />
+    <Property Name="Completed" Type="bit" />
+    <Property Name="IdPart" Type="nvarchar" MaxLength="4000" />
+    <Property Name="PartName" Type="nvarchar" MaxLength="4000" />
+    <Property Name="IdCustomer" Type="int" />
+  </EntityType>
+  <Association Name="FK_Customer_User">
+    <End Role="User" Type="Self.User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="IdUser" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Master_User1">
+    <End Role="User" Type="Self.User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Master" Type="Self.Master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="IdUser" />
+      </Principal>
+      <Dependent Role="Master">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_MasterInOrder_Master">
     <End Role="Master" Type="Self.Master" Multiplicity="1" />
     <End Role="MasterInOrder" Type="Self.MasterInOrder" Multiplicity="*" />
@@ -169,8 +275,22 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Order_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="IdCustomer" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="IdCustomer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_PCParts_Order">
-    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Parts" Type="Self.Parts" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Order">
@@ -217,7 +337,46 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="DeleteService" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="name" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="OrderInfoById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idOrder" Type="int" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="IdOrder" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="ReceiptDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="DefectDescription" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="SerialNumber" Type="nvarchar" MaxLength="30" />
+          <Property Name="Completed" Type="bit" />
+          <Property Name="ServiceNames" Type="nvarchar" MaxLength="4000" />
+          <Property Name="MasterNames" Type="nvarchar" MaxLength="4000" />
+          <Property Name="IdPart" Type="int" />
+          <Property Name="PartName" Type="nvarchar" MaxLength="50" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
+  <Function Name="ServicesByIdOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idOrder" Type="int" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="IdService" Type="int" />
+          <Property Name="ServiceName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Category" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price" Type="decimal" Precision="8" Scale="2" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
+  <Function Name="ServicesInOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar">
+    <Parameter Name="id" Type="int" Mode="In" />
+  </Function>
   <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
     <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -248,7 +407,13 @@
     <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="WindowsSale" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="discount" Type="int" Mode="In" />
+    <Parameter Name="rowCount" Type="int" Mode="InOut" />
+  </Function>
   <EntityContainer Name="Хранилище CompServiceModelContainer">
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DeletedService" EntityType="Self.DeletedService" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Master" EntityType="Self.Master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MasterInOrder" EntityType="Self.MasterInOrder" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
@@ -258,50 +423,97 @@
     <EntitySet Name="ServiceInOrder" EntityType="Self.ServiceInOrder" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustomerInfo" EntityType="Self.CustomerInfo" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [CustomerInfo].[IdCustomer] AS [IdCustomer], 
+    [CustomerInfo].[IdUser] AS [IdUser], 
+    [CustomerInfo].[FullName] AS [FullName], 
+    [CustomerInfo].[PhoneNumber] AS [PhoneNumber], 
+    [CustomerInfo].[Login] AS [Login]
+    FROM [dbo].[CustomerInfo] AS [CustomerInfo]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="FullOrderInfo" EntityType="Self.FullOrderInfo" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [FullOrderInfo].[IdOrder] AS [IdOrder], 
     [FullOrderInfo].[FullName] AS [FullName], 
     [FullOrderInfo].[PhoneNumber] AS [PhoneNumber], 
     [FullOrderInfo].[ReceiptDate] AS [ReceiptDate], 
+    [FullOrderInfo].[CompletionDate] AS [CompletionDate], 
     [FullOrderInfo].[DefectDescription] AS [DefectDescription], 
     [FullOrderInfo].[SerialNumber] AS [SerialNumber], 
     [FullOrderInfo].[Completed] AS [Completed], 
     [FullOrderInfo].[ServiceNames] AS [ServiceNames], 
+    [FullOrderInfo].[MasterNames] AS [MasterNames], 
     [FullOrderInfo].[IdPart] AS [IdPart], 
-    [FullOrderInfo].[PartName] AS [PartName]
+    [FullOrderInfo].[PartName] AS [PartName], 
+    [FullOrderInfo].[IdCustomer] AS [IdCustomer]
     FROM [dbo].[FullOrderInfo] AS [FullOrderInfo]</DefiningQuery>
     </EntitySet>
-    <EntitySet Name="MostFullOrderInfo" EntityType="Self.MostFullOrderInfo" store:Type="Views" store:Schema="dbo">
+    <EntitySet Name="FullOrderInfoWhenNotCompleted" EntityType="Self.FullOrderInfoWhenNotCompleted" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
-    [MostFullOrderInfo].[IdOrder] AS [IdOrder], 
-    [MostFullOrderInfo].[FullName] AS [FullName], 
-    [MostFullOrderInfo].[PhoneNumber] AS [PhoneNumber], 
-    [MostFullOrderInfo].[ReceiptDate] AS [ReceiptDate], 
-    [MostFullOrderInfo].[DefectDescription] AS [DefectDescription], 
-    [MostFullOrderInfo].[SerialNumber] AS [SerialNumber], 
-    [MostFullOrderInfo].[Completed] AS [Completed], 
-    [MostFullOrderInfo].[ServiceNames] AS [ServiceNames], 
-    [MostFullOrderInfo].[MasterNames] AS [MasterNames], 
-    [MostFullOrderInfo].[IdPart] AS [IdPart], 
-    [MostFullOrderInfo].[PartName] AS [PartName]
-    FROM [dbo].[MostFullOrderInfo] AS [MostFullOrderInfo]</DefiningQuery>
+    [FullOrderInfoWhenNotCompleted].[IdOrder] AS [IdOrder], 
+    [FullOrderInfoWhenNotCompleted].[FullName] AS [FullName], 
+    [FullOrderInfoWhenNotCompleted].[PhoneNumber] AS [PhoneNumber], 
+    [FullOrderInfoWhenNotCompleted].[ReceiptDate] AS [ReceiptDate], 
+    [FullOrderInfoWhenNotCompleted].[DefectDescription] AS [DefectDescription], 
+    [FullOrderInfoWhenNotCompleted].[SerialNumber] AS [SerialNumber], 
+    [FullOrderInfoWhenNotCompleted].[Completed] AS [Completed], 
+    [FullOrderInfoWhenNotCompleted].[ServiceNames] AS [ServiceNames], 
+    [FullOrderInfoWhenNotCompleted].[MasterNames] AS [MasterNames], 
+    [FullOrderInfoWhenNotCompleted].[IdPart] AS [IdPart], 
+    [FullOrderInfoWhenNotCompleted].[PartName] AS [PartName], 
+    [FullOrderInfoWhenNotCompleted].[IdCustomer] AS [IdCustomer], 
+    [FullOrderInfoWhenNotCompleted].[CompletionDate] AS [CompletionDate]
+    FROM [dbo].[FullOrderInfoWhenNotCompleted] AS [FullOrderInfoWhenNotCompleted]</DefiningQuery>
     </EntitySet>
-    <EntitySet Name="MostFullOrderInfoWhenNotCompleted" EntityType="Self.MostFullOrderInfoWhenNotCompleted" store:Type="Views" store:Schema="dbo">
+    <EntitySet Name="MasterInfo" EntityType="Self.MasterInfo" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
-    [MostFullOrderInfoWhenNotCompleted].[IdOrder] AS [IdOrder], 
-    [MostFullOrderInfoWhenNotCompleted].[FullName] AS [FullName], 
-    [MostFullOrderInfoWhenNotCompleted].[PhoneNumber] AS [PhoneNumber], 
-    [MostFullOrderInfoWhenNotCompleted].[ReceiptDate] AS [ReceiptDate], 
-    [MostFullOrderInfoWhenNotCompleted].[DefectDescription] AS [DefectDescription], 
-    [MostFullOrderInfoWhenNotCompleted].[SerialNumber] AS [SerialNumber], 
-    [MostFullOrderInfoWhenNotCompleted].[Completed] AS [Completed], 
-    [MostFullOrderInfoWhenNotCompleted].[ServiceNames] AS [ServiceNames], 
-    [MostFullOrderInfoWhenNotCompleted].[MasterNames] AS [MasterNames], 
-    [MostFullOrderInfoWhenNotCompleted].[IdPart] AS [IdPart], 
-    [MostFullOrderInfoWhenNotCompleted].[PartName] AS [PartName]
-    FROM [dbo].[MostFullOrderInfoWhenNotCompleted] AS [MostFullOrderInfoWhenNotCompleted]</DefiningQuery>
+    [MasterInfo].[IdMaster] AS [IdMaster], 
+    [MasterInfo].[IdUser] AS [IdUser], 
+    [MasterInfo].[FullName] AS [FullName], 
+    [MasterInfo].[Login] AS [Login], 
+    [MasterInfo].[Password] AS [Password]
+    FROM [dbo].[MasterInfo] AS [MasterInfo]</DefiningQuery>
     </EntitySet>
+    <EntitySet Name="OrderInfo" EntityType="Self.OrderInfo" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [OrderInfo].[IdOrder] AS [IdOrder], 
+    [OrderInfo].[FullName] AS [FullName], 
+    [OrderInfo].[PhoneNumber] AS [PhoneNumber], 
+    [OrderInfo].[ReceiptDate] AS [ReceiptDate], 
+    [OrderInfo].[CompletionDate] AS [CompletionDate], 
+    [OrderInfo].[DefectDescription] AS [DefectDescription], 
+    [OrderInfo].[SerialNumber] AS [SerialNumber], 
+    [OrderInfo].[Completed] AS [Completed], 
+    [OrderInfo].[ServiceNames] AS [ServiceNames], 
+    [OrderInfo].[IdPart] AS [IdPart], 
+    [OrderInfo].[PartName] AS [PartName], 
+    [OrderInfo].[IdCustomer] AS [IdCustomer]
+    FROM [dbo].[OrderInfo] AS [OrderInfo]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="OrderInfoWithParts" EntityType="Self.OrderInfoWithParts" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [OrderInfoWithParts].[IdOrder] AS [IdOrder], 
+    [OrderInfoWithParts].[FullName] AS [FullName], 
+    [OrderInfoWithParts].[PhoneNumber] AS [PhoneNumber], 
+    [OrderInfoWithParts].[ReceiptDate] AS [ReceiptDate], 
+    [OrderInfoWithParts].[CompletionDate] AS [CompletionDate], 
+    [OrderInfoWithParts].[DefectDescription] AS [DefectDescription], 
+    [OrderInfoWithParts].[SerialNumber] AS [SerialNumber], 
+    [OrderInfoWithParts].[Completed] AS [Completed], 
+    [OrderInfoWithParts].[IdPart] AS [IdPart], 
+    [OrderInfoWithParts].[PartName] AS [PartName], 
+    [OrderInfoWithParts].[IdCustomer] AS [IdCustomer]
+    FROM [dbo].[OrderInfoWithParts] AS [OrderInfoWithParts]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Customer_User" Association="Self.FK_Customer_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Customer" EntitySet="Customer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Master_User1" Association="Self.FK_Master_User1">
+      <End Role="User" EntitySet="User" />
+      <End Role="Master" EntitySet="Master" />
+    </AssociationSet>
     <AssociationSet Name="FK_MasterInOrder_Master" Association="Self.FK_MasterInOrder_Master">
       <End Role="Master" EntitySet="Master" />
       <End Role="MasterInOrder" EntitySet="MasterInOrder" />
@@ -309,6 +521,10 @@
     <AssociationSet Name="FK_MasterInOrder_Order" Association="Self.FK_MasterInOrder_Order">
       <End Role="Order" EntitySet="Order" />
       <End Role="MasterInOrder" EntitySet="MasterInOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Order" EntitySet="Order" />
     </AssociationSet>
     <AssociationSet Name="FK_PCParts_Order" Association="Self.FK_PCParts_Order">
       <End Role="Order" EntitySet="Order" />

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Form1.Models
+namespace CompService.Models
 {
     interface ILoginModel
     {
         User LoginMethod(string login, string password);
+        bool CheckConnection();
     }
 }

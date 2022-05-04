@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Form1.Supporting
+namespace CompService.Supporting
 {
     public static class SelectedOrder
     {

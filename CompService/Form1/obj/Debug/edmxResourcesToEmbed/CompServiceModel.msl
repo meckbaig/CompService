@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Masters">
       <EntityTypeMapping TypeName="CompServiceModel.Master">
         <MappingFragment StoreEntitySet="Master">
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
           <ScalarProperty Name="IdMaster" ColumnName="IdMaster" />
           <ScalarProperty Name="FullName" ColumnName="FullName" />
         </MappingFragment>
@@ -12,6 +13,8 @@
     <EntitySetMapping Name="Orders">
       <EntityTypeMapping TypeName="CompServiceModel.Order">
         <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
+          <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
           <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
           <ScalarProperty Name="FullName" ColumnName="FullName" />
           <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
@@ -112,15 +115,57 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="DeletedServices">
+      <EntityTypeMapping TypeName="CompServiceModel.DeletedService">
+        <MappingFragment StoreEntitySet="DeletedService">
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+          <ScalarProperty Name="IdService" ColumnName="IdService" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="DeleteService" FunctionName="Хранилище CompServiceModel.DeleteService" />
+    <FunctionImportMapping FunctionImportName="OrderInfoById" FunctionName="Хранилище CompServiceModel.OrderInfoById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CompServiceModel.OrderInfoById_Result">
+          <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
+          <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
+          <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+          <ScalarProperty Name="Completed" ColumnName="Completed" />
+          <ScalarProperty Name="ServiceNames" ColumnName="ServiceNames" />
+          <ScalarProperty Name="MasterNames" ColumnName="MasterNames" />
+          <ScalarProperty Name="IdPart" ColumnName="IdPart" />
+          <ScalarProperty Name="PartName" ColumnName="PartName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="WindowsSale" FunctionName="Хранилище CompServiceModel.WindowsSale" />
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="CompServiceModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="FullOrderInfoes">
       <EntityTypeMapping TypeName="CompServiceModel.FullOrderInfo">
         <MappingFragment StoreEntitySet="FullOrderInfo">
+          <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
           <ScalarProperty Name="PartName" ColumnName="PartName" />
           <ScalarProperty Name="IdPart" ColumnName="IdPart" />
+          <ScalarProperty Name="MasterNames" ColumnName="MasterNames" />
           <ScalarProperty Name="ServiceNames" ColumnName="ServiceNames" />
           <ScalarProperty Name="Completed" ColumnName="Completed" />
           <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
           <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
+          <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
           <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
           <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
           <ScalarProperty Name="FullName" ColumnName="FullName" />
@@ -128,9 +173,11 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="MostFullOrderInfoWhenNotCompleteds">
-      <EntityTypeMapping TypeName="CompServiceModel.MostFullOrderInfoWhenNotCompleted">
-        <MappingFragment StoreEntitySet="MostFullOrderInfoWhenNotCompleted">
+    <EntitySetMapping Name="FullOrderInfoWhenNotCompleteds">
+      <EntityTypeMapping TypeName="CompServiceModel.FullOrderInfoWhenNotCompleted">
+        <MappingFragment StoreEntitySet="FullOrderInfoWhenNotCompleted">
+          <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+          <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
           <ScalarProperty Name="PartName" ColumnName="PartName" />
           <ScalarProperty Name="IdPart" ColumnName="IdPart" />
           <ScalarProperty Name="MasterNames" ColumnName="MasterNames" />
@@ -145,16 +192,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="MostFullOrderInfoes">
-      <EntityTypeMapping TypeName="CompServiceModel.MostFullOrderInfo">
-        <MappingFragment StoreEntitySet="MostFullOrderInfo">
+    <EntitySetMapping Name="OrderInfoes">
+      <EntityTypeMapping TypeName="CompServiceModel.OrderInfo">
+        <MappingFragment StoreEntitySet="OrderInfo">
+          <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
           <ScalarProperty Name="PartName" ColumnName="PartName" />
           <ScalarProperty Name="IdPart" ColumnName="IdPart" />
-          <ScalarProperty Name="MasterNames" ColumnName="MasterNames" />
           <ScalarProperty Name="ServiceNames" ColumnName="ServiceNames" />
           <ScalarProperty Name="Completed" ColumnName="Completed" />
           <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
           <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
+          <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
           <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
           <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
           <ScalarProperty Name="FullName" ColumnName="FullName" />
@@ -162,5 +210,54 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="OrderInfoWithParts">
+      <EntityTypeMapping TypeName="CompServiceModel.OrderInfoWithPart">
+        <MappingFragment StoreEntitySet="OrderInfoWithParts">
+          <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
+          <ScalarProperty Name="PartName" ColumnName="PartName" />
+          <ScalarProperty Name="IdPart" ColumnName="IdPart" />
+          <ScalarProperty Name="Completed" ColumnName="Completed" />
+          <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+          <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
+          <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+          <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerInfoes">
+      <EntityTypeMapping TypeName="CompServiceModel.CustomerInfo">
+        <MappingFragment StoreEntitySet="CustomerInfo">
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MasterInfoes">
+      <EntityTypeMapping TypeName="CompServiceModel.MasterInfo">
+        <MappingFragment StoreEntitySet="MasterInfo">
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="IdMaster" ColumnName="IdMaster" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ServicesByIdOrder" FunctionName="Хранилище CompServiceModel.ServicesByIdOrder">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CompServiceModel.ServicesByIdOrder_Result">
+          <ScalarProperty Name="IdService" ColumnName="IdService" />
+          <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

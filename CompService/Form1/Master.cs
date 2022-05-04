@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Form1
+namespace CompService
 {
     using System;
     using System.Collections.Generic;
@@ -22,8 +22,10 @@ namespace Form1
     
         public int IdMaster { get; set; }
         public string FullName { get; set; }
+        public int IdUser { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
+        public virtual User User { get; set; }
     }
 }

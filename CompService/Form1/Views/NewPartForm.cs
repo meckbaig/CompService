@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Form1
+namespace CompService
 {
     public partial class NewPartForm : TemplateForm
     {
@@ -20,7 +20,7 @@ namespace Form1
             this.part = part;
         }
 
-        private void savePartButton_Click(object sender, EventArgs e)
+        private void SavePartButton_Click(object sender, EventArgs e)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace Form1
                 MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void priceTextBox_TextChanged(object sender, EventArgs e)
+        private void PriceTextBox_TextChanged(object sender, EventArgs e)
         {
             Regex priceRegex = new Regex(@"^\d{1,6}(\,\d{1,2})?$");
             if (!priceRegex.IsMatch(priceTextBox.Text))

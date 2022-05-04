@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Form1
+namespace CompService
 {
     using System;
     using System.Data.Entity;
@@ -34,9 +34,14 @@ namespace Form1
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<DeletedService> DeletedServices { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<FullOrderInfo> FullOrderInfoes { get; set; }
-        public virtual DbSet<MostFullOrderInfoWhenNotCompleted> MostFullOrderInfoWhenNotCompleteds { get; set; }
-        public virtual DbSet<MostFullOrderInfo> MostFullOrderInfoes { get; set; }
+        public virtual DbSet<FullOrderInfoWhenNotCompleted> FullOrderInfoWhenNotCompleteds { get; set; }
+        public virtual DbSet<OrderInfo> OrderInfoes { get; set; }
+        public virtual DbSet<OrderInfoWithPart> OrderInfoWithParts { get; set; }
+        public virtual DbSet<CustomerInfo> CustomerInfoes { get; set; }
+        public virtual DbSet<MasterInfo> MasterInfoes { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
@@ -139,6 +144,44 @@ namespace Form1
         public virtual int sp_upgraddiagrams()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
+        }
+    
+        public virtual int DeleteService(string name)
+        {
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteService", nameParameter);
+        }
+    
+        [DbFunction("CompServiceEntities", "OrderInfoById")]
+        public virtual IQueryable<OrderInfoById_Result> OrderInfoById(Nullable<int> idOrder)
+        {
+            var idOrderParameter = idOrder.HasValue ?
+                new ObjectParameter("idOrder", idOrder) :
+                new ObjectParameter("idOrder", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<OrderInfoById_Result>("[CompServiceEntities].[OrderInfoById](@idOrder)", idOrderParameter);
+        }
+    
+        public virtual int WindowsSale(Nullable<int> discount, ObjectParameter rowCount)
+        {
+            var discountParameter = discount.HasValue ?
+                new ObjectParameter("discount", discount) :
+                new ObjectParameter("discount", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("WindowsSale", discountParameter, rowCount);
+        }
+    
+        [DbFunction("CompServiceEntities", "ServicesByIdOrder")]
+        public virtual IQueryable<ServicesByIdOrder_Result> ServicesByIdOrder(Nullable<int> idOrder)
+        {
+            var idOrderParameter = idOrder.HasValue ?
+                new ObjectParameter("idOrder", idOrder) :
+                new ObjectParameter("idOrder", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<ServicesByIdOrder_Result>("[CompServiceEntities].[ServicesByIdOrder](@idOrder)", idOrderParameter);
         }
     }
 }

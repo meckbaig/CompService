@@ -14,9 +14,11 @@ D:\System Programs\VisualProject\CompService\Form1\bin\Debug\EntityFramework.xml
 D:\System Programs\VisualProject\CompService\Form1\bin\Debug\EntityFramework.SqlServer.xml
 D:\System Programs\VisualProject\CompService\Form1\bin\Debug\ru\EntityFramework.resources.dll
 D:\System Programs\VisualProject\CompService\Form1\obj\Debug\Form1.csproj.CopyComplete
-D:\System Programs\VisualProject\CompService\Form1\obj\Debug\Form1.AdminForm.resources
 D:\System Programs\VisualProject\CompService\Form1\obj\Debug\Form1.LoginForm.resources
 D:\System Programs\VisualProject\CompService\Form1\obj\Debug\Form1.RegistrationForm.resources
 D:\System Programs\VisualProject\CompService\Form1\obj\Debug\Form1.CustomerForm.resources
-D:\System Programs\VisualProject\CompService\Form1\obj\Debug\Form1.MasterForm.resources
 D:\System Programs\VisualProject\CompService\Form1\obj\Debug\Form1.NewPartForm.resources
+D:\System Programs\VisualProject\CompService\Form1\obj\Debug\Form1.Views.ConnectionForm.resources
+D:\System Programs\VisualProject\CompService\Form1\obj\Debug\Form1.MainForm.resources
+D:\System Programs\VisualProject\CompService\Form1\obj\Debug\Form1.Views.CustomerLink.resources
+D:\System Programs\VisualProject\CompService\Form1\obj\Debug\Form1.Views.RecoveryForm.resources

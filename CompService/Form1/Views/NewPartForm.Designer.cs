@@ -1,5 +1,5 @@
 ﻿
-namespace Form1
+namespace CompService
 {
     partial class NewPartForm
     {
@@ -51,7 +51,7 @@ namespace Form1
             this.savePartButton.TabIndex = 0;
             this.savePartButton.Text = "Сохранить";
             this.savePartButton.UseVisualStyleBackColor = true;
-            this.savePartButton.Click += new System.EventHandler(this.savePartButton_Click);
+            this.savePartButton.Click += new System.EventHandler(this.SavePartButton_Click);
             // 
             // label1
             // 
@@ -95,7 +95,7 @@ namespace Form1
             this.priceTextBox.Name = "priceTextBox";
             this.priceTextBox.Size = new System.Drawing.Size(314, 27);
             this.priceTextBox.TabIndex = 6;
-            this.priceTextBox.TextChanged += new System.EventHandler(this.priceTextBox_TextChanged);
+            this.priceTextBox.TextChanged += new System.EventHandler(this.PriceTextBox_TextChanged);
             // 
             // serialNumberTextBox
             // 

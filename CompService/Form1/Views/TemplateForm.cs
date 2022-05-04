@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Form1
+namespace CompService
 {
     public partial class TemplateForm : Form
     {

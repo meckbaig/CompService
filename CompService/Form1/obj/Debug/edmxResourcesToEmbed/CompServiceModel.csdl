@@ -7,6 +7,8 @@
     <Property Name="IdMaster" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Orders" Relationship="Self.MasterInOrder" FromRole="Master" ToRole="Order" />
+    <Property Name="IdUser" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="CompServiceModel.FK_Master_User" FromRole="Master" ToRole="User" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -22,6 +24,9 @@
     <NavigationProperty Name="Parts" Relationship="Self.FK_PCParts_Order" FromRole="Order" ToRole="Parts" />
     <NavigationProperty Name="Masters" Relationship="Self.MasterInOrder" FromRole="Order" ToRole="Master" />
     <NavigationProperty Name="Services" Relationship="Self.ServiceInOrder" FromRole="Order" ToRole="Service" />
+    <Property Name="CompletionDate" Type="DateTime" Precision="0" />
+    <Property Name="IdCustomer" Type="Int32" />
+    <NavigationProperty Name="Customer" Relationship="CompServiceModel.FK_Order_Customer" FromRole="Order" ToRole="Customer" />
   </EntityType>
   <EntityType Name="Part">
     <Key>
@@ -55,7 +60,9 @@
     <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <Association Name="FK_PCParts_Order">
-    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Parts" Type="Self.Part" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Order">
@@ -128,9 +135,39 @@
       <End Role="Role" EntitySet="Roles" />
       <End Role="User" EntitySet="Users" />
     </AssociationSet>
+    <EntitySet Name="DeletedServices" EntityType="CompServiceModel.DeletedService" />
+    <FunctionImport Name="DeleteService">
+      <Parameter Name="name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="OrderInfoById" IsComposable="true" ReturnType="Collection(CompServiceModel.OrderInfoById_Result)">
+      <Parameter Name="idOrder" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="WindowsSale">
+      <Parameter Name="discount" Mode="In" Type="Int32" />
+      <Parameter Name="rowCount" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="Customers" EntityType="CompServiceModel.Customer" />
+    <AssociationSet Name="FK_Customer_User" Association="CompServiceModel.FK_Customer_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Customer" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Customer" Association="CompServiceModel.FK_Order_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
     <EntitySet Name="FullOrderInfoes" EntityType="CompServiceModel.FullOrderInfo" />
-    <EntitySet Name="MostFullOrderInfoWhenNotCompleteds" EntityType="CompServiceModel.MostFullOrderInfoWhenNotCompleted" />
-    <EntitySet Name="MostFullOrderInfoes" EntityType="CompServiceModel.MostFullOrderInfo" />
+    <EntitySet Name="FullOrderInfoWhenNotCompleteds" EntityType="CompServiceModel.FullOrderInfoWhenNotCompleted" />
+    <EntitySet Name="OrderInfoes" EntityType="CompServiceModel.OrderInfo" />
+    <EntitySet Name="OrderInfoWithParts" EntityType="CompServiceModel.OrderInfoWithPart" />
+    <EntitySet Name="CustomerInfoes" EntityType="CompServiceModel.CustomerInfo" />
+    <EntitySet Name="MasterInfoes" EntityType="CompServiceModel.MasterInfo" />
+    <AssociationSet Name="FK_Master_User" Association="CompServiceModel.FK_Master_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Master" EntitySet="Masters" />
+    </AssociationSet>
+    <FunctionImport Name="ServicesByIdOrder" IsComposable="true" ReturnType="Collection(CompServiceModel.ServicesByIdOrder_Result)">
+      <Parameter Name="idOrder" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -160,6 +197,8 @@
     <Property Name="Password" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
     <Property Name="IdRole" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Role" Relationship="CompServiceModel.FK_User_Role" FromRole="User" ToRole="Role" />
+    <NavigationProperty Name="Customers" Relationship="CompServiceModel.FK_Customer_User" FromRole="User" ToRole="Customer" />
+    <NavigationProperty Name="Masters" Relationship="CompServiceModel.FK_Master_User" FromRole="User" ToRole="Master" />
   </EntityType>
   <Association Name="FK_User_Role">
     <End Type="CompServiceModel.Role" Role="Role" Multiplicity="1" />
@@ -170,6 +209,63 @@
       </Principal>
       <Dependent Role="User">
         <PropertyRef Name="IdRole" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="DeletedService">
+    <Key>
+      <PropertyRef Name="IdService" />
+    </Key>
+    <Property Name="IdService" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ServiceName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+  </EntityType>
+  <ComplexType Name="OrderInfoById_Result">
+    <Property Type="Int32" Name="IdOrder" Nullable="false" />
+    <Property Type="String" Name="FullName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="PhoneNumber" Nullable="false" MaxLength="11" />
+    <Property Type="DateTime" Name="ReceiptDate" Nullable="false" Precision="16" />
+    <Property Type="String" Name="DefectDescription" Nullable="false" MaxLength="1000" />
+    <Property Type="String" Name="SerialNumber" Nullable="true" MaxLength="30" />
+    <Property Type="Boolean" Name="Completed" Nullable="true" />
+    <Property Type="String" Name="ServiceNames" Nullable="true" MaxLength="4000" />
+    <Property Type="String" Name="MasterNames" Nullable="true" MaxLength="4000" />
+    <Property Type="Int32" Name="IdPart" Nullable="true" />
+    <Property Type="String" Name="PartName" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="IdCustomer" />
+    </Key>
+    <Property Name="IdCustomer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdUser" Type="Int32" Nullable="false" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="User" Relationship="CompServiceModel.FK_Customer_User" FromRole="Customer" ToRole="User" />
+    <NavigationProperty Name="Orders" Relationship="CompServiceModel.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
+  </EntityType>
+  <Association Name="FK_Customer_User">
+    <End Type="CompServiceModel.User" Role="User" Multiplicity="1" />
+    <End Type="CompServiceModel.Customer" Role="Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="IdUser" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Customer">
+    <End Type="CompServiceModel.Customer" Role="Customer" Multiplicity="0..1" />
+    <End Type="CompServiceModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="IdCustomer" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="IdCustomer" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -185,14 +281,17 @@
     <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
     <Property Name="ReceiptDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="CompletionDate" Type="DateTime" Precision="0" />
     <Property Name="DefectDescription" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="SerialNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
     <Property Name="Completed" Type="Boolean" />
     <Property Name="ServiceNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-    <Property Name="IdPart" Type="Int32" />
-    <Property Name="PartName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MasterNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="IdPart" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="PartName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="IdCustomer" Type="Int32" />
   </EntityType>
-  <EntityType Name="MostFullOrderInfoWhenNotCompleted">
+  <EntityType Name="FullOrderInfoWhenNotCompleted">
     <Key>
       <PropertyRef Name="IdOrder" />
       <PropertyRef Name="FullName" />
@@ -209,10 +308,12 @@
     <Property Name="Completed" Type="Boolean" />
     <Property Name="ServiceNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
     <Property Name="MasterNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-    <Property Name="IdPart" Type="Int32" />
-    <Property Name="PartName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IdPart" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="PartName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="IdCustomer" Type="Int32" />
+    <Property Name="CompletionDate" Type="DateTime" Precision="0" />
   </EntityType>
-  <EntityType Name="MostFullOrderInfo">
+  <EntityType Name="OrderInfo">
     <Key>
       <PropertyRef Name="IdOrder" />
       <PropertyRef Name="FullName" />
@@ -224,12 +325,78 @@
     <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
     <Property Name="ReceiptDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="CompletionDate" Type="DateTime" Precision="0" />
     <Property Name="DefectDescription" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
     <Property Name="SerialNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
     <Property Name="Completed" Type="Boolean" />
     <Property Name="ServiceNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-    <Property Name="MasterNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-    <Property Name="IdPart" Type="Int32" />
-    <Property Name="PartName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IdPart" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="PartName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="IdCustomer" Type="Int32" />
   </EntityType>
+  <EntityType Name="OrderInfoWithPart">
+    <Key>
+      <PropertyRef Name="IdOrder" />
+      <PropertyRef Name="FullName" />
+      <PropertyRef Name="PhoneNumber" />
+      <PropertyRef Name="ReceiptDate" />
+      <PropertyRef Name="DefectDescription" />
+    </Key>
+    <Property Name="IdOrder" Type="Int32" Nullable="false" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Name="ReceiptDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="CompletionDate" Type="DateTime" Precision="0" />
+    <Property Name="DefectDescription" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="SerialNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Completed" Type="Boolean" />
+    <Property Name="IdPart" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="PartName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="IdCustomer" Type="Int32" />
+  </EntityType>
+  <EntityType Name="CustomerInfo">
+    <Key>
+      <PropertyRef Name="IdCustomer" />
+      <PropertyRef Name="IdUser" />
+      <PropertyRef Name="FullName" />
+      <PropertyRef Name="PhoneNumber" />
+    </Key>
+    <Property Name="IdCustomer" Type="Int32" Nullable="false" />
+    <Property Name="IdUser" Type="Int32" Nullable="false" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="MasterInfo">
+    <Key>
+      <PropertyRef Name="IdMaster" />
+      <PropertyRef Name="IdUser" />
+      <PropertyRef Name="FullName" />
+    </Key>
+    <Property Name="IdMaster" Type="Int32" Nullable="false" />
+    <Property Name="IdUser" Type="Int32" Nullable="false" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_Master_User">
+    <End Type="CompServiceModel.User" Role="User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="CompServiceModel.Master" Role="Master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="IdUser" />
+      </Principal>
+      <Dependent Role="Master">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="ServicesByIdOrder_Result">
+    <Property Type="Int32" Name="IdService" Nullable="true" />
+    <Property Type="String" Name="ServiceName" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Category" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="Price" Nullable="true" Precision="8" Scale="2" />
+  </ComplexType>
 </Schema>

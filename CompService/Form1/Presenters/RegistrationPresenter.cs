@@ -1,5 +1,5 @@
-﻿using Form1.Models;
-using Form1.Views;
+﻿using CompService.Models;
+using CompService.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Form1.Presenters
+namespace CompService.Presenters
 {
     class RegistrationPresenter
     {
@@ -25,10 +25,20 @@ namespace Form1.Presenters
             try
             {
                 model.RegistrationMethod(login, password, repeatPassword);
+                model.ParceCustomer(login, password);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        internal void AddInformation(string fullName, string phoneNumber)
+        {
+            try
+            {
+                model.AddInformation(fullName, phoneNumber);
                 MessageBox.Show("Регистрация завершена", "Успешно!", MessageBoxButtons.OK);
-                LoginForm loginForm = new LoginForm();
-                loginForm.Show();
-                view.Close();
             }
             catch (Exception ex)
             {

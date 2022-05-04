@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Form1
+namespace CompService
 {
     using System;
     using System.Collections.Generic;

@@ -1,5 +1,5 @@
-﻿using Form1.Presenters;
-using Form1.Views;
+﻿using CompService.Presenters;
+using CompService.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Form1
+namespace CompService
 {
     public partial class RegistrationForm : Form, IRegistrationView
     {
@@ -18,10 +18,13 @@ namespace Form1
         public RegistrationForm()
         {
             InitializeComponent();
-            presenter = new RegistrationPresenter(this);
+            presenter = new RegistrationPresenter(this); 
+            tabControl.Appearance = TabAppearance.FlatButtons;
+            tabControl.ItemSize = new Size(0, 1);
+            tabControl.SizeMode = TabSizeMode.Fixed;
         }
 
-        private void loginTextBox_Validating(object sender, CancelEventArgs e)
+        private void LoginTextBox_Validating(object sender, CancelEventArgs e)
         {
             if (String.IsNullOrEmpty(loginTextBox.Text))
             {
@@ -37,7 +40,7 @@ namespace Form1
             }
         }
 
-        private void passwordTextBox_TextChanged(object sender, EventArgs e)
+        private void PasswordTextBox_TextChanged(object sender, EventArgs e)
         {
             if (String.IsNullOrEmpty(passwordTextBox.Text))
             {
@@ -53,7 +56,7 @@ namespace Form1
             }
         }
 
-        private void repeatPasswordTextBox_TextChanged(object sender, EventArgs e)
+        private void RepeatPasswordTextBox_TextChanged(object sender, EventArgs e)
         {
             if (repeatPasswordTextBox.Text != passwordTextBox.Text)
             {
@@ -64,15 +67,33 @@ namespace Form1
                 regErrorProvider.Clear();
             }
         }
-        private void registrationButton_Click(object sender, EventArgs e)
+
+        private void RegistrationButton_Click(object sender, EventArgs e)
         {
             presenter.RegistrationMethod(loginTextBox.Text, passwordTextBox.Text, repeatPasswordTextBox.Text);
+            tabControl.SelectedTab = infoPage;
         }
 
-        private void textBox_KeyDown(object sender, KeyEventArgs e)
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
+            {
                 presenter.RegistrationMethod(loginTextBox.Text, passwordTextBox.Text, repeatPasswordTextBox.Text);
+                tabControl.SelectedTab = infoPage;
+            }
+        }
+
+        private void FinishRegistrationButton_Click(object sender, EventArgs e)
+        {
+            presenter.AddInformation(fullNameTextBox.Text, phoneNumberTextBox.Text);
+            tabControl.SelectedTab = infoPage;
+            this.Close();
+        }
+
+        private void RegistrationForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using Form1.Presenters;
-using Form1.Views;
+﻿using CompService.Presenters;
+using CompService.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Form1
+namespace CompService
 {
     public partial class LoginForm : Form, ILoginView
     {
@@ -37,6 +37,13 @@ namespace Form1
         {
             if (e.KeyCode == Keys.Enter)
                 presenter.LoginMethod(loginTextBox.Text, passwordTextBox.Text);
+        }
+
+        private void ForgotPasswordLabel_Click(object sender, EventArgs e)
+        {
+            RecoveryForm recoveryForm = new RecoveryForm();
+            recoveryForm.Show();
+            Hide();
         }
     }
 }

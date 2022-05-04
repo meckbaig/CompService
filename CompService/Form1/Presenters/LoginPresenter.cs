@@ -1,6 +1,6 @@
-﻿using Form1.Models;
-using Form1.Supporting;
-using Form1.Views;
+﻿using CompService.Models;
+using CompService.Supporting;
+using CompService.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Form1.Presenters
+namespace CompService.Presenters
 {
     class LoginPresenter
     {
@@ -23,30 +23,31 @@ namespace Form1.Presenters
 
         public void LoginMethod(string login, string password)
         {
-            var user = model.LoginMethod(login, password);
-            if (user == CurrentUser.admin)
+            if (model.CheckConnection())
             {
-                AdminForm adminForm = new AdminForm();
-                adminForm.Show();
-                view.Hide();
-            }
-            else if (user != null)
-            {
-                if (user.Role.RoleName == "Master")
+                var user = model.LoginMethod(login, password);
+                if (user == CurrentUser.admin || user?.Role.RoleName == "Master")
                 {
-                    MasterForm masterForm = new MasterForm();
-                    masterForm.Show();
+                    MainForm adminForm = new MainForm();
+                    adminForm.Show();
                     view.Hide();
                 }
-                if (user.Role.RoleName == "User")
+                else if (user?.Role.RoleName == "User")
                 {
                     CustomerForm customerForm = new CustomerForm();
                     customerForm.Show();
                     view.Hide();
                 }
+                else
+                    MessageBox.Show("Проверьте правильность ввода логина и пароля", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
-                MessageBox.Show("Проверьте правильность ввода логина и пароля", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            {
+                MessageBox.Show("Проблемы с подключением к БД. \nПопробуйте сменить параметры подключения", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ConnectionForm connection = new ConnectionForm();
+                connection.Show();
+                view.Hide();
+            }
         }
     }
 }

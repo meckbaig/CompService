@@ -1,5 +1,5 @@
 ﻿
-namespace Form1
+namespace CompService
 {
     partial class LoginForm
     {
@@ -38,6 +38,7 @@ namespace Form1
             this.loginButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.toRegistrationButton = new System.Windows.Forms.Button();
+            this.forgotPasswordLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -92,7 +93,7 @@ namespace Form1
             // 
             // loginButton
             // 
-            this.loginButton.Location = new System.Drawing.Point(103, 283);
+            this.loginButton.Location = new System.Drawing.Point(102, 309);
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(156, 63);
             this.loginButton.TabIndex = 5;
@@ -105,7 +106,7 @@ namespace Form1
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label4.Location = new System.Drawing.Point(70, 358);
+            this.label4.Location = new System.Drawing.Point(69, 384);
             this.label4.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(226, 23);
@@ -115,7 +116,7 @@ namespace Form1
             // toRegistrationButton
             // 
             this.toRegistrationButton.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.toRegistrationButton.Location = new System.Drawing.Point(83, 384);
+            this.toRegistrationButton.Location = new System.Drawing.Point(82, 410);
             this.toRegistrationButton.Name = "toRegistrationButton";
             this.toRegistrationButton.Size = new System.Drawing.Size(200, 60);
             this.toRegistrationButton.TabIndex = 7;
@@ -123,12 +124,27 @@ namespace Form1
             this.toRegistrationButton.UseVisualStyleBackColor = true;
             this.toRegistrationButton.Click += new System.EventHandler(this.ToRegistrationButton_Click);
             // 
+            // forgotPasswordLabel
+            // 
+            this.forgotPasswordLabel.AutoSize = true;
+            this.forgotPasswordLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.forgotPasswordLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.forgotPasswordLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.forgotPasswordLabel.Location = new System.Drawing.Point(234, 265);
+            this.forgotPasswordLabel.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.forgotPasswordLabel.Name = "forgotPasswordLabel";
+            this.forgotPasswordLabel.Size = new System.Drawing.Size(123, 23);
+            this.forgotPasswordLabel.TabIndex = 8;
+            this.forgotPasswordLabel.Text = "Забыл пароль";
+            this.forgotPasswordLabel.Click += new System.EventHandler(this.ForgotPasswordLabel_Click);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 39F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SeaShell;
             this.ClientSize = new System.Drawing.Size(379, 482);
+            this.Controls.Add(this.forgotPasswordLabel);
             this.Controls.Add(this.toRegistrationButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.loginButton);
@@ -159,5 +175,6 @@ namespace Form1
         private System.Windows.Forms.Button loginButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button toRegistrationButton;
+        private System.Windows.Forms.Label forgotPasswordLabel;
     }
 }

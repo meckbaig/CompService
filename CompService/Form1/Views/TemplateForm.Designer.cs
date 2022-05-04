@@ -1,5 +1,5 @@
 ﻿
-namespace Form1
+namespace CompService
 {
     partial class TemplateForm
     {
