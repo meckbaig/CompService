@@ -30,7 +30,7 @@ namespace CompService.Presenters
             try
             {
                 view.SearchData = model.OrdersLoad();
-                
+                view.CurrentPage = 1;
             }
             catch (Exception)
             {
@@ -131,6 +131,7 @@ namespace CompService.Presenters
                                                 defectDescriptionSearch,
                                                 serialNumberSearch,
                                                 completedSearchCheckBox);
+            view.CurrentPage = 1;
         }
 
         public void ParceCustomer()
@@ -188,41 +189,52 @@ namespace CompService.Presenters
         {
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
                 saveFileDialog1.Filter = "DOCX|*.docx";
-                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                var wordApp = new Word.Application();
+                wordApp.Visible = false;
+                var document = wordApp.Documents.Add(Environment.CurrentDirectory + @"\templates\template.docx");
+
+                var table = document.Tables[2];
+                var data = view.ServicesInOrderData as object[][];
+                for (int i = 0; i < data[1].Length; i++)
                 {
-                    var wordApp = new Word.Application();
-                    wordApp.Visible = false;
-                    var document = wordApp.Documents.Add(Environment.CurrentDirectory + @"\templates\template.docx");
-
-                    var table = document.Tables[1];
-                    var data = view.ServicesInOrderData as object[][];
-                    for (int i = 0; i < data[1].Length; i++)
-                    {
-                        table.Rows.Add(table.Rows[i + 2]);
-                        table.Cell(i + 2, 1).Range.Text = data[0][i].ToString();
-                        table.Cell(i + 2, 2).Range.Text = data[1][i].ToString();
-                        table.Cell(i + 2, 3).Range.Text = data[2][i].ToString();
-                        table.Cell(i + 2, 4).Range.Text = data[3][i].ToString();
-                    }
-
-                    table.Rows.Last.Delete();
-
-                    document.SaveAs(saveFileDialog1.FileName);
-                    wordApp.Quit();
+                    table.Rows.Add(table.Rows[i + 2]);
+                    table.Cell(i + 2, 1).Range.Text = data[0][i].ToString();
+                    table.Cell(i + 2, 2).Range.Text = data[1][i].ToString();
+                    table.Cell(i + 2, 3).Range.Text = data[2][i].ToString();
+                    table.Cell(i + 2, 4).Range.Text = data[3][i].ToString();
                 }
-                else
-                    MessageBox.Show("Файл сохранен", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            
+                //table.Rows.Last.Delete();
+
+                document.SaveAs(saveFileDialog1.FileName);
+                wordApp.Quit();
+                MessageBox.Show("Сохранено", "Успешно!", MessageBoxButtons.OK);
+            }
+            else
+                MessageBox.Show("Файл не был сохранён", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
         internal void LoadData(int pageSize, int currentPage)
         {
-            var data = view.SearchData as object[][];
+            var data = model.ReturnOrders();
             var count = data.Count();
             int amountPages = count / pageSize + (count % pageSize > 0 ? 1 : 0);
             var skip = pageSize * (currentPage - 1);
             var take = model.SearchDataOrderBy(skip, pageSize);
             view.SearchData = take;
+            view.CurrentPageMax = amountPages;
             view.TotalPages = amountPages.ToString();
+            LockButtons();
+        }
+
+        internal void LockButtons()
+        {
+            firstPageButton.Enabled = leftPageButton.Enabled = currentPage > 1;
+            if (currentPageNumeric.Maximum == 1 || currentPage >= Convert.ToInt32(totalPagesLabel.Text))
+                lastPageButton.Enabled = rightPageButton.Enabled = false;
+            else
+                lastPageButton.Enabled = rightPageButton.Enabled = true;
         }
     }
 }

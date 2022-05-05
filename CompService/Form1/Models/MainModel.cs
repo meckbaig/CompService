@@ -10,6 +10,7 @@ namespace CompService.Models
     class MainModel : IMainModel
     {
         List<FullOrderInfo> orders;
+
         public void SaveOrder(Order order)
         {
             if (order.IdOrder == 0)
@@ -27,7 +28,12 @@ namespace CompService.Models
 
         public List<FullOrderInfo> OrdersLoad()
         {
-            orders = Core.Context.FullOrderInfoes.AsNoTracking().ToList();
+            if (orders == null)
+                orders = Core.Context.FullOrderInfoes.AsNoTracking().ToList();
+            return orders;
+        }
+        public List<FullOrderInfo> ReturnOrders()
+        {
             return orders;
         }
 

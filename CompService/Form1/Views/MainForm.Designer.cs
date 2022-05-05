@@ -743,9 +743,14 @@ namespace CompService
             // currentPageNumeric
             // 
             this.currentPageNumeric.Font = new System.Drawing.Font("Calibri", 12F);
-            this.currentPageNumeric.Location = new System.Drawing.Point(161, 623);
+            this.currentPageNumeric.Location = new System.Drawing.Point(157, 637);
+            this.currentPageNumeric.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.currentPageNumeric.Name = "currentPageNumeric";
-            this.currentPageNumeric.Size = new System.Drawing.Size(75, 27);
+            this.currentPageNumeric.Size = new System.Drawing.Size(56, 27);
             this.currentPageNumeric.TabIndex = 32;
             this.currentPageNumeric.Value = new decimal(new int[] {
             1,
@@ -757,7 +762,7 @@ namespace CompService
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(80, 623);
+            this.label14.Location = new System.Drawing.Point(76, 639);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(75, 19);
             this.label14.TabIndex = 31;
@@ -766,16 +771,16 @@ namespace CompService
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(80, 647);
+            this.label13.Location = new System.Drawing.Point(219, 639);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(156, 19);
+            this.label13.Size = new System.Drawing.Size(25, 19);
             this.label13.TabIndex = 30;
-            this.label13.Text = "Количество страниц: ";
+            this.label13.Text = "из";
             // 
             // totalPagesLabel
             // 
             this.totalPagesLabel.AutoSize = true;
-            this.totalPagesLabel.Location = new System.Drawing.Point(242, 648);
+            this.totalPagesLabel.Location = new System.Drawing.Point(242, 639);
             this.totalPagesLabel.Name = "totalPagesLabel";
             this.totalPagesLabel.Size = new System.Drawing.Size(80, 19);
             this.totalPagesLabel.TabIndex = 29;
@@ -804,6 +809,7 @@ namespace CompService
             // 
             // leftPageButton
             // 
+            this.leftPageButton.Enabled = false;
             this.leftPageButton.Location = new System.Drawing.Point(43, 635);
             this.leftPageButton.Name = "leftPageButton";
             this.leftPageButton.Size = new System.Drawing.Size(31, 27);
@@ -814,6 +820,7 @@ namespace CompService
             // 
             // firstPageButton
             // 
+            this.firstPageButton.Enabled = false;
             this.firstPageButton.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.firstPageButton.Location = new System.Drawing.Point(5, 635);
             this.firstPageButton.Name = "firstPageButton";

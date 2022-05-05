@@ -28,5 +28,6 @@ namespace CompService.Models
         object[] GetMastersNotInOrder(ICollection<Master> masters);
         void SaveOrder(Order currentOrder);
         List<FullOrderInfo> SearchDataOrderBy(int skip, int pageSize);
+        List<FullOrderInfo> ReturnOrders();
     }
 }

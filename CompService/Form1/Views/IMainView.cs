@@ -14,6 +14,7 @@ namespace CompService.Views
         object[] Parts { get; }
 
         decimal CurrentPage { set; get; }
+        decimal CurrentPageMax { set; get; }
         string TotalPages { set; get; }
 
         string FullName { set; get; }

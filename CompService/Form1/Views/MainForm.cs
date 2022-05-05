@@ -74,6 +74,17 @@ namespace CompService
                 return currentPageNumeric.Value;
             }
         }
+        public decimal CurrentPageMax
+        {
+            set
+            {
+                currentPageNumeric.Maximum = value;
+            }
+            get
+            {
+                return currentPageNumeric.Maximum;
+            }
+        }
         public string TotalPages
         {
             set
@@ -392,7 +403,10 @@ namespace CompService
             tabControl.Appearance = TabAppearance.FlatButtons;
             tabControl.ItemSize = new Size(0, 1);
             tabControl.SizeMode = TabSizeMode.Fixed;
-            presenter.OrdersLoad();
+            presenter.OrdersLoad(); 
+            presenter.LoadData(pageSize, currentPage);
+            if (totalPagesLabel.Text == "1")
+                lastPageButton.Enabled = rightPageButton.Enabled = false;
             servicesListBox.DisplayMember = "ServiceName";
             servicesInOrderListBox.DisplayMember = "ServiceName";
             mastersListBox.DisplayMember = "FullName";
@@ -404,6 +418,7 @@ namespace CompService
         {
             tabControl.SelectedTab = searchOrderTab;
             presenter.OrdersLoad();
+            presenter.LoadData(pageSize, currentPage);
         }
 
         private void NewOrderToolStripMenuItem_Click(object sender, EventArgs e)
@@ -443,6 +458,7 @@ namespace CompService
             presenter.SaveOrder();
             MessageBox.Show("Успешко!", "Сохранено!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             presenter.OrdersLoad();
+            presenter.LoadData(pageSize, currentPage);
             tabControl.SelectedTab = searchOrderTab;
         }
 
@@ -460,6 +476,7 @@ namespace CompService
                                      defectDescriptionSearchTextBox.Text,
                                      serialNumberSearchTextBox.Text,
                                      completedSearchCheckBox.Checked);
+                presenter.LoadData(pageSize, currentPage);
             }
             catch (Exception ex)
             {
@@ -514,6 +531,7 @@ namespace CompService
             presenter.SaveMaster();
             MessageBox.Show("Успешко!", "Сохранено!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             presenter.OrdersLoad();
+            presenter.LoadData(pageSize, currentPage);
             tabControl.SelectedTab = searchOrderTab;
         }
 
@@ -606,31 +624,30 @@ namespace CompService
 
         private void FirstPageButton_Click(object sender, EventArgs e)
         {
-            //countOfPages = 1;
-            //currentPageNumeric.Value = 1;
-            //ToFirstButton.Enabled = ToPreviousButton.Enabled = false;
-            //ShowButton.Enabled = ToLastButton.Enabled = ToNextButton.Enabled = currentPage < totalPages;
+            currentPageNumeric.Value = 1;
         }
 
         private void LeftPageButton_Click(object sender, EventArgs e)
         {
-            //
+            if (currentPageNumeric.Value > currentPageNumeric.Minimum)
+                currentPageNumeric.Value--;
         }
 
         private void RightPageButton_Click(object sender, EventArgs e)
         {
-            //
+            if(currentPageNumeric.Value < currentPageNumeric.Maximum)
+                currentPageNumeric.Value++;
         }
 
         private void LastPageButton_Click(object sender, EventArgs e)
         {
-            //
+            currentPageNumeric.Value = currentPageNumeric.Maximum;
         }
 
         private void CurrentPageNumeric_ValueChanged(object sender, EventArgs e)
         {
+            currentPage = (int)currentPageNumeric.Value;
             presenter.LoadData(pageSize, currentPage);
-            currentPageNumeric.Maximum = Convert.ToInt32(totalPagesLabel.Text);
         }
 
         private void ChangeConnectionPropertiesButton_Click(object sender, EventArgs e)
