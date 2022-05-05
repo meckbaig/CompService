@@ -259,5 +259,16 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="PartsByIdOrder" FunctionName="Хранилище CompServiceModel.PartsByIdOrder">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CompServiceModel.PartsByIdOrder_Result">
+          <ScalarProperty Name="IdPart" ColumnName="IdPart" />
+          <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+          <ScalarProperty Name="PartName" ColumnName="PartName" />
+          <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

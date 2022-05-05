@@ -16,7 +16,7 @@ namespace CompService
     public partial class MainForm : TemplateForm, IMainView
     {
         MainPresenter presenter;
-        int pageSize = 7;
+        int pageSize = 27;
         int currentPage = 1;
 
         public MainForm()
@@ -94,6 +94,13 @@ namespace CompService
             get
             {
                 return totalPagesLabel.Text;
+            }
+        }
+        public string ResultsAmount
+        {
+            set
+            {
+                resultsAmountLabel.Text = value;
             }
         }
 
@@ -301,6 +308,36 @@ namespace CompService
             }
         }
 
+        public bool FirstPage
+        {
+            set
+            {
+                firstPageButton.Enabled = value;
+            }
+        }
+        public bool LeftPage
+        {
+            set
+            {
+                leftPageButton.Enabled = value;
+            }
+        }
+        public bool RightPage
+        {
+            set
+            {
+                rightPageButton.Enabled = value;
+            }
+        }
+        public bool LastPage
+        {
+            set
+            {
+                lastPageButton.Enabled = value;
+            }
+        }
+
+
         public string MasterName
         {
             set
@@ -390,6 +427,104 @@ namespace CompService
                 return result;
             }
         }
+        public object PartsInOrderData
+        {
+            set
+            {
+                partsInOrderGridView.DataSource = value;
+            }
+            get
+            {
+                object[][] result = new object[partsInOrderGridView.ColumnCount][];
+                for (int i = 0; i < partsInOrderGridView.ColumnCount; i++)
+                {
+                    result[i] = new object[partsInOrderGridView.RowCount];
+                    for (int j = 0; j < partsInOrderGridView.RowCount; j++)
+                    {
+                        result[i][j] = partsInOrderGridView[i, j].Value;
+                    }
+                }
+                return result;
+            }
+        }
+
+        public string CheckIdOrder
+        {
+            set
+            {
+                checkIdOrderLabel.Text = value;
+            }
+            get
+            {
+                return checkIdOrderLabel.Text;
+            }
+        }
+        public string CheckReceiptDate
+        {
+            set
+            {
+                checkReceiptDateLabel.Text = value;
+            }
+            get
+            {
+                return checkReceiptDateLabel.Text;
+            }
+        }
+        public string CheckCompletionDate
+        {
+            set
+            {
+                checkCompletionDateLabel.Text = value;
+            }
+            get
+            {
+                return checkCompletionDateLabel.Text;
+            }
+        }
+        public string CheckFullName
+        {
+            set
+            {
+                checkFullNameLabel.Text = value;
+            }
+            get
+            {
+                return checkFullNameLabel.Text;
+            }
+        }
+        public string CheckPhoneNumber
+        {
+            set
+            {
+                checkPhoneNumberLabel.Text = value;
+            }
+            get
+            {
+                return checkPhoneNumberLabel.Text;
+            }
+        }
+        public string CheckSerialNumber
+        {
+            set
+            {
+                checkSerialNumberLabel.Text = value;
+            }
+            get
+            {
+                return checkSerialNumberLabel.Text;
+            }
+        }
+        public string CheckTotalPrice
+        {
+            set
+            {
+                checkTotalPriceLabel.Text = value;
+            }
+            get
+            {
+                return checkTotalPriceLabel.Text;
+            }
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -404,9 +539,7 @@ namespace CompService
             tabControl.ItemSize = new Size(0, 1);
             tabControl.SizeMode = TabSizeMode.Fixed;
             presenter.OrdersLoad(); 
-            presenter.LoadData(pageSize, currentPage);
-            if (totalPagesLabel.Text == "1")
-                lastPageButton.Enabled = rightPageButton.Enabled = false;
+            presenter.Navigation(pageSize, currentPage);
             servicesListBox.DisplayMember = "ServiceName";
             servicesInOrderListBox.DisplayMember = "ServiceName";
             mastersListBox.DisplayMember = "FullName";
@@ -418,7 +551,7 @@ namespace CompService
         {
             tabControl.SelectedTab = searchOrderTab;
             presenter.OrdersLoad();
-            presenter.LoadData(pageSize, currentPage);
+            presenter.Navigation(pageSize, currentPage);
         }
 
         private void NewOrderToolStripMenuItem_Click(object sender, EventArgs e)
@@ -428,6 +561,7 @@ namespace CompService
             editLabel.Visible = false;
             addLabel.Visible = true;
             completedEditCheckBox.Visible = false;
+            enableCompletionDateCheckBox.Visible = false;
             accountLinkButton.Visible = true; 
         }
 
@@ -436,6 +570,7 @@ namespace CompService
             tabControl.SelectedTab = listOrderTab;
             presenter.SortOrders(completedCheckBox.Checked);
         }
+
         private void ToEditMasterToolStripMenuItem_Click(object sender, EventArgs e)
         {
             tabControl.SelectedTab = mastersTableTab;
@@ -458,7 +593,7 @@ namespace CompService
             presenter.SaveOrder();
             MessageBox.Show("Успешко!", "Сохранено!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             presenter.OrdersLoad();
-            presenter.LoadData(pageSize, currentPage);
+            presenter.Navigation(pageSize, currentPage);
             tabControl.SelectedTab = searchOrderTab;
         }
 
@@ -476,7 +611,7 @@ namespace CompService
                                      defectDescriptionSearchTextBox.Text,
                                      serialNumberSearchTextBox.Text,
                                      completedSearchCheckBox.Checked);
-                presenter.LoadData(pageSize, currentPage);
+                presenter.Navigation(pageSize, currentPage);
             }
             catch (Exception ex)
             {
@@ -498,6 +633,7 @@ namespace CompService
                 editLabel.Visible = true;    
                 addLabel.Visible = false;
                 completedEditCheckBox.Visible = true;
+                enableCompletionDateCheckBox.Visible = true;
                 accountLinkButton.Visible = false;
                 tabControl.SelectedTab = newOrderTab;
             }
@@ -505,8 +641,13 @@ namespace CompService
         private void CheckOutOrderButton_Click(object sender, EventArgs e)
         {
             int selectedOrderId = Convert.ToInt32(searchGridView.CurrentRow.Cells[0].Value);
-            presenter.CheckOutLoad(selectedOrderId);
+            presenter.CheckOutLoad(selectedOrderId, partsInOrderGridView.Visible, partsTitleLabel.Visible);
             tabControl.SelectedTab = checkOutOrderTab;
+        }
+
+        private void RecalculatePriceButton_Click(object sender, EventArgs e)
+        {
+            presenter.RecalculateTotalPrice();
         }
 
         private void SearchMasterButton_Click(object sender, EventArgs e)
@@ -531,7 +672,7 @@ namespace CompService
             presenter.SaveMaster();
             MessageBox.Show("Успешко!", "Сохранено!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             presenter.OrdersLoad();
-            presenter.LoadData(pageSize, currentPage);
+            presenter.Navigation(pageSize, currentPage);
             tabControl.SelectedTab = searchOrderTab;
         }
 
@@ -617,9 +758,14 @@ namespace CompService
             Application.Exit();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void SaveCheckButton_Click(object sender, EventArgs e)
         {
             presenter.CheckPrinting();
+        }
+
+        private void CloseOrderButton_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void FirstPageButton_Click(object sender, EventArgs e)
@@ -647,7 +793,7 @@ namespace CompService
         private void CurrentPageNumeric_ValueChanged(object sender, EventArgs e)
         {
             currentPage = (int)currentPageNumeric.Value;
-            presenter.LoadData(pageSize, currentPage);
+            presenter.Navigation(pageSize, currentPage);
         }
 
         private void ChangeConnectionPropertiesButton_Click(object sender, EventArgs e)

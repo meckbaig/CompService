@@ -109,6 +109,9 @@
     <Compile Include="OrderInfoWithPart.cs">
       <DependentUpon>CompServiceModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="PartsByIdOrder_Result.cs">
+      <DependentUpon>CompServiceModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Presenters\ConnectionPresenter.cs" />
     <Compile Include="Presenters\CustomerPresenter.cs" />
     <Compile Include="Presenters\MainPresenter.cs" />

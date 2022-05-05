@@ -16,6 +16,7 @@ namespace CompService.Views
         decimal CurrentPage { set; get; }
         decimal CurrentPageMax { set; get; }
         string TotalPages { set; get; }
+        string ResultsAmount { set; }
 
         string FullName { set; get; }
         string PhoneNumber { set; get; }
@@ -31,6 +32,11 @@ namespace CompService.Views
         object[] EditMasters { set; get; }
         object[] EditParts { set; get; }
 
+        bool FirstPage { set; }
+        bool LeftPage { set; }
+        bool RightPage { set; }
+        bool LastPage { set; }
+
         string MasterName { set; get; }
         string MasterLogin { set; get; }
         string MasterPassword { set; get; }
@@ -38,6 +44,16 @@ namespace CompService.Views
         object SortData { set; }
         object SearchData { set; get; }
         object MastersData { set; }
+
         object ServicesInOrderData { set; get; }
+        object PartsInOrderData { set; get; }
+
+        string CheckIdOrder { set; get; }
+        string CheckReceiptDate { set; get; }
+        string CheckCompletionDate { set; get; }
+        string CheckFullName { set; get; }
+        string CheckPhoneNumber { set; get; }
+        string CheckSerialNumber { set; get; }
+        string CheckTotalPrice { set; get; }
     }
 }

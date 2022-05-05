@@ -361,6 +361,20 @@
       </CollectionType>
     </ReturnType>
   </Function>
+  <Function Name="PartsByIdOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idOrder" Type="int" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="IdPart" Type="int" />
+          <Property Name="IdOrder" Type="int" />
+          <Property Name="PartName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SerialNumber" Type="nvarchar" MaxLength="30" />
+          <Property Name="Price" Type="decimal" Precision="8" Scale="2" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
   <Function Name="ServicesByIdOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="idOrder" Type="int" Mode="In" />
     <ReturnType>

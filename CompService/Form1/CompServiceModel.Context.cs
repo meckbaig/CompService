@@ -183,5 +183,15 @@ namespace CompService
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<ServicesByIdOrder_Result>("[CompServiceEntities].[ServicesByIdOrder](@idOrder)", idOrderParameter);
         }
+    
+        [DbFunction("CompServiceEntities", "PartsByIdOrder")]
+        public virtual IQueryable<PartsByIdOrder_Result> PartsByIdOrder(Nullable<int> idOrder)
+        {
+            var idOrderParameter = idOrder.HasValue ?
+                new ObjectParameter("idOrder", idOrder) :
+                new ObjectParameter("idOrder", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<PartsByIdOrder_Result>("[CompServiceEntities].[PartsByIdOrder](@idOrder)", idOrderParameter);
+        }
     }
 }

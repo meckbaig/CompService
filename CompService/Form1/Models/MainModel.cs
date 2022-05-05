@@ -28,8 +28,7 @@ namespace CompService.Models
 
         public List<FullOrderInfo> OrdersLoad()
         {
-            if (orders == null)
-                orders = Core.Context.FullOrderInfoes.AsNoTracking().ToList();
+            orders = Core.Context.FullOrderInfoes.AsNoTracking().ToList();
             return orders;
         }
         public List<FullOrderInfo> ReturnOrders()

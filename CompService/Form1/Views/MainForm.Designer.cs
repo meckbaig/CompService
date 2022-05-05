@@ -85,6 +85,8 @@ namespace CompService
             this.serialNumberTextBox = new System.Windows.Forms.TextBox();
             this.receiptDateDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.searchOrderTab = new System.Windows.Forms.TabPage();
+            this.label15 = new System.Windows.Forms.Label();
+            this.resultsAmountLabel = new System.Windows.Forms.Label();
             this.currentPageNumeric = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -127,9 +129,27 @@ namespace CompService
             this.masterFullNameTextBox = new System.Windows.Forms.TextBox();
             this.masterLoginTextBox = new System.Windows.Forms.TextBox();
             this.checkOutOrderTab = new System.Windows.Forms.TabPage();
+            this.checkSerialNumberLabel = new System.Windows.Forms.Label();
+            this.checkPhoneNumberLabel = new System.Windows.Forms.Label();
+            this.checkFullNameLabel = new System.Windows.Forms.Label();
+            this.recalculatePriceButton = new System.Windows.Forms.Button();
+            this.partsTitleLabel = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.checkTotalPriceLabel = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.closeOrderButton = new System.Windows.Forms.Button();
+            this.checkCompletionDateLabel = new System.Windows.Forms.Label();
+            this.checkReceiptDateLabel = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.checkIdOrderLabel = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.partsInOrderGridView = new System.Windows.Forms.DataGridView();
             this.servicesInOrderGridView = new System.Windows.Forms.DataGridView();
-            this.end = new System.Windows.Forms.Button();
+            this.saveCheckButton = new System.Windows.Forms.Button();
             this.currentUserLabel = new System.Windows.Forms.Label();
             this.changeConnectionPropertiesButton = new System.Windows.Forms.Button();
             label7 = new System.Windows.Forms.Label();
@@ -702,6 +722,8 @@ namespace CompService
             // searchOrderTab
             // 
             this.searchOrderTab.BackColor = System.Drawing.Color.SeaShell;
+            this.searchOrderTab.Controls.Add(this.label15);
+            this.searchOrderTab.Controls.Add(this.resultsAmountLabel);
             this.searchOrderTab.Controls.Add(this.currentPageNumeric);
             this.searchOrderTab.Controls.Add(this.label14);
             this.searchOrderTab.Controls.Add(this.label13);
@@ -739,6 +761,24 @@ namespace CompService
             this.searchOrderTab.Size = new System.Drawing.Size(1376, 670);
             this.searchOrderTab.TabIndex = 0;
             this.searchOrderTab.Text = "Поиск заказа";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(1, 670);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(70, 19);
+            this.label15.TabIndex = 34;
+            this.label15.Text = "Записей:";
+            // 
+            // resultsAmountLabel
+            // 
+            this.resultsAmountLabel.AutoSize = true;
+            this.resultsAmountLabel.Location = new System.Drawing.Point(68, 670);
+            this.resultsAmountLabel.Name = "resultsAmountLabel";
+            this.resultsAmountLabel.Size = new System.Drawing.Size(17, 19);
+            this.resultsAmountLabel.TabIndex = 33;
+            this.resultsAmountLabel.Text = "0";
             // 
             // currentPageNumeric
             // 
@@ -959,7 +999,7 @@ namespace CompService
             this.completedSearchCheckBox.Name = "completedSearchCheckBox";
             this.completedSearchCheckBox.Size = new System.Drawing.Size(200, 24);
             this.completedSearchCheckBox.TabIndex = 13;
-            this.completedSearchCheckBox.UseVisualStyleBackColor = true;
+            this.completedSearchCheckBox.UseVisualStyleBackColor = false;
             // 
             // tabControl
             // 
@@ -1161,40 +1201,239 @@ namespace CompService
             // checkOutOrderTab
             // 
             this.checkOutOrderTab.BackColor = System.Drawing.Color.SeaShell;
+            this.checkOutOrderTab.Controls.Add(this.checkSerialNumberLabel);
+            this.checkOutOrderTab.Controls.Add(this.checkPhoneNumberLabel);
+            this.checkOutOrderTab.Controls.Add(this.checkFullNameLabel);
+            this.checkOutOrderTab.Controls.Add(this.recalculatePriceButton);
+            this.checkOutOrderTab.Controls.Add(this.partsTitleLabel);
+            this.checkOutOrderTab.Controls.Add(this.label24);
+            this.checkOutOrderTab.Controls.Add(this.checkTotalPriceLabel);
+            this.checkOutOrderTab.Controls.Add(this.label23);
+            this.checkOutOrderTab.Controls.Add(this.label22);
+            this.checkOutOrderTab.Controls.Add(this.label21);
+            this.checkOutOrderTab.Controls.Add(this.label19);
+            this.checkOutOrderTab.Controls.Add(this.closeOrderButton);
+            this.checkOutOrderTab.Controls.Add(this.checkCompletionDateLabel);
+            this.checkOutOrderTab.Controls.Add(this.checkReceiptDateLabel);
+            this.checkOutOrderTab.Controls.Add(this.label18);
+            this.checkOutOrderTab.Controls.Add(this.label17);
+            this.checkOutOrderTab.Controls.Add(this.checkIdOrderLabel);
+            this.checkOutOrderTab.Controls.Add(this.label16);
             this.checkOutOrderTab.Controls.Add(this.partsInOrderGridView);
             this.checkOutOrderTab.Controls.Add(this.servicesInOrderGridView);
-            this.checkOutOrderTab.Controls.Add(this.end);
+            this.checkOutOrderTab.Controls.Add(this.saveCheckButton);
             this.checkOutOrderTab.Location = new System.Drawing.Point(4, 28);
             this.checkOutOrderTab.Name = "checkOutOrderTab";
             this.checkOutOrderTab.Size = new System.Drawing.Size(1376, 670);
             this.checkOutOrderTab.TabIndex = 5;
             this.checkOutOrderTab.Text = "Выдача заказа";
             // 
+            // checkSerialNumberLabel
+            // 
+            this.checkSerialNumberLabel.AutoSize = true;
+            this.checkSerialNumberLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkSerialNumberLabel.Location = new System.Drawing.Point(1035, 199);
+            this.checkSerialNumberLabel.Name = "checkSerialNumberLabel";
+            this.checkSerialNumberLabel.Size = new System.Drawing.Size(149, 29);
+            this.checkSerialNumberLabel.TabIndex = 20;
+            this.checkSerialNumberLabel.Text = "SerialNumber";
+            // 
+            // checkPhoneNumberLabel
+            // 
+            this.checkPhoneNumberLabel.AutoSize = true;
+            this.checkPhoneNumberLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkPhoneNumberLabel.Location = new System.Drawing.Point(1035, 159);
+            this.checkPhoneNumberLabel.Name = "checkPhoneNumberLabel";
+            this.checkPhoneNumberLabel.Size = new System.Drawing.Size(157, 29);
+            this.checkPhoneNumberLabel.TabIndex = 19;
+            this.checkPhoneNumberLabel.Text = "PhoneNumber";
+            // 
+            // checkFullNameLabel
+            // 
+            this.checkFullNameLabel.AutoSize = true;
+            this.checkFullNameLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkFullNameLabel.Location = new System.Drawing.Point(1035, 119);
+            this.checkFullNameLabel.Name = "checkFullNameLabel";
+            this.checkFullNameLabel.Size = new System.Drawing.Size(108, 29);
+            this.checkFullNameLabel.TabIndex = 18;
+            this.checkFullNameLabel.Text = "FullName";
+            // 
+            // recalculatePriceButton
+            // 
+            this.recalculatePriceButton.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.recalculatePriceButton.Location = new System.Drawing.Point(865, 331);
+            this.recalculatePriceButton.Name = "recalculatePriceButton";
+            this.recalculatePriceButton.Size = new System.Drawing.Size(105, 24);
+            this.recalculatePriceButton.TabIndex = 17;
+            this.recalculatePriceButton.Text = "Пересчитать";
+            this.recalculatePriceButton.UseVisualStyleBackColor = true;
+            this.recalculatePriceButton.Click += new System.EventHandler(this.RecalculatePriceButton_Click);
+            // 
+            // partsTitleLabel
+            // 
+            this.partsTitleLabel.AutoSize = true;
+            this.partsTitleLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.partsTitleLabel.Location = new System.Drawing.Point(32, 400);
+            this.partsTitleLabel.Name = "partsTitleLabel";
+            this.partsTitleLabel.Size = new System.Drawing.Size(110, 29);
+            this.partsTitleLabel.TabIndex = 16;
+            this.partsTitleLabel.Text = "Запчасти:";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label24.Location = new System.Drawing.Point(32, 87);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(85, 29);
+            this.label24.TabIndex = 15;
+            this.label24.Text = "Услуги:";
+            // 
+            // checkTotalPriceLabel
+            // 
+            this.checkTotalPriceLabel.AutoSize = true;
+            this.checkTotalPriceLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkTotalPriceLabel.Location = new System.Drawing.Point(1035, 299);
+            this.checkTotalPriceLabel.Name = "checkTotalPriceLabel";
+            this.checkTotalPriceLabel.Size = new System.Drawing.Size(110, 29);
+            this.checkTotalPriceLabel.TabIndex = 14;
+            this.checkTotalPriceLabel.Text = "TotalPrice";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label23.Location = new System.Drawing.Point(860, 299);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(169, 29);
+            this.label23.TabIndex = 13;
+            this.label23.Text = "Итого к оплате:";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label22.Location = new System.Drawing.Point(832, 199);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(197, 29);
+            this.label22.TabIndex = 12;
+            this.label22.Text = "Серийный номер:";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label21.Location = new System.Drawing.Point(816, 159);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(213, 29);
+            this.label21.TabIndex = 11;
+            this.label21.Text = "Телефон заказчика:";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label19.Location = new System.Drawing.Point(919, 119);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(110, 29);
+            this.label19.TabIndex = 10;
+            this.label19.Text = "Заказчик:";
+            // 
+            // closeOrderButton
+            // 
+            this.closeOrderButton.Location = new System.Drawing.Point(1198, 605);
+            this.closeOrderButton.Name = "closeOrderButton";
+            this.closeOrderButton.Size = new System.Drawing.Size(141, 47);
+            this.closeOrderButton.TabIndex = 9;
+            this.closeOrderButton.Text = "Завершить заказ";
+            this.closeOrderButton.UseVisualStyleBackColor = true;
+            this.closeOrderButton.Click += new System.EventHandler(this.CloseOrderButton_Click);
+            // 
+            // checkCompletionDateLabel
+            // 
+            this.checkCompletionDateLabel.AutoSize = true;
+            this.checkCompletionDateLabel.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkCompletionDateLabel.Location = new System.Drawing.Point(1069, 22);
+            this.checkCompletionDateLabel.Name = "checkCompletionDateLabel";
+            this.checkCompletionDateLabel.Size = new System.Drawing.Size(231, 39);
+            this.checkCompletionDateLabel.TabIndex = 8;
+            this.checkCompletionDateLabel.Text = "CompletionDate";
+            // 
+            // checkReceiptDateLabel
+            // 
+            this.checkReceiptDateLabel.AutoSize = true;
+            this.checkReceiptDateLabel.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkReceiptDateLabel.Location = new System.Drawing.Point(639, 22);
+            this.checkReceiptDateLabel.Name = "checkReceiptDateLabel";
+            this.checkReceiptDateLabel.Size = new System.Drawing.Size(176, 39);
+            this.checkReceiptDateLabel.TabIndex = 7;
+            this.checkReceiptDateLabel.Text = "ReceiptDate";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label18.Location = new System.Drawing.Point(865, 22);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(197, 39);
+            this.label18.TabIndex = 6;
+            this.label18.Text = "Дата выдачи:";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label17.Location = new System.Drawing.Point(433, 22);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(200, 39);
+            this.label17.TabIndex = 5;
+            this.label17.Text = "Дата приёма:";
+            // 
+            // checkIdOrderLabel
+            // 
+            this.checkIdOrderLabel.AutoSize = true;
+            this.checkIdOrderLabel.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkIdOrderLabel.Location = new System.Drawing.Point(238, 22);
+            this.checkIdOrderLabel.Name = "checkIdOrderLabel";
+            this.checkIdOrderLabel.Size = new System.Drawing.Size(118, 39);
+            this.checkIdOrderLabel.TabIndex = 4;
+            this.checkIdOrderLabel.Text = "IdOrder";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label16.Location = new System.Drawing.Point(30, 22);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(213, 39);
+            this.label16.TabIndex = 3;
+            this.label16.Text = "Номер заказа:";
+            // 
             // partsInOrderGridView
             // 
             this.partsInOrderGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.partsInOrderGridView.Location = new System.Drawing.Point(42, 311);
+            this.partsInOrderGridView.Location = new System.Drawing.Point(30, 432);
             this.partsInOrderGridView.Name = "partsInOrderGridView";
-            this.partsInOrderGridView.Size = new System.Drawing.Size(501, 132);
+            this.partsInOrderGridView.Size = new System.Drawing.Size(773, 167);
             this.partsInOrderGridView.TabIndex = 2;
             // 
             // servicesInOrderGridView
             // 
             this.servicesInOrderGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.servicesInOrderGridView.Location = new System.Drawing.Point(42, 40);
+            this.servicesInOrderGridView.Location = new System.Drawing.Point(30, 119);
             this.servicesInOrderGridView.Name = "servicesInOrderGridView";
-            this.servicesInOrderGridView.Size = new System.Drawing.Size(501, 229);
+            this.servicesInOrderGridView.Size = new System.Drawing.Size(773, 278);
             this.servicesInOrderGridView.TabIndex = 1;
             // 
-            // end
+            // saveCheckButton
             // 
-            this.end.Location = new System.Drawing.Point(1150, 603);
-            this.end.Name = "end";
-            this.end.Size = new System.Drawing.Size(151, 31);
-            this.end.TabIndex = 0;
-            this.end.Text = "Завершить заказ";
-            this.end.UseVisualStyleBackColor = true;
-            this.end.Click += new System.EventHandler(this.button1_Click);
+            this.saveCheckButton.Location = new System.Drawing.Point(1198, 571);
+            this.saveCheckButton.Name = "saveCheckButton";
+            this.saveCheckButton.Size = new System.Drawing.Size(141, 28);
+            this.saveCheckButton.TabIndex = 0;
+            this.saveCheckButton.Text = "Сохранить чек";
+            this.saveCheckButton.UseVisualStyleBackColor = true;
+            this.saveCheckButton.Click += new System.EventHandler(this.SaveCheckButton_Click);
             // 
             // currentUserLabel
             // 
@@ -1259,6 +1498,7 @@ namespace CompService
             this.editMasterTab.ResumeLayout(false);
             this.editMasterTab.PerformLayout();
             this.checkOutOrderTab.ResumeLayout(false);
+            this.checkOutOrderTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.partsInOrderGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.servicesInOrderGridView)).EndInit();
             this.ResumeLayout(false);
@@ -1342,7 +1582,7 @@ namespace CompService
         private System.Windows.Forms.Label currentUserLabel;
         private System.Windows.Forms.TabPage checkOutOrderTab;
         private System.Windows.Forms.Button checkOutOrderButton;
-        private System.Windows.Forms.Button end;
+        private System.Windows.Forms.Button saveCheckButton;
         private System.Windows.Forms.DataGridView servicesInOrderGridView;
         private System.Windows.Forms.DataGridView partsInOrderGridView;
         private System.Windows.Forms.Button changeConnectionPropertiesButton;
@@ -1354,6 +1594,26 @@ namespace CompService
         private System.Windows.Forms.Button firstPageButton;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.NumericUpDown currentPageNumeric;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label resultsAmountLabel;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label checkIdOrderLabel;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label checkCompletionDateLabel;
+        private System.Windows.Forms.Label checkReceiptDateLabel;
+        private System.Windows.Forms.Button closeOrderButton;
+        private System.Windows.Forms.Label checkSerialNumberLabel;
+        private System.Windows.Forms.Label checkPhoneNumberLabel;
+        private System.Windows.Forms.Label checkFullNameLabel;
+        private System.Windows.Forms.Button recalculatePriceButton;
+        private System.Windows.Forms.Label partsTitleLabel;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label checkTotalPriceLabel;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label19;
     }
 }
 

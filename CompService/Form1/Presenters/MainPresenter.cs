@@ -63,12 +63,6 @@ namespace CompService.Presenters
             parceCustomerId = currentOrder.IdCustomer;
         }
 
-        internal void CheckOutLoad(int selectedId)
-        {
-
-            view.ServicesInOrderData = Core.Context.ServicesByIdOrder(selectedId).ToList();
-        }
-
         public void SaveOrder()
         {
             if(currentOrder == null)
@@ -168,7 +162,6 @@ namespace CompService.Presenters
                 masterUser.Password = view.MasterPassword;
                 masterUser.Role = Core.Context.Roles.First(r => r.RoleName == "Master");
                 Core.Context.Users.Add(masterUser);
-                //masterUser = Core.Context.Users.FirstOrDefault(c => c.Login == view.MasterLogin && c.Password == view.MasterPassword);
                 editMaster = new Master();
                 editMaster.IdUser = masterUser.IdUser;
             }
@@ -185,37 +178,69 @@ namespace CompService.Presenters
             editMaster = null;
         }
 
+        internal void CheckOutLoad(int selectedId, bool partsGrid, bool partsTitle)
+        {
+            view.ServicesInOrderData = Core.Context.ServicesByIdOrder(selectedId).ToList();
+            view.PartsInOrderData = Core.Context.PartsByIdOrder(selectedId).ToList();
+            //if (Core.Context.PartsByIdOrder(selectedId).ToList() == null)
+            //if (view.PartsInOrderData == null)
+            if ((view.PartsInOrderData as object[][])[0][0] == null)
+                partsGrid = partsTitle = false;
+            else
+                partsGrid = partsTitle = true;
+            Order checkOrder = Core.Context.Orders.FirstOrDefault(o => o.IdOrder == selectedId);
+            view.CheckIdOrder = Convert.ToString(checkOrder.IdOrder);
+            view.CheckReceiptDate = Convert.ToString(checkOrder.ReceiptDate.ToShortDateString());
+            view.CheckCompletionDate = Convert.ToString(DateTime.Now);
+            view.CheckFullName = checkOrder.FullName;
+            view.CheckPhoneNumber = checkOrder.PhoneNumber;
+            view.CheckSerialNumber = checkOrder.SerialNumber;
+            RecalculateTotalPrice();
+        }
+
         internal void CheckPrinting()
         {
-                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-                saveFileDialog1.Filter = "DOCX|*.docx";
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "DOCX|*.docx";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 var wordApp = new Word.Application();
                 wordApp.Visible = false;
                 var document = wordApp.Documents.Add(Environment.CurrentDirectory + @"\templates\template.docx");
 
-                var table = document.Tables[2];
-                var data = view.ServicesInOrderData as object[][];
-                for (int i = 0; i < data[1].Length; i++)
+                var servicesTable = document.Tables[2];
+                var servicesData = view.ServicesInOrderData as object[][];
+                for (int i = 0; i < servicesData[1].Length; i++)
                 {
-                    table.Rows.Add(table.Rows[i + 2]);
-                    table.Cell(i + 2, 1).Range.Text = data[0][i].ToString();
-                    table.Cell(i + 2, 2).Range.Text = data[1][i].ToString();
-                    table.Cell(i + 2, 3).Range.Text = data[2][i].ToString();
-                    table.Cell(i + 2, 4).Range.Text = data[3][i].ToString();
+                    servicesTable.Rows.Add(servicesTable.Rows[i + 2]);
+                    servicesTable.Cell(i + 2, 1).Range.Text = servicesData[0][i].ToString();
+                    servicesTable.Cell(i + 2, 2).Range.Text = servicesData[1][i].ToString();
+                    servicesTable.Cell(i + 2, 3).Range.Text = servicesData[2][i].ToString();
+                    servicesTable.Cell(i + 2, 4).Range.Text = servicesData[3][i].ToString() + " руб.";
                 }
-                //table.Rows.Last.Delete();
+                servicesTable.Rows.Last.Delete();
 
-                document.SaveAs(saveFileDialog1.FileName);
+                var partsTable = document.Tables[3];
+                var partsData = view.PartsInOrderData as object[][];
+                for (int i = 0; i < partsData[1].Length; i++)
+                {
+                    partsTable.Rows.Add(partsTable.Rows[i + 2]);
+                    partsTable.Cell(i + 2, 1).Range.Text = partsData[0][i].ToString();
+                    partsTable.Cell(i + 2, 2).Range.Text = partsData[2][i].ToString();
+                    partsTable.Cell(i + 2, 3).Range.Text = partsData[3][i].ToString();
+                    partsTable.Cell(i + 2, 4).Range.Text = partsData[4][i].ToString() + " руб.";
+                }
+                partsTable.Rows.Last.Delete();
+
+                document.SaveAs(saveFileDialog.FileName);
                 wordApp.Quit();
-                MessageBox.Show("Сохранено", "Успешно!", MessageBoxButtons.OK);
+                MessageBox.Show("Чек сохранён", "Успешно!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
-                MessageBox.Show("Файл не был сохранён", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Чек не был сохранён", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        internal void LoadData(int pageSize, int currentPage)
+        internal void Navigation(int pageSize, int currentPage)
         {
             var data = model.ReturnOrders();
             var count = data.Count();
@@ -224,17 +249,34 @@ namespace CompService.Presenters
             var take = model.SearchDataOrderBy(skip, pageSize);
             view.SearchData = take;
             view.CurrentPageMax = amountPages;
+            view.ResultsAmount = Convert.ToString(count);
             view.TotalPages = amountPages.ToString();
-            LockButtons();
+            LockButtons(currentPage, amountPages);
         }
 
-        internal void LockButtons()
+        internal void LockButtons(int currentPage, int amountPages)
         {
-            firstPageButton.Enabled = leftPageButton.Enabled = currentPage > 1;
-            if (currentPageNumeric.Maximum == 1 || currentPage >= Convert.ToInt32(totalPagesLabel.Text))
-                lastPageButton.Enabled = rightPageButton.Enabled = false;
+            view.FirstPage = view.LeftPage = currentPage > 1;
+            if (view.CurrentPageMax == 1 || currentPage >= amountPages)
+                view.LastPage = view.RightPage = false;
             else
-                lastPageButton.Enabled = rightPageButton.Enabled = true;
+                view.LastPage = view.RightPage = true;
+        }
+
+        internal void RecalculateTotalPrice()
+        {
+            double totalPrice = 0;
+            var servicesData = view.ServicesInOrderData as object[][];
+            var partsData = view.PartsInOrderData as object[][];
+            for (int i = 0; i < servicesData[1].Length; i++)
+            {
+                totalPrice += Convert.ToDouble(servicesData[3][i]);
+            }
+            for (int i = 0; i < partsData[1].Length; i++)
+            {
+                totalPrice += Convert.ToDouble(partsData[4][i]);
+            }
+            view.CheckTotalPrice = totalPrice.ToString();
         }
     }
 }
