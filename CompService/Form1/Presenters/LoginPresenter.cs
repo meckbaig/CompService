@@ -23,9 +23,10 @@ namespace CompService.Presenters
 
         public void LoginMethod(string login, string password)
         {
-            if (model.CheckConnection())
+            try
             {
                 var user = model.LoginMethod(login, password);
+
                 if (user == CurrentUser.admin || user?.Role.RoleName == "Master")
                 {
                     MainForm adminForm = new MainForm();
@@ -41,12 +42,17 @@ namespace CompService.Presenters
                 else
                     MessageBox.Show("Проверьте правильность ввода логина и пароля", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else
+            catch (Exception)
             {
-                MessageBox.Show("Проблемы с подключением к БД. \nПопробуйте сменить параметры подключения", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                ConnectionForm connection = new ConnectionForm();
-                connection.Show();
-                view.Hide();
+                if (login == CurrentUser.admin.Login && password == CurrentUser.admin.Password)
+                {
+                    MessageBox.Show("Проблемы с подключением к БД. \nПопробуйте сменить параметры подключения", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ConnectionForm connection = new ConnectionForm();
+                    connection.Show();
+                    view.Hide();
+                }
+                else
+                    MessageBox.Show("Отсутствует подключение к БД. \nОбратитесь к администратору", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

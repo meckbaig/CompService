@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CompService
+namespace CompService.Models
 {
     using System;
     using System.Collections.Generic;
@@ -26,18 +26,19 @@ namespace CompService
         public string FullName { get; set; }
         public string PhoneNumber { get; set; }
         public System.DateTime ReceiptDate { get; set; }
+        public Nullable<System.DateTime> CompletionDate { get; set; }
         public string DefectDescription { get; set; }
         public string SerialNumber { get; set; }
-        public Nullable<bool> Completed { get; set; }
-        public Nullable<System.DateTime> CompletionDate { get; set; }
+        public bool Completed { get; set; }
         public Nullable<int> IdCustomer { get; set; }
+        public Nullable<decimal> TotalPrice { get; set; }
     
+        public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Part> Parts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Master> Masters { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Service> Services { get; set; }
-        public virtual Customer Customer { get; set; }
     }
 }

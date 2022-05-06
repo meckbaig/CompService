@@ -7,17 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CompService
+namespace CompService.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class MasterInfo
+    public partial class PartsByIdOrder_Result
     {
-        public int IdMaster { get; set; }
-        public int IdUser { get; set; }
-        public string FullName { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
+        public Nullable<int> IdPart { get; set; }
+        public string PartName { get; set; }
+        public string SerialNumber { get; set; }
+        public Nullable<decimal> Price { get; set; }
     }
 }

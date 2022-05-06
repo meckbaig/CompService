@@ -7,26 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CompService
+namespace CompService.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Customer
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Customer()
+        public User()
         {
-            this.Orders = new HashSet<Order>();
+            this.Customers = new HashSet<Customer>();
+            this.Masters = new HashSet<Master>();
         }
     
-        public int IdCustomer { get; set; }
         public int IdUser { get; set; }
-        public string FullName { get; set; }
-        public string PhoneNumber { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public int IdRole { get; set; }
     
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Customer> Customers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Master> Masters { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

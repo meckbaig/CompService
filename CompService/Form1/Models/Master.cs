@@ -7,24 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CompService
+namespace CompService.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Service
+    public partial class Master
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Service()
+        public Master()
         {
             this.Orders = new HashSet<Order>();
         }
     
-        public int IdService { get; set; }
-        public string ServiceName { get; set; }
-        public string Category { get; set; }
-        public decimal Price { get; set; }
+        public int IdMaster { get; set; }
+        public string FullName { get; set; }
+        public int IdUser { get; set; }
     
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
     }

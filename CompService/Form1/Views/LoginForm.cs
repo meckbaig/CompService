@@ -19,6 +19,7 @@ namespace CompService
         {
             InitializeComponent();
             presenter = new LoginPresenter(this);
+            Core.LoadConnectionData();
         }
 
         private void ToRegistrationButton_Click(object sender, EventArgs e)

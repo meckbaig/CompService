@@ -13,6 +13,7 @@
     <EntitySetMapping Name="Orders">
       <EntityTypeMapping TypeName="CompServiceModel.Order">
         <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
           <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
           <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
           <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
@@ -259,11 +260,10 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="PartsByIdOrder" FunctionName="Хранилище CompServiceModel.PartsByIdOrder">
+    <FunctionImportMapping FunctionImportName="PartsByIdOrder1" FunctionName="Хранилище CompServiceModel.PartsByIdOrder">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="CompServiceModel.PartsByIdOrder_Result">
+        <ComplexTypeMapping TypeName="CompServiceModel.PartsByIdOrder1_Result">
           <ScalarProperty Name="IdPart" ColumnName="IdPart" />
-          <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
           <ScalarProperty Name="PartName" ColumnName="PartName" />
           <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
           <ScalarProperty Name="Price" ColumnName="Price" />

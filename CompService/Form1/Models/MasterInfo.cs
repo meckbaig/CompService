@@ -7,15 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CompService
+namespace CompService.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class ServicesByIdOrder_Result
+    public partial class MasterInfo
     {
-        public Nullable<int> IdService { get; set; }
-        public string ServiceName { get; set; }
-        public string Category { get; set; }
-        public Nullable<decimal> Price { get; set; }
+        public int IdMaster { get; set; }
+        public int IdUser { get; set; }
+        public string FullName { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
     }
 }

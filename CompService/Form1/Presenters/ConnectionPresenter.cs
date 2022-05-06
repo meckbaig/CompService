@@ -1,6 +1,8 @@
-﻿using CompService.Views;
+﻿using CompService.Supporting;
+using CompService.Views;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,10 +20,18 @@ namespace CompService.Presenters
 
         public void LoadConnectionInfo()
         {
-            view.Server = Core.Server;
-            view.DataBase = Core.Database;
-            view.Login = Core.Login;
-            view.Password = Core.Password;
+            try
+            {
+                var connectionData = ConnectionСryptography.Decrypt(File.ReadAllText(Environment.CurrentDirectory + @"/config")).Split(';');
+                view.Server = connectionData[0];
+                view.DataBase = connectionData[1];
+                view.Login = connectionData[2];
+                view.Password = connectionData[3];
+            }
+            catch (Exception)
+            { 
+
+            }
         }
 
         public void SaveConnection()
@@ -31,10 +41,18 @@ namespace CompService.Presenters
             Core.Login = view.Login;
             Core.Password = view.Password;
             Core.NewConnectionString();
-            MessageBox.Show("Настройки подключения изменены", "Успешно!", MessageBoxButtons.OK, MessageBoxIcon.None);
-            MainForm adminForm = new MainForm();
-            adminForm.Show();
-            view.Close();
+            try
+            {
+                Core.Context.FullOrderInfoes.AsNoTracking().ToList();
+                MessageBox.Show("Настройки подключения изменены", "Успешно!", MessageBoxButtons.OK, MessageBoxIcon.None);
+                MainForm adminForm = new MainForm();
+                adminForm.Show();
+                view.Close();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка подключения", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

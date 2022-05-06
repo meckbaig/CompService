@@ -9,15 +9,19 @@ namespace CompService.Views
     interface IMainView
     {
         void Hide();
-        object[] Masters { get; }
-        object[] Services { get; }
-        object[] Parts { get; }
 
+        #region Pages
         decimal CurrentPage { set; get; }
         decimal CurrentPageMax { set; get; }
         string TotalPages { set; get; }
         string ResultsAmount { set; }
+        bool FirstPage { set; }
+        bool LeftPage { set; }
+        bool RightPage { set; }
+        bool LastPage { set; }
+        #endregion
 
+        #region CreateOrderInterface
         string FullName { set; get; }
         string PhoneNumber { set; get; }
         DateTime ReceiptDate { set; get; }
@@ -31,23 +35,21 @@ namespace CompService.Views
         object[] EditServices { set; get; }
         object[] EditMasters { set; get; }
         object[] EditParts { set; get; }
+        #endregion
 
-        bool FirstPage { set; }
-        bool LeftPage { set; }
-        bool RightPage { set; }
-        bool LastPage { set; }
-
+        #region EditMaster
         string MasterName { set; get; }
         string MasterLogin { set; get; }
         string MasterPassword { set; get; }
+        #endregion
 
+        #region TablesLoad
         object SortData { set; }
         object SearchData { set; get; }
         object MastersData { set; }
+        #endregion
 
-        object ServicesInOrderData { set; get; }
-        object PartsInOrderData { set; get; }
-
+        #region CheckOutOrder
         string CheckIdOrder { set; get; }
         string CheckReceiptDate { set; get; }
         string CheckCompletionDate { set; get; }
@@ -55,5 +57,12 @@ namespace CompService.Views
         string CheckPhoneNumber { set; get; }
         string CheckSerialNumber { set; get; }
         string CheckTotalPrice { set; get; }
+        object ServicesInOrderData { set; get; }
+        object PartsInOrderData { set; get; }
+        bool PartsGridVisibility { set; get; }
+        bool PartsTitleVisibility { set; get; }
+        bool IfCompletedVisibility { set; }
+        bool IfCompletedTablesReadonly { set; }
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
-﻿using CompService.Presenters;
+﻿using CompService.Models;
+using CompService.Presenters;
 using CompService.Supporting;
 using CompService.Views;
 using System;
@@ -16,7 +17,7 @@ namespace CompService
     public partial class MainForm : TemplateForm, IMainView
     {
         MainPresenter presenter;
-        int pageSize = 27;
+        int pageSize = 30;
         int currentPage = 1;
 
         public MainForm()
@@ -25,44 +26,7 @@ namespace CompService
             presenter = new MainPresenter(this);
         }
 
-        public object[] Masters
-        {
-            get
-            {
-                var data = new object[mastersInOrderListBox.Items.Count];
-                for (int i = 0; i < data.Length; i++)
-                {
-                    data[i] = mastersInOrderListBox.Items[i];
-                }
-                return data;
-            }
-        }
-        public object[] Services
-        {
-            get
-            {
-                var data = new object[servicesInOrderListBox.Items.Count];
-                for (int i = 0; i < data.Length; i++)
-                {
-                    data[i] = servicesInOrderListBox.Items[i];
-                }
-                return data;
-            }
-        }
-        public object[] Parts
-        {
-            get
-            {
-                var data = new object[partsListBox.Items.Count];
-                for (int i = 0; i < data.Length; i++)
-                {
-                    data[i] = partsListBox.Items[i];
-                }
-                return data;
-            }
-        }
-
-
+        #region Pages
         public decimal CurrentPage
         {
             set
@@ -103,7 +67,37 @@ namespace CompService
                 resultsAmountLabel.Text = value;
             }
         }
+        public bool FirstPage
+        {
+            set
+            {
+                firstPageButton.Enabled = value;
+            }
+        }
+        public bool LeftPage
+        {
+            set
+            {
+                leftPageButton.Enabled = value;
+            }
+        }
+        public bool RightPage
+        {
+            set
+            {
+                rightPageButton.Enabled = value;
+            }
+        }
+        public bool LastPage
+        {
+            set
+            {
+                lastPageButton.Enabled = value;
+            }
+        }
+        #endregion
 
+        #region CreateOrderInterface
         public string FullName
         {
             set
@@ -307,37 +301,9 @@ namespace CompService
                 return data;
             }
         }
+        #endregion
 
-        public bool FirstPage
-        {
-            set
-            {
-                firstPageButton.Enabled = value;
-            }
-        }
-        public bool LeftPage
-        {
-            set
-            {
-                leftPageButton.Enabled = value;
-            }
-        }
-        public bool RightPage
-        {
-            set
-            {
-                rightPageButton.Enabled = value;
-            }
-        }
-        public bool LastPage
-        {
-            set
-            {
-                lastPageButton.Enabled = value;
-            }
-        }
-
-
+        #region EditMaster
         public string MasterName
         {
             set
@@ -371,7 +337,9 @@ namespace CompService
                 return masterPasswordTextBox.Text;
             }
         }
+        #endregion
 
+        #region TablesLoad
         public object SortData
         {
             set
@@ -406,48 +374,9 @@ namespace CompService
                 mastersGridView.DataSource = value;
             }
         }
+        #endregion
 
-        public object ServicesInOrderData
-        {
-            set
-            {
-                servicesInOrderGridView.DataSource = value;
-            }
-            get
-            {
-                object[][] result = new object[servicesInOrderGridView.ColumnCount][];
-                for (int i = 0; i < servicesInOrderGridView.ColumnCount; i++)
-                {
-                    result[i] = new object[servicesInOrderGridView.RowCount];
-                    for (int j = 0; j < servicesInOrderGridView.RowCount; j++)
-                    {
-                        result[i][j] = servicesInOrderGridView[i, j].Value;
-                    }
-                }
-                return result;
-            }
-        }
-        public object PartsInOrderData
-        {
-            set
-            {
-                partsInOrderGridView.DataSource = value;
-            }
-            get
-            {
-                object[][] result = new object[partsInOrderGridView.ColumnCount][];
-                for (int i = 0; i < partsInOrderGridView.ColumnCount; i++)
-                {
-                    result[i] = new object[partsInOrderGridView.RowCount];
-                    for (int j = 0; j < partsInOrderGridView.RowCount; j++)
-                    {
-                        result[i][j] = partsInOrderGridView[i, j].Value;
-                    }
-                }
-                return result;
-            }
-        }
-
+        #region CheckOutOrder
         public string CheckIdOrder
         {
             set
@@ -525,6 +454,83 @@ namespace CompService
                 return checkTotalPriceLabel.Text;
             }
         }
+        public object ServicesInOrderData
+        {
+            set
+            {
+                servicesInOrderGridView.DataSource = value;
+            }
+            get
+            {
+                object[][] result = new object[servicesInOrderGridView.ColumnCount][];
+                for (int i = 0; i < servicesInOrderGridView.ColumnCount; i++)
+                {
+                    result[i] = new object[servicesInOrderGridView.RowCount];
+                    for (int j = 0; j < servicesInOrderGridView.RowCount; j++)
+                    {
+                        result[i][j] = servicesInOrderGridView[i, j].Value;
+                    }
+                }
+                return result;
+            }
+        }
+        public object PartsInOrderData
+        {
+            set
+            {
+                partsInOrderGridView.DataSource = value;
+            }
+            get
+            {
+                object[][] result = new object[partsInOrderGridView.ColumnCount][];
+                for (int i = 0; i < partsInOrderGridView.ColumnCount; i++)
+                {
+                    result[i] = new object[partsInOrderGridView.RowCount];
+                    for (int j = 0; j < partsInOrderGridView.RowCount; j++)
+                    {
+                        result[i][j] = partsInOrderGridView[i, j].Value;
+                    }
+                }
+                return result;
+            }
+        }
+        public bool PartsGridVisibility
+        {
+            set
+            {
+                partsInOrderGridView.Visible = value;
+            }
+            get
+            {
+                return partsInOrderGridView.Visible;
+            }
+        }
+        public bool PartsTitleVisibility
+        {
+            set
+            {
+                partsTitleLabel.Visible = value;
+            }
+            get
+            {
+                return partsTitleLabel.Visible;
+            }
+        }
+        public bool IfCompletedVisibility
+        {
+            set
+            {
+                recalculatePriceButton.Visible = closeOrderButton.Visible = value;
+            }
+        }
+        public bool IfCompletedTablesReadonly
+        {
+            set
+            {
+                servicesInOrderGridView.ReadOnly = partsInOrderGridView.ReadOnly = value;
+            }
+        }
+        #endregion
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -591,46 +597,37 @@ namespace CompService
         private void SaveButton_Click(object sender, EventArgs e)
         {
             presenter.SaveOrder();
-            MessageBox.Show("Успешко!", "Сохранено!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            presenter.OrdersLoad();
             presenter.Navigation(pageSize, currentPage);
             tabControl.SelectedTab = searchOrderTab;
         }
 
         private void SearchButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                presenter.SearchOrder(idSearchOrderTextBox.Text,
-                                     fullNameSearchTextBox.Text,
-                                     phoneNumberSearchTextBox.Text,
-                                     allowDateCheckBox.Checked,
-                                     receiptDateSearchTimePicker.Value,
-                                     allowCompletionDateCheckBox.Checked,
-                                     completionDateSearchTimePicker.Value,
-                                     defectDescriptionSearchTextBox.Text,
-                                     serialNumberSearchTextBox.Text,
-                                     completedSearchCheckBox.Checked);
-                presenter.Navigation(pageSize, currentPage);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            presenter.SearchOrder(idSearchOrderTextBox.Text,
+                                 fullNameSearchTextBox.Text,
+                                 phoneNumberSearchTextBox.Text,
+                                 allowDateCheckBox.Checked,
+                                 receiptDateSearchTimePicker.Value,
+                                 allowCompletionDateCheckBox.Checked,
+                                 completionDateSearchTimePicker.Value,
+                                 defectDescriptionSearchTextBox.Text,
+                                 serialNumberSearchTextBox.Text,
+                                 completedSearchCheckBox.Checked);
+            presenter.Navigation(pageSize, currentPage);
         }
 
         private void ToEditOrderButton_Click(object sender, EventArgs e)
         {
             if (searchGridView.CurrentRow != null)
             {
-                int selectedOrderId = Convert.ToInt32(searchGridView.CurrentRow.Cells[0].Value);  
+                int selectedOrderId = Convert.ToInt32(searchGridView.CurrentRow.Cells[0].Value);
                 presenter.EditOrdersLoad(selectedOrderId);
                 servicesListBox.DisplayMember = "ServiceName";
                 servicesInOrderListBox.DisplayMember = "ServiceName";
                 mastersListBox.DisplayMember = "FullName";
                 mastersInOrderListBox.DisplayMember = "FullName";
                 partsListBox.DisplayMember = "PartName";
-                editLabel.Visible = true;    
+                editLabel.Visible = true;
                 addLabel.Visible = false;
                 completedEditCheckBox.Visible = true;
                 enableCompletionDateCheckBox.Visible = true;
@@ -641,7 +638,7 @@ namespace CompService
         private void CheckOutOrderButton_Click(object sender, EventArgs e)
         {
             int selectedOrderId = Convert.ToInt32(searchGridView.CurrentRow.Cells[0].Value);
-            presenter.CheckOutLoad(selectedOrderId, partsInOrderGridView.Visible, partsTitleLabel.Visible);
+            presenter.CheckOutLoad(selectedOrderId);
             tabControl.SelectedTab = checkOutOrderTab;
         }
 
@@ -678,21 +675,35 @@ namespace CompService
 
         public void SwitchItemListBox(ListBox sender, ListBox receiver)
         {
-            if (sender.SelectedItem != null)
+            try
             {
-                var item = sender.SelectedItem;
-                receiver.Items.Add(item);
-                sender.Items.Remove(item);
+                if (sender.SelectedItem != null)
+                {
+                    var item = sender.SelectedItem;
+                    receiver.Items.Add(item);
+                    sender.Items.Remove(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         public void DeletePartListBox(ListBox sender)
         {
-            if (sender.SelectedItem != null)
+            try
             {
-                var item = sender.SelectedItem;
-                sender.Items.Remove(item);
-                if (Core.Context.Parts.Equals(item))
-                    Core.Context.Parts.Remove(item as Part);
+                if (sender.SelectedItem != null)
+                {
+                    var item = sender.SelectedItem;
+                    sender.Items.Remove(item);
+                    if (Core.Context.Parts.Equals(item))
+                        Core.Context.Parts.Remove(item as Part);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -718,20 +729,34 @@ namespace CompService
 
         private void AddPartButton_Click(object sender, EventArgs e)
         {
-            Part part = new Part();
-            var form = new NewPartForm(ref part);
-            if (form.ShowDialog() == DialogResult.OK)
+            try
             {
-                partsListBox.Items.Add(part);
+                Part part = new Part();
+                var form = new NewPartForm(ref part);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    partsListBox.Items.Add(part);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void AccountLinkButton_Click(object sender, EventArgs e)
         {
-            CustomerLink customerLink = new CustomerLink();
-            if (customerLink.ShowDialog() == DialogResult.OK)
+            try
             {
-                presenter.ParceCustomer();
+                CustomerLink customerLink = new CustomerLink();
+                if (customerLink.ShowDialog() == DialogResult.OK)
+                {
+                    presenter.ParceCustomer();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -753,11 +778,6 @@ namespace CompService
                 completionDateDateTimePicker.Enabled = false;
         }
 
-        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Application.Exit();
-        }
-
         private void SaveCheckButton_Click(object sender, EventArgs e)
         {
             presenter.CheckPrinting();
@@ -765,7 +785,9 @@ namespace CompService
 
         private void CloseOrderButton_Click(object sender, EventArgs e)
         {
-
+            presenter.CloseOrder();
+            tabControl.SelectedTab = searchOrderTab;
+            presenter.Navigation(pageSize, currentPage);
         }
 
         private void FirstPageButton_Click(object sender, EventArgs e)
@@ -801,6 +823,11 @@ namespace CompService
             ConnectionForm connection = new ConnectionForm();
             connection.Show();
             Hide();
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

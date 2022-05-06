@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CompService
+namespace CompService.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class PartsByIdOrder_Result
+    public partial class DeletedService
     {
-        public Nullable<int> IdPart { get; set; }
-        public Nullable<int> IdOrder { get; set; }
-        public string PartName { get; set; }
-        public string SerialNumber { get; set; }
-        public Nullable<decimal> Price { get; set; }
+        public int IdService { get; set; }
+        public string ServiceName { get; set; }
+        public string Category { get; set; }
+        public decimal Price { get; set; }
     }
 }

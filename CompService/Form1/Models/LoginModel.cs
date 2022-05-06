@@ -1,4 +1,5 @@
 ﻿using CompService.Supporting;
+using CompService.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,9 @@ namespace CompService.Models
         {
             try
             {
-                var data = Core.Context.FullOrderInfoes;
-                return true;
+                if (Core.Context.FullOrderInfoes.AsNoTracking().ToList() != null)
+                    return true;
+                return false;
             }
             catch (Exception)
             {
@@ -27,6 +29,7 @@ namespace CompService.Models
         {
             try
             {
+                Core.Context.FullOrderInfoes.AsNoTracking().ToList();
                 if (login == CurrentUser.admin.Login && password == CurrentUser.admin.Password)
                     return CurrentUser.admin;
                 CurrentUser.MasterUser = Core.Context.Masters.FirstOrDefault(c => c.User.Login == login && c.User.Password == password);
@@ -38,10 +41,9 @@ namespace CompService.Models
                 else
                     return CurrentUser.MasterUser?.User;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Отсутствует подключение к БД. \nОбратитесь к администратору", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
+                throw ex;
             }
         }
     }

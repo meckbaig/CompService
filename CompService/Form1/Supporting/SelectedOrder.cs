@@ -8,7 +8,7 @@ namespace CompService.Supporting
 {
     public static class SelectedOrder
     {
-        public static Order IdSelectedOrder { get; set; }
+        public static Models.Order IdSelectedOrder { get; set; }
         
     }
 }

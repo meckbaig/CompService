@@ -20,13 +20,14 @@
     <Property Name="ReceiptDate" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="DefectDescription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="SerialNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-    <Property Name="Completed" Type="Boolean" />
+    <Property Name="Completed" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Parts" Relationship="Self.FK_PCParts_Order" FromRole="Order" ToRole="Parts" />
     <NavigationProperty Name="Masters" Relationship="Self.MasterInOrder" FromRole="Order" ToRole="Master" />
     <NavigationProperty Name="Services" Relationship="Self.ServiceInOrder" FromRole="Order" ToRole="Service" />
     <Property Name="CompletionDate" Type="DateTime" Precision="0" />
     <Property Name="IdCustomer" Type="Int32" />
     <NavigationProperty Name="Customer" Relationship="CompServiceModel.FK_Order_Customer" FromRole="Order" ToRole="Customer" />
+    <Property Name="TotalPrice" Type="Decimal" Precision="9" Scale="2" />
   </EntityType>
   <EntityType Name="Part">
     <Key>
@@ -169,6 +170,9 @@
       <Parameter Name="idOrder" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="PartsByIdOrder" IsComposable="true" ReturnType="Collection(CompServiceModel.PartsByIdOrder_Result)">
+      <Parameter Name="idOrder" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="PartsByIdOrder1" IsComposable="true" ReturnType="Collection(CompServiceModel.PartsByIdOrder1_Result)">
       <Parameter Name="idOrder" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
@@ -405,6 +409,12 @@
   <ComplexType Name="PartsByIdOrder_Result">
     <Property Type="Int32" Name="IdPart" Nullable="true" />
     <Property Type="Int32" Name="IdOrder" Nullable="true" />
+    <Property Type="String" Name="PartName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="SerialNumber" Nullable="true" MaxLength="30" />
+    <Property Type="Decimal" Name="Price" Nullable="true" Precision="8" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="PartsByIdOrder1_Result">
+    <Property Type="Int32" Name="IdPart" Nullable="true" />
     <Property Type="String" Name="PartName" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="SerialNumber" Nullable="true" MaxLength="30" />
     <Property Type="Decimal" Name="Price" Nullable="true" Precision="8" Scale="2" />

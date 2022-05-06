@@ -7,17 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CompService
+namespace CompService.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class OrderInfoWithPart
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int IdOrder { get; set; }
+        public string FullName { get; set; }
+        public string PhoneNumber { get; set; }
+        public System.DateTime ReceiptDate { get; set; }
+        public Nullable<System.DateTime> CompletionDate { get; set; }
+        public string DefectDescription { get; set; }
+        public string SerialNumber { get; set; }
+        public Nullable<bool> Completed { get; set; }
+        public string IdPart { get; set; }
+        public string PartName { get; set; }
+        public Nullable<int> IdCustomer { get; set; }
     }
 }

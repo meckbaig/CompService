@@ -58,38 +58,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompServiceModel.Context.cs">
+    <Compile Include="Core.cs" />
+    <Compile Include="Models\CompServiceModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CompServiceModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="CompServiceModel.cs">
+    <Compile Include="Models\CompServiceModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CompServiceModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CompServiceModel.Designer.cs">
+    <Compile Include="Models\CompServiceModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CompServiceModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Core.cs" />
-    <Compile Include="Customer.cs">
+    <Compile Include="Models\Customer.cs">
       <DependentUpon>CompServiceModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CustomerInfo.cs">
+    <Compile Include="Models\CustomerInfo.cs">
       <DependentUpon>CompServiceModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DeletedService.cs">
+    <Compile Include="Models\DeletedService.cs">
       <DependentUpon>CompServiceModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="FullOrderInfo.cs">
+    <Compile Include="Models\FullOrderInfo.cs">
       <DependentUpon>CompServiceModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="FullOrderInfoWhenNotCompleted.cs">
-      <DependentUpon>CompServiceModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MasterInfo.cs">
+    <Compile Include="Models\FullOrderInfoWhenNotCompleted.cs">
       <DependentUpon>CompServiceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MainModel.cs" />
@@ -99,17 +96,41 @@
     <Compile Include="Models\ILoginModel.cs" />
     <Compile Include="Models\IRegistrationModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\Master.cs">
+      <DependentUpon>CompServiceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MasterInfo.cs">
+      <DependentUpon>CompServiceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order.cs">
+      <DependentUpon>CompServiceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderInfo.cs">
+      <DependentUpon>CompServiceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderInfoById_Result.cs">
+      <DependentUpon>CompServiceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderInfoWithPart.cs">
+      <DependentUpon>CompServiceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Part.cs">
+      <DependentUpon>CompServiceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PartsByIdOrder_Result.cs">
+      <DependentUpon>CompServiceModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RegistrationModel.cs" />
-    <Compile Include="OrderInfo.cs">
+    <Compile Include="Models\Role.cs">
       <DependentUpon>CompServiceModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="OrderInfoById_Result.cs">
+    <Compile Include="Models\Service.cs">
       <DependentUpon>CompServiceModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="OrderInfoWithPart.cs">
+    <Compile Include="Models\ServicesByIdOrder_Result.cs">
       <DependentUpon>CompServiceModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="PartsByIdOrder_Result.cs">
+    <Compile Include="Models\User.cs">
       <DependentUpon>CompServiceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Presenters\ConnectionPresenter.cs" />
@@ -117,9 +138,7 @@
     <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Presenters\LoginPresenter.cs" />
     <Compile Include="Presenters\RegistrationPresenter.cs" />
-    <Compile Include="ServicesByIdOrder_Result.cs">
-      <DependentUpon>CompServiceModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Supporting\ConnectionСryptography .cs" />
     <Compile Include="Supporting\ParceCustomerIntoOrder.cs" />
     <Compile Include="Supporting\NewCustomer.cs" />
     <Compile Include="Supporting\CurrentUser.cs" />
@@ -159,20 +178,11 @@
     <Compile Include="Views\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Master.cs">
-      <DependentUpon>CompServiceModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Views\NewPartForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\NewPartForm.Designer.cs">
       <DependentUpon>NewPartForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Order.cs">
-      <DependentUpon>CompServiceModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Part.cs">
-      <DependentUpon>CompServiceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -188,29 +198,11 @@
     <Compile Include="Views\RegistrationForm.Designer.cs">
       <DependentUpon>RegistrationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Role.cs">
-      <DependentUpon>CompServiceModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Service.cs">
-      <DependentUpon>CompServiceModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>CompServiceModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_helpdiagrams_Result.cs">
-      <DependentUpon>CompServiceModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sysdiagram.cs">
-      <DependentUpon>CompServiceModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Views\TemplateForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\TemplateForm.Designer.cs">
       <DependentUpon>TemplateForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="User.cs">
-      <DependentUpon>CompServiceModel.tt</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Views\CustomerLink.resx">
       <DependentUpon>CustomerLink.cs</DependentUpon>
@@ -249,11 +241,11 @@
     <EmbeddedResource Include="Views\TemplateForm.resx">
       <DependentUpon>TemplateForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EntityDeploy Include="CompServiceModel.edmx">
+    <EntityDeploy Include="Models\CompServiceModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CompServiceModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="CompServiceModel.edmx.diagram">
+    <None Include="Models\CompServiceModel.edmx.diagram">
       <DependentUpon>CompServiceModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
@@ -271,17 +263,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CompServiceModel.Context.tt">
+    <Content Include="CS29.ico" />
+    <Content Include="Models\CompServiceModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>CompServiceModel.Context.cs</LastGenOutput>
       <DependentUpon>CompServiceModel.edmx</DependentUpon>
+      <LastGenOutput>CompServiceModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="CompServiceModel.tt">
+    <Content Include="Models\CompServiceModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CompServiceModel.edmx</DependentUpon>
       <LastGenOutput>CompServiceModel.cs</LastGenOutput>
     </Content>
-    <Content Include="CS29.ico" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
