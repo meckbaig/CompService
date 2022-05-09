@@ -21,7 +21,7 @@ namespace CompService.Models
         public Nullable<System.DateTime> CompletionDate { get; set; }
         public string DefectDescription { get; set; }
         public string SerialNumber { get; set; }
-        public Nullable<bool> Completed { get; set; }
+        public bool Completed { get; set; }
         public string ServiceNames { get; set; }
         public string MasterNames { get; set; }
         public string IdPart { get; set; }

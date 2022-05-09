@@ -12,19 +12,13 @@ namespace CompService.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class OrderInfo
+    public partial class Income
     {
         public int IdOrder { get; set; }
         public string FullName { get; set; }
-        public string PhoneNumber { get; set; }
-        public System.DateTime ReceiptDate { get; set; }
         public Nullable<System.DateTime> CompletionDate { get; set; }
-        public string DefectDescription { get; set; }
-        public string SerialNumber { get; set; }
-        public bool Completed { get; set; }
-        public string ServiceNames { get; set; }
-        public string IdPart { get; set; }
-        public string PartName { get; set; }
-        public Nullable<int> IdCustomer { get; set; }
+        public Nullable<decimal> TotalPrice { get; set; }
+        public Nullable<int> Month { get; set; }
+        public Nullable<int> Year { get; set; }
     }
 }

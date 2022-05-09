@@ -96,44 +96,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="FullOrderInfoes">
-      <EntityTypeMapping TypeName="CompServiceModel.FullOrderInfo">
-        <MappingFragment StoreEntitySet="FullOrderInfo">
-          <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
-          <ScalarProperty Name="FullName" ColumnName="FullName" />
-          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-          <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
-          <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
-          <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
-          <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
-          <ScalarProperty Name="Completed" ColumnName="Completed" />
-          <ScalarProperty Name="ServiceNames" ColumnName="ServiceNames" />
-          <ScalarProperty Name="MasterNames" ColumnName="MasterNames" />
-          <ScalarProperty Name="IdPart" ColumnName="IdPart" />
-          <ScalarProperty Name="PartName" ColumnName="PartName" />
-          <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="FullOrderInfoWhenNotCompleteds">
-      <EntityTypeMapping TypeName="CompServiceModel.FullOrderInfoWhenNotCompleted">
-        <MappingFragment StoreEntitySet="FullOrderInfoWhenNotCompleted">
-          <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
-          <ScalarProperty Name="FullName" ColumnName="FullName" />
-          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-          <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
-          <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
-          <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
-          <ScalarProperty Name="Completed" ColumnName="Completed" />
-          <ScalarProperty Name="ServiceNames" ColumnName="ServiceNames" />
-          <ScalarProperty Name="MasterNames" ColumnName="MasterNames" />
-          <ScalarProperty Name="IdPart" ColumnName="IdPart" />
-          <ScalarProperty Name="PartName" ColumnName="PartName" />
-          <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
-          <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="MasterInfoes">
       <EntityTypeMapping TypeName="CompServiceModel.MasterInfo">
         <MappingFragment StoreEntitySet="MasterInfo">
@@ -196,23 +158,6 @@
         <ScalarProperty Name="IdService" ColumnName="IdService" />
       </EndProperty>
     </AssociationSetMapping>
-    <FunctionImportMapping FunctionName="Хранилище CompServiceModel.OrderInfoById" FunctionImportName="OrderInfoById">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="CompServiceModel.OrderInfoById_Result">
-          <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
-          <ScalarProperty Name="FullName" ColumnName="FullName" />
-          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-          <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
-          <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
-          <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
-          <ScalarProperty Name="Completed" ColumnName="Completed" />
-          <ScalarProperty Name="ServiceNames" ColumnName="ServiceNames" />
-          <ScalarProperty Name="MasterNames" ColumnName="MasterNames" />
-          <ScalarProperty Name="IdPart" ColumnName="IdPart" />
-          <ScalarProperty Name="PartName" ColumnName="PartName" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionName="Хранилище CompServiceModel.PartsByIdOrder" FunctionImportName="PartsByIdOrder">
       <ResultMapping>
         <ComplexTypeMapping TypeName="CompServiceModel.PartsByIdOrder_Result">
@@ -235,5 +180,65 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="DeleteService" FunctionName="Хранилище CompServiceModel.DeleteService" />
     <FunctionImportMapping FunctionImportName="WindowsSale" FunctionName="Хранилище CompServiceModel.WindowsSale" />
+    <EntitySetMapping Name="Incomes">
+      <EntityTypeMapping TypeName="CompServiceModel.Income">
+        <MappingFragment StoreEntitySet="Income">
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="IncomeByMonthAndYear" FunctionName="Хранилище CompServiceModel.IncomeByMonthAndYear">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CompServiceModel.IncomeByMonthAndYear_Result">
+          <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="FullOrderInfoes">
+      <EntityTypeMapping TypeName="CompServiceModel.FullOrderInfo">
+        <MappingFragment StoreEntitySet="FullOrderInfo">
+          <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
+          <ScalarProperty Name="PartName" ColumnName="PartName" />
+          <ScalarProperty Name="IdPart" ColumnName="IdPart" />
+          <ScalarProperty Name="MasterNames" ColumnName="MasterNames" />
+          <ScalarProperty Name="ServiceNames" ColumnName="ServiceNames" />
+          <ScalarProperty Name="Completed" ColumnName="Completed" />
+          <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+          <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
+          <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+          <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FullOrderInfoWhenNotCompleteds">
+      <EntityTypeMapping TypeName="CompServiceModel.FullOrderInfoWhenNotCompleted">
+        <MappingFragment StoreEntitySet="FullOrderInfoWhenNotCompleted">
+          <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
+          <ScalarProperty Name="PartName" ColumnName="PartName" />
+          <ScalarProperty Name="IdPart" ColumnName="IdPart" />
+          <ScalarProperty Name="MasterNames" ColumnName="MasterNames" />
+          <ScalarProperty Name="ServiceNames" ColumnName="ServiceNames" />
+          <ScalarProperty Name="Completed" ColumnName="Completed" />
+          <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+          <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
+          <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+          <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -45,6 +45,7 @@ namespace CompService.Views
             this.customersDataGridView.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.customersDataGridView.Location = new System.Drawing.Point(0, 55);
             this.customersDataGridView.Name = "customersDataGridView";
+            this.customersDataGridView.ReadOnly = true;
             this.customersDataGridView.Size = new System.Drawing.Size(1008, 549);
             this.customersDataGridView.TabIndex = 0;
             // 
@@ -124,7 +125,7 @@ namespace CompService.Views
             this.Controls.Add(this.fullNameRadioButton);
             this.Controls.Add(this.customersDataGridView);
             this.Name = "CustomerLink";
-            this.Text = "CustomerLink";
+            this.Text = "Добавление клиента";
             ((System.ComponentModel.ISupportInitialize)(this.customersDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

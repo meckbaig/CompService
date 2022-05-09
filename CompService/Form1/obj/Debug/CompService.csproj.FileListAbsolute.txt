@@ -1,3 +1,11 @@
+D:\System Programs\VisualProject\CompService\Form1\bin\Debug\CompService.exe.config
+D:\System Programs\VisualProject\CompService\Form1\bin\Debug\CompService.exe
+D:\System Programs\VisualProject\CompService\Form1\bin\Debug\CompService.pdb
+D:\System Programs\VisualProject\CompService\Form1\bin\Debug\EntityFramework.dll
+D:\System Programs\VisualProject\CompService\Form1\bin\Debug\EntityFramework.SqlServer.dll
+D:\System Programs\VisualProject\CompService\Form1\bin\Debug\EntityFramework.xml
+D:\System Programs\VisualProject\CompService\Form1\bin\Debug\EntityFramework.SqlServer.xml
+D:\System Programs\VisualProject\CompService\Form1\bin\Debug\ru\EntityFramework.resources.dll
 D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.csproj.ResolveComReference.cache
 D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.Views.CustomerLink.resources
 D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.MainForm.resources
@@ -11,14 +19,6 @@ D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.Registr
 D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.TemplateForm.resources
 D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.csproj.GenerateResource.cache
 D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.csproj.CoreCompileInputs.cache
-D:\System Programs\VisualProject\CompService\Form1\bin\Debug\CompService.exe.config
-D:\System Programs\VisualProject\CompService\Form1\bin\Debug\CompService.exe
-D:\System Programs\VisualProject\CompService\Form1\bin\Debug\CompService.pdb
-D:\System Programs\VisualProject\CompService\Form1\bin\Debug\EntityFramework.dll
-D:\System Programs\VisualProject\CompService\Form1\bin\Debug\EntityFramework.SqlServer.dll
-D:\System Programs\VisualProject\CompService\Form1\bin\Debug\EntityFramework.xml
-D:\System Programs\VisualProject\CompService\Form1\bin\Debug\EntityFramework.SqlServer.xml
-D:\System Programs\VisualProject\CompService\Form1\bin\Debug\ru\EntityFramework.resources.dll
 D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.csproj.CopyComplete
 D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.exe
 D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.pdb

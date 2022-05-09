@@ -254,7 +254,7 @@ namespace CompService
             this.MaximumSize = new System.Drawing.Size(395, 521);
             this.MinimumSize = new System.Drawing.Size(395, 521);
             this.Name = "RegistrationForm";
-            this.Text = "RedistrationForm";
+            this.Text = "Регистрация";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.RegistrationForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.regErrorProvider)).EndInit();
             this.tabControl.ResumeLayout(false);

@@ -136,7 +136,7 @@ namespace CompService.Views
             this.MaximumSize = new System.Drawing.Size(378, 364);
             this.MinimumSize = new System.Drawing.Size(378, 364);
             this.Name = "ConnectionForm";
-            this.Text = "ConnectionForm";
+            this.Text = "Параметры подключения";
             this.Load += new System.EventHandler(this.ConnectionForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

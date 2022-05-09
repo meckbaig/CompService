@@ -128,50 +128,6 @@
     <Property Name="PhoneNumber" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
     <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
   </EntityType>
-  <EntityType Name="FullOrderInfo">
-    <Key>
-      <PropertyRef Name="IdOrder" />
-      <PropertyRef Name="FullName" />
-      <PropertyRef Name="PhoneNumber" />
-      <PropertyRef Name="ReceiptDate" />
-      <PropertyRef Name="DefectDescription" />
-    </Key>
-    <Property Name="IdOrder" Type="Int32" Nullable="false" />
-    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="PhoneNumber" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
-    <Property Name="ReceiptDate" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="CompletionDate" Type="DateTime" Precision="0" />
-    <Property Name="DefectDescription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="SerialNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-    <Property Name="Completed" Type="Boolean" />
-    <Property Name="ServiceNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-    <Property Name="MasterNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-    <Property Name="IdPart" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-    <Property Name="PartName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-    <Property Name="IdCustomer" Type="Int32" />
-  </EntityType>
-  <EntityType Name="FullOrderInfoWhenNotCompleted">
-    <Key>
-      <PropertyRef Name="IdOrder" />
-      <PropertyRef Name="FullName" />
-      <PropertyRef Name="PhoneNumber" />
-      <PropertyRef Name="ReceiptDate" />
-      <PropertyRef Name="DefectDescription" />
-    </Key>
-    <Property Name="IdOrder" Type="Int32" Nullable="false" />
-    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="PhoneNumber" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
-    <Property Name="ReceiptDate" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="DefectDescription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="SerialNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-    <Property Name="Completed" Type="Boolean" />
-    <Property Name="ServiceNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-    <Property Name="MasterNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-    <Property Name="IdPart" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-    <Property Name="PartName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-    <Property Name="IdCustomer" Type="Int32" />
-    <Property Name="CompletionDate" Type="DateTime" Precision="0" />
-  </EntityType>
   <EntityType Name="MasterInfo">
     <Key>
       <PropertyRef Name="IdMaster" />
@@ -199,7 +155,7 @@
     <Property Name="CompletionDate" Type="DateTime" Precision="0" />
     <Property Name="DefectDescription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="SerialNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-    <Property Name="Completed" Type="Boolean" />
+    <Property Name="Completed" Type="Boolean" Nullable="false" />
     <Property Name="ServiceNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
     <Property Name="IdPart" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
     <Property Name="PartName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
@@ -309,8 +265,6 @@
     <EntitySet Name="Services" EntityType="Self.Service" />
     <EntitySet Name="Users" EntityType="Self.User" />
     <EntitySet Name="CustomerInfoes" EntityType="Self.CustomerInfo" />
-    <EntitySet Name="FullOrderInfoes" EntityType="Self.FullOrderInfo" />
-    <EntitySet Name="FullOrderInfoWhenNotCompleteds" EntityType="Self.FullOrderInfoWhenNotCompleted" />
     <EntitySet Name="MasterInfoes" EntityType="Self.MasterInfo" />
     <EntitySet Name="OrderInfoes" EntityType="Self.OrderInfo" />
     <EntitySet Name="OrderInfoWithParts" EntityType="Self.OrderInfoWithPart" />
@@ -358,5 +312,76 @@
       <Parameter Name="discount" Mode="In" Type="Int32" />
       <Parameter Name="rowCount" Mode="InOut" Type="Int32" />
     </FunctionImport>
+    <EntitySet Name="Incomes" EntityType="CompServiceModel.Income" />
+    <FunctionImport Name="IncomeByMonthAndYear" IsComposable="true" ReturnType="Collection(CompServiceModel.IncomeByMonthAndYear_Result)">
+      <Parameter Name="month" Mode="In" Type="Int32" />
+      <Parameter Name="year" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="FullOrderInfoes" EntityType="CompServiceModel.FullOrderInfo" />
+    <EntitySet Name="FullOrderInfoWhenNotCompleteds" EntityType="CompServiceModel.FullOrderInfoWhenNotCompleted" />
   </EntityContainer>
+  <EntityType Name="Income">
+    <Key>
+      <PropertyRef Name="IdOrder" />
+      <PropertyRef Name="FullName" />
+    </Key>
+    <Property Name="IdOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CompletionDate" Type="DateTime" Precision="0" />
+    <Property Name="TotalPrice" Type="Decimal" Precision="9" Scale="2" />
+    <Property Name="Month" Type="Int32" />
+    <Property Name="Year" Type="Int32" />
+  </EntityType>
+  <ComplexType Name="IncomeByMonthAndYear_Result">
+    <Property Type="Int32" Name="IdOrder" Nullable="false" />
+    <Property Type="String" Name="FullName" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="CompletionDate" Nullable="true" Precision="10" />
+    <Property Type="Decimal" Name="TotalPrice" Nullable="true" Precision="9" Scale="2" />
+  </ComplexType>
+  <EntityType Name="FullOrderInfo">
+    <Key>
+      <PropertyRef Name="IdOrder" />
+      <PropertyRef Name="FullName" />
+      <PropertyRef Name="PhoneNumber" />
+      <PropertyRef Name="ReceiptDate" />
+      <PropertyRef Name="DefectDescription" />
+      <PropertyRef Name="Completed" />
+    </Key>
+    <Property Name="IdOrder" Type="Int32" Nullable="false" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Name="ReceiptDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="CompletionDate" Type="DateTime" Precision="0" />
+    <Property Name="DefectDescription" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="SerialNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Completed" Type="Boolean" Nullable="false" />
+    <Property Name="ServiceNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="MasterNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="IdPart" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="PartName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="IdCustomer" Type="Int32" />
+  </EntityType>
+  <EntityType Name="FullOrderInfoWhenNotCompleted">
+    <Key>
+      <PropertyRef Name="IdOrder" />
+      <PropertyRef Name="FullName" />
+      <PropertyRef Name="PhoneNumber" />
+      <PropertyRef Name="ReceiptDate" />
+      <PropertyRef Name="DefectDescription" />
+      <PropertyRef Name="Completed" />
+    </Key>
+    <Property Name="IdOrder" Type="Int32" Nullable="false" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Name="ReceiptDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="CompletionDate" Type="DateTime" Precision="0" />
+    <Property Name="DefectDescription" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="SerialNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Completed" Type="Boolean" Nullable="false" />
+    <Property Name="ServiceNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="MasterNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="IdPart" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="PartName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="IdCustomer" Type="Int32" />
+  </EntityType>
 </Schema>

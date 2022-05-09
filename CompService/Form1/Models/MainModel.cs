@@ -11,41 +11,16 @@ namespace CompService.Models
     {
         List<FullOrderInfo> orders;
 
-        public void SaveOrder(Order order)
+        #region SearchOrder
+        public List<FullOrderInfo> SearchDataOrderBy(int skip, int pageSize)
         {
-            if (order.IdOrder == 0)
-                Core.Context.Orders.Add(order);
-            Core.Context.SaveChanges();
+            return orders.OrderByDescending(o => o.ReceiptDate).Skip(skip).Take(pageSize).ToList();
         }
-
-        public object SortOrders(bool checkBoxChecked)
-        {
-            if (checkBoxChecked)
-                return Core.Context.FullOrderInfoWhenNotCompleteds.ToList();
-            else
-                return Core.Context.FullOrderInfoes.ToList();
-        }
-
-        public List<FullOrderInfo> OrdersLoad()
-        {
-            orders = Core.Context.FullOrderInfoes.AsNoTracking().ToList();
-            return orders;
-        }
-        public List<FullOrderInfo> ReturnOrders()
-        {
-            return orders;
-        }
-
-        public List<FullOrderInfo> SearchOrder(string idSearchOrder,
-                                string fullNameSearch,
-                                string phoneNumberSearch,
-                                bool allowDateCheckBox,
-                                DateTime receiptDateSearch,
-                                bool allowCompletionDate,
-                                DateTime completionDateSearch,
-                                string defectDescriptionSearch,
-                                string serialNumberSearch,
-                                bool completedSearchCheckBox)
+        
+        public List<FullOrderInfo> SearchOrder(string idSearchOrder, string fullNameSearch, string phoneNumberSearch, 
+                                               bool allowDateCheckBox,DateTime receiptDateSearch, bool allowCompletionDate,
+                                               DateTime completionDateSearch, string defectDescriptionSearch,
+                                               string serialNumberSearch, bool completedSearchCheckBox)
         {
             orders = Core.Context.FullOrderInfoes.AsNoTracking().ToList();
             if (idSearchOrder != "")
@@ -63,11 +38,38 @@ namespace CompService.Models
             if (serialNumberSearch != "")
                 orders = orders.Where(o => o.SerialNumber?.ToLower().Contains(serialNumberSearch.ToLower()) ?? false).ToList();
             if (completedSearchCheckBox)
-                orders = orders.Where(o => !(o.Completed ?? true)).ToList();
+                orders = orders.Where(o => !(o.Completed)).ToList();
 
             return orders;
         }
+        public List<FullOrderInfo> OrdersLoad()
+        {
+            orders = Core.Context.FullOrderInfoes.AsNoTracking().ToList();
+            return orders;
+        }
 
+        public List<FullOrderInfo> ReturnOrders()
+        {
+            return orders;
+        }
+        #endregion
+
+        #region Sort
+        public object SortOrders(bool checkBoxChecked, bool dateAscending, bool dateDescending)
+        {
+            if (dateDescending)
+            {
+                if (checkBoxChecked)
+                    return Core.Context.FullOrderInfoWhenNotCompleteds.OrderByDescending(f => f.ReceiptDate).ToList();
+                return Core.Context.FullOrderInfoes.OrderByDescending(f => f.ReceiptDate).ToList();
+            }
+            if (checkBoxChecked)
+                return Core.Context.FullOrderInfoWhenNotCompleteds.OrderBy(f => f.ReceiptDate).ToList();
+            return Core.Context.FullOrderInfoes.OrderBy(f => f.ReceiptDate).ToList();
+        }
+        #endregion
+
+        #region NewOrder/EditOrder
         public Order GetOrder(int selectedId)
         {
             return Core.Context.Orders.Find(selectedId);
@@ -93,9 +95,12 @@ namespace CompService.Models
             return mastersNotInOrder.ToArray();
         }
 
-        public List<FullOrderInfo> SearchDataOrderBy(int skip, int pageSize)
+        public void SaveOrder(Order order)
         {
-            return orders.OrderByDescending(o => o.ReceiptDate).Skip(skip).Take(pageSize).ToList();
+            if (order.IdOrder == 0)
+                Core.Context.Orders.Add(order);
+            Core.Context.SaveChanges();
         }
+        #endregion
     }
 }

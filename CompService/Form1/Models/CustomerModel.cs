@@ -31,7 +31,7 @@ namespace CompService.Models
             if (serialNumberSearch != "")
                 orders = orders.Where(o => o.SerialNumber.ToLower().Contains(serialNumberSearch.ToLower())).ToList();
             if (completedSearchCheckBox)
-                orders = orders.Where(o => !(o.Completed ?? true)).ToList();           //проверка на завершенность
+                orders = orders.Where(o => !(o.Completed)).ToList();           //проверка на завершенность
 
             return orders;
         }

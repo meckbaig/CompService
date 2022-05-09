@@ -51,12 +51,17 @@ namespace CompService
             this.searchOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.orderListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.выводОтчётаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.adminFeaturesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToEditMasterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serviceBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.orderBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.serviceBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.listOrderTab = new System.Windows.Forms.TabPage();
+            this.label28 = new System.Windows.Forms.Label();
+            this.dateDescendingRadioButton = new System.Windows.Forms.RadioButton();
+            this.label27 = new System.Windows.Forms.Label();
+            this.dateAscendingRadioButton = new System.Windows.Forms.RadioButton();
             this.sortButton = new System.Windows.Forms.Button();
             this.completedCheckBox = new System.Windows.Forms.CheckBox();
             this.sortGridView = new System.Windows.Forms.DataGridView();
@@ -150,6 +155,13 @@ namespace CompService
             this.partsInOrderGridView = new System.Windows.Forms.DataGridView();
             this.servicesInOrderGridView = new System.Windows.Forms.DataGridView();
             this.saveCheckButton = new System.Windows.Forms.Button();
+            this.monthlyReportTab = new System.Windows.Forms.TabPage();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.exportReportButton = new System.Windows.Forms.Button();
+            this.monthlyReportGridView = new System.Windows.Forms.DataGridView();
+            this.yearNumeric = new System.Windows.Forms.NumericUpDown();
+            this.monthNumeric = new System.Windows.Forms.NumericUpDown();
             this.currentUserLabel = new System.Windows.Forms.Label();
             this.changeConnectionPropertiesButton = new System.Windows.Forms.Button();
             label7 = new System.Windows.Forms.Label();
@@ -185,6 +197,10 @@ namespace CompService
             this.checkOutOrderTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.partsInOrderGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.servicesInOrderGridView)).BeginInit();
+            this.monthlyReportTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.monthlyReportGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.yearNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.monthNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // label7
@@ -291,9 +307,9 @@ namespace CompService
             receiptDateLabel1.AutoSize = true;
             receiptDateLabel1.Location = new System.Drawing.Point(18, 164);
             receiptDateLabel1.Name = "receiptDateLabel1";
-            receiptDateLabel1.Size = new System.Drawing.Size(90, 19);
+            receiptDateLabel1.Size = new System.Drawing.Size(135, 19);
             receiptDateLabel1.TabIndex = 6;
-            receiptDateLabel1.Text = "Дата сдачи:";
+            receiptDateLabel1.Text = "Дата поступления:";
             // 
             // phoneNumberLabel1
             // 
@@ -351,7 +367,8 @@ namespace CompService
             this.главнаяToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.searchOrderToolStripMenuItem,
             this.newOrderToolStripMenuItem,
-            this.orderListToolStripMenuItem});
+            this.orderListToolStripMenuItem,
+            this.выводОтчётаToolStripMenuItem});
             this.главнаяToolStripMenuItem.Name = "главнаяToolStripMenuItem";
             this.главнаяToolStripMenuItem.Size = new System.Drawing.Size(75, 23);
             this.главнаяToolStripMenuItem.Text = "Главная";
@@ -376,6 +393,13 @@ namespace CompService
             this.orderListToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
             this.orderListToolStripMenuItem.Text = "Список заказов";
             this.orderListToolStripMenuItem.Click += new System.EventHandler(this.ListOrderToolStripMenuItem_Click);
+            // 
+            // выводОтчётаToolStripMenuItem
+            // 
+            this.выводОтчётаToolStripMenuItem.Name = "выводОтчётаToolStripMenuItem";
+            this.выводОтчётаToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
+            this.выводОтчётаToolStripMenuItem.Text = "Вывод отчёта";
+            this.выводОтчётаToolStripMenuItem.Click += new System.EventHandler(this.ToReportOutputToolStripMenuItem_Click);
             // 
             // adminFeaturesToolStripMenuItem
             // 
@@ -408,6 +432,10 @@ namespace CompService
             // listOrderTab
             // 
             this.listOrderTab.BackColor = System.Drawing.Color.SeaShell;
+            this.listOrderTab.Controls.Add(this.label28);
+            this.listOrderTab.Controls.Add(this.dateDescendingRadioButton);
+            this.listOrderTab.Controls.Add(this.label27);
+            this.listOrderTab.Controls.Add(this.dateAscendingRadioButton);
             this.listOrderTab.Controls.Add(this.sortButton);
             this.listOrderTab.Controls.Add(this.completedCheckBox);
             this.listOrderTab.Controls.Add(this.sortGridView);
@@ -417,9 +445,51 @@ namespace CompService
             this.listOrderTab.TabIndex = 2;
             this.listOrderTab.Text = "Список заказов";
             // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Calibri", 9F);
+            this.label28.Location = new System.Drawing.Point(5, 30);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(117, 14);
+            this.label28.TabIndex = 6;
+            this.label28.Text = "по дате поступления";
+            // 
+            // dateDescendingRadioButton
+            // 
+            this.dateDescendingRadioButton.AutoSize = true;
+            this.dateDescendingRadioButton.Location = new System.Drawing.Point(8, 67);
+            this.dateDescendingRadioButton.Name = "dateDescendingRadioButton";
+            this.dateDescendingRadioButton.Size = new System.Drawing.Size(120, 23);
+            this.dateDescendingRadioButton.TabIndex = 5;
+            this.dateDescendingRadioButton.Text = "по убыванию";
+            this.dateDescendingRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Calibri", 14F);
+            this.label27.Location = new System.Drawing.Point(8, 9);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(109, 23);
+            this.label27.TabIndex = 4;
+            this.label27.Text = "Сортировка:";
+            // 
+            // dateAscendingRadioButton
+            // 
+            this.dateAscendingRadioButton.AutoSize = true;
+            this.dateAscendingRadioButton.Checked = true;
+            this.dateAscendingRadioButton.Location = new System.Drawing.Point(8, 47);
+            this.dateAscendingRadioButton.Name = "dateAscendingRadioButton";
+            this.dateAscendingRadioButton.Size = new System.Drawing.Size(137, 23);
+            this.dateAscendingRadioButton.TabIndex = 3;
+            this.dateAscendingRadioButton.TabStop = true;
+            this.dateAscendingRadioButton.Text = "по возрастанию";
+            this.dateAscendingRadioButton.UseVisualStyleBackColor = true;
+            // 
             // sortButton
             // 
-            this.sortButton.Location = new System.Drawing.Point(8, 32);
+            this.sortButton.Location = new System.Drawing.Point(8, 125);
             this.sortButton.Name = "sortButton";
             this.sortButton.Size = new System.Drawing.Size(74, 27);
             this.sortButton.TabIndex = 2;
@@ -432,7 +502,7 @@ namespace CompService
             this.completedCheckBox.AutoSize = true;
             this.completedCheckBox.Checked = true;
             this.completedCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.completedCheckBox.Location = new System.Drawing.Point(8, 3);
+            this.completedCheckBox.Location = new System.Drawing.Point(8, 96);
             this.completedCheckBox.Name = "completedCheckBox";
             this.completedCheckBox.Size = new System.Drawing.Size(146, 23);
             this.completedCheckBox.TabIndex = 1;
@@ -447,6 +517,7 @@ namespace CompService
             this.sortGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.sortGridView.Location = new System.Drawing.Point(160, 0);
             this.sortGridView.Name = "sortGridView";
+            this.sortGridView.ReadOnly = true;
             this.sortGridView.RowHeadersWidth = 51;
             this.sortGridView.Size = new System.Drawing.Size(1220, 690);
             this.sortGridView.TabIndex = 0;
@@ -922,9 +993,9 @@ namespace CompService
             // 
             this.allowDateCheckBox.Location = new System.Drawing.Point(166, 189);
             this.allowDateCheckBox.Name = "allowDateCheckBox";
-            this.allowDateCheckBox.Size = new System.Drawing.Size(200, 24);
+            this.allowDateCheckBox.Size = new System.Drawing.Size(226, 24);
             this.allowDateCheckBox.TabIndex = 16;
-            this.allowDateCheckBox.Text = "Учитывать дату сдачи";
+            this.allowDateCheckBox.Text = "Учитывать дату поступления";
             this.allowDateCheckBox.UseVisualStyleBackColor = true;
             // 
             // searchGridView
@@ -935,6 +1006,7 @@ namespace CompService
             this.searchGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.searchGridView.Location = new System.Drawing.Point(399, 3);
             this.searchGridView.Name = "searchGridView";
+            this.searchGridView.ReadOnly = true;
             this.searchGridView.RowHeadersWidth = 51;
             this.searchGridView.Size = new System.Drawing.Size(975, 689);
             this.searchGridView.TabIndex = 15;
@@ -1009,6 +1081,7 @@ namespace CompService
             this.tabControl.Controls.Add(this.mastersTableTab);
             this.tabControl.Controls.Add(this.editMasterTab);
             this.tabControl.Controls.Add(this.checkOutOrderTab);
+            this.tabControl.Controls.Add(this.monthlyReportTab);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 29);
             this.tabControl.Name = "tabControl";
@@ -1100,6 +1173,7 @@ namespace CompService
             this.mastersGridView.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.mastersGridView.Location = new System.Drawing.Point(0, 60);
             this.mastersGridView.Name = "mastersGridView";
+            this.mastersGridView.ReadOnly = true;
             this.mastersGridView.Size = new System.Drawing.Size(1376, 610);
             this.mastersGridView.TabIndex = 0;
             // 
@@ -1435,9 +1509,109 @@ namespace CompService
             this.saveCheckButton.UseVisualStyleBackColor = true;
             this.saveCheckButton.Click += new System.EventHandler(this.SaveCheckButton_Click);
             // 
+            // monthlyReportTab
+            // 
+            this.monthlyReportTab.BackColor = System.Drawing.Color.SeaShell;
+            this.monthlyReportTab.Controls.Add(this.label26);
+            this.monthlyReportTab.Controls.Add(this.label25);
+            this.monthlyReportTab.Controls.Add(this.exportReportButton);
+            this.monthlyReportTab.Controls.Add(this.monthlyReportGridView);
+            this.monthlyReportTab.Controls.Add(this.yearNumeric);
+            this.monthlyReportTab.Controls.Add(this.monthNumeric);
+            this.monthlyReportTab.Location = new System.Drawing.Point(4, 28);
+            this.monthlyReportTab.Name = "monthlyReportTab";
+            this.monthlyReportTab.Padding = new System.Windows.Forms.Padding(3);
+            this.monthlyReportTab.Size = new System.Drawing.Size(1376, 670);
+            this.monthlyReportTab.TabIndex = 6;
+            this.monthlyReportTab.Text = "Месячный отчёт";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(752, 6);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(31, 19);
+            this.label26.TabIndex = 5;
+            this.label26.Text = "Год";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(616, 6);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(54, 19);
+            this.label25.TabIndex = 4;
+            this.label25.Text = "Месяц";
+            // 
+            // exportReportButton
+            // 
+            this.exportReportButton.Location = new System.Drawing.Point(620, 75);
+            this.exportReportButton.Name = "exportReportButton";
+            this.exportReportButton.Size = new System.Drawing.Size(103, 51);
+            this.exportReportButton.TabIndex = 3;
+            this.exportReportButton.Text = "Сохранить отчёт";
+            this.exportReportButton.UseVisualStyleBackColor = true;
+            this.exportReportButton.Click += new System.EventHandler(this.ExportReportButton_Click);
+            // 
+            // monthlyReportGridView
+            // 
+            this.monthlyReportGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.monthlyReportGridView.Location = new System.Drawing.Point(6, 6);
+            this.monthlyReportGridView.Name = "monthlyReportGridView";
+            this.monthlyReportGridView.ReadOnly = true;
+            this.monthlyReportGridView.Size = new System.Drawing.Size(592, 668);
+            this.monthlyReportGridView.TabIndex = 2;
+            // 
+            // yearNumeric
+            // 
+            this.yearNumeric.Location = new System.Drawing.Point(756, 28);
+            this.yearNumeric.Maximum = new decimal(new int[] {
+            2099,
+            0,
+            0,
+            0});
+            this.yearNumeric.Minimum = new decimal(new int[] {
+            2021,
+            0,
+            0,
+            0});
+            this.yearNumeric.Name = "yearNumeric";
+            this.yearNumeric.Size = new System.Drawing.Size(120, 27);
+            this.yearNumeric.TabIndex = 1;
+            this.yearNumeric.Value = new decimal(new int[] {
+            2022,
+            0,
+            0,
+            0});
+            this.yearNumeric.ValueChanged += new System.EventHandler(this.ReportDate_ValueChanged);
+            // 
+            // monthNumeric
+            // 
+            this.monthNumeric.Location = new System.Drawing.Point(620, 28);
+            this.monthNumeric.Maximum = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            this.monthNumeric.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.monthNumeric.Name = "monthNumeric";
+            this.monthNumeric.Size = new System.Drawing.Size(120, 27);
+            this.monthNumeric.TabIndex = 0;
+            this.monthNumeric.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.monthNumeric.ValueChanged += new System.EventHandler(this.ReportDate_ValueChanged);
+            // 
             // currentUserLabel
             // 
-            this.currentUserLabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.currentUserLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.currentUserLabel.AutoSize = true;
             this.currentUserLabel.BackColor = System.Drawing.SystemColors.MenuBar;
             this.currentUserLabel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -1452,12 +1626,14 @@ namespace CompService
             // 
             // changeConnectionPropertiesButton
             // 
+            this.changeConnectionPropertiesButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.changeConnectionPropertiesButton.Location = new System.Drawing.Point(1119, 0);
             this.changeConnectionPropertiesButton.Name = "changeConnectionPropertiesButton";
             this.changeConnectionPropertiesButton.Size = new System.Drawing.Size(261, 29);
             this.changeConnectionPropertiesButton.TabIndex = 3;
             this.changeConnectionPropertiesButton.Text = "Изменить настройки подключения";
             this.changeConnectionPropertiesButton.UseVisualStyleBackColor = true;
+            this.changeConnectionPropertiesButton.Visible = false;
             this.changeConnectionPropertiesButton.Click += new System.EventHandler(this.ChangeConnectionPropertiesButton_Click);
             // 
             // MainForm
@@ -1501,6 +1677,11 @@ namespace CompService
             this.checkOutOrderTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.partsInOrderGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.servicesInOrderGridView)).EndInit();
+            this.monthlyReportTab.ResumeLayout(false);
+            this.monthlyReportTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.monthlyReportGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.yearNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.monthNumeric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1614,6 +1795,18 @@ namespace CompService
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.ToolStripMenuItem выводОтчётаToolStripMenuItem;
+        private System.Windows.Forms.TabPage monthlyReportTab;
+        private System.Windows.Forms.DataGridView monthlyReportGridView;
+        private System.Windows.Forms.NumericUpDown yearNumeric;
+        private System.Windows.Forms.NumericUpDown monthNumeric;
+        private System.Windows.Forms.Button exportReportButton;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.RadioButton dateDescendingRadioButton;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.RadioButton dateAscendingRadioButton;
+        private System.Windows.Forms.Label label28;
     }
 }
 

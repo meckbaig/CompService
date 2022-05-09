@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.IO;
 using CompService.Supporting;
-using System.Windows.Forms;
 using CompService.Models;
 
 namespace CompService
@@ -30,10 +25,6 @@ namespace CompService
         static string password;
         static string connectionConfig = Environment.CurrentDirectory + @"/config";
 
-        public static void SaveConnectionData()
-        {
-            File.WriteAllText(connectionConfig, ConnectionСryptography.Encrypt($"{server};{database};{login};{password}"));
-        }
         public static void LoadConnectionData()
         {
             if (File.Exists(connectionConfig))
@@ -56,6 +47,11 @@ namespace CompService
             sqlConnection.Password = password;
             Context.Database.Connection.ConnectionString = sqlConnection.ConnectionString;
             SaveConnectionData();
+        }
+
+        public static void SaveConnectionData()
+        {
+            File.WriteAllText(connectionConfig, ConnectionСryptography.Encrypt($"{server};{database};{login};{password}"));
         }
     }
 }

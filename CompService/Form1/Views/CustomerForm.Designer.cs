@@ -299,6 +299,7 @@ namespace CompService
             this.ordersGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ordersGridView.Location = new System.Drawing.Point(392, 3);
             this.ordersGridView.Name = "ordersGridView";
+            this.ordersGridView.ReadOnly = true;
             this.ordersGridView.RowHeadersWidth = 51;
             this.ordersGridView.Size = new System.Drawing.Size(789, 541);
             this.ordersGridView.TabIndex = 37;
@@ -589,7 +590,7 @@ namespace CompService
             this.MaximumSize = new System.Drawing.Size(3840, 628);
             this.MinimumSize = new System.Drawing.Size(413, 628);
             this.Name = "CustomerForm";
-            this.Text = "CustomerForm";
+            this.Text = "Клиент";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CustomerForm_FormClosed);
             this.Load += new System.EventHandler(this.CustomerForm_Load);
             this.menuStrip1.ResumeLayout(false);

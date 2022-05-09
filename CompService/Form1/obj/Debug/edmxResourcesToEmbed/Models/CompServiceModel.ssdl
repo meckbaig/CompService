@@ -116,6 +116,7 @@
       <PropertyRef Name="PhoneNumber" />
       <PropertyRef Name="ReceiptDate" />
       <PropertyRef Name="DefectDescription" />
+      <PropertyRef Name="Completed" />
     </Key>
     <Property Name="IdOrder" Type="int" Nullable="false" />
     <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -124,7 +125,7 @@
     <Property Name="CompletionDate" Type="date" />
     <Property Name="DefectDescription" Type="nvarchar" MaxLength="1000" Nullable="false" />
     <Property Name="SerialNumber" Type="nvarchar" MaxLength="30" />
-    <Property Name="Completed" Type="bit" />
+    <Property Name="Completed" Type="bit" Nullable="false" />
     <Property Name="ServiceNames" Type="nvarchar" MaxLength="4000" />
     <Property Name="MasterNames" Type="nvarchar" MaxLength="4000" />
     <Property Name="IdPart" Type="nvarchar" MaxLength="4000" />
@@ -140,20 +141,35 @@
       <PropertyRef Name="PhoneNumber" />
       <PropertyRef Name="ReceiptDate" />
       <PropertyRef Name="DefectDescription" />
+      <PropertyRef Name="Completed" />
     </Key>
     <Property Name="IdOrder" Type="int" Nullable="false" />
     <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="PhoneNumber" Type="char" MaxLength="11" Nullable="false" />
     <Property Name="ReceiptDate" Type="date" Nullable="false" />
+    <Property Name="CompletionDate" Type="date" />
     <Property Name="DefectDescription" Type="nvarchar" MaxLength="1000" Nullable="false" />
     <Property Name="SerialNumber" Type="nvarchar" MaxLength="30" />
-    <Property Name="Completed" Type="bit" />
+    <Property Name="Completed" Type="bit" Nullable="false" />
     <Property Name="ServiceNames" Type="nvarchar" MaxLength="4000" />
     <Property Name="MasterNames" Type="nvarchar" MaxLength="4000" />
     <Property Name="IdPart" Type="nvarchar" MaxLength="4000" />
     <Property Name="PartName" Type="nvarchar" MaxLength="4000" />
     <Property Name="IdCustomer" Type="int" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "CompService.dbo.Income" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="Income">
+    <Key>
+      <PropertyRef Name="IdOrder" />
+      <PropertyRef Name="FullName" />
+    </Key>
+    <Property Name="IdOrder" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="CompletionDate" Type="date" />
+    <Property Name="TotalPrice" Type="decimal" Precision="9" Scale="2" />
+    <Property Name="Month" Type="int" />
+    <Property Name="Year" Type="int" />
   </EntityType>
   <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "CompService.dbo.MasterInfo" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
@@ -186,7 +202,7 @@
     <Property Name="CompletionDate" Type="date" />
     <Property Name="DefectDescription" Type="nvarchar" MaxLength="1000" Nullable="false" />
     <Property Name="SerialNumber" Type="nvarchar" MaxLength="30" />
-    <Property Name="Completed" Type="bit" />
+    <Property Name="Completed" Type="bit" Nullable="false" />
     <Property Name="ServiceNames" Type="nvarchar" MaxLength="4000" />
     <Property Name="IdPart" Type="nvarchar" MaxLength="4000" />
     <Property Name="PartName" Type="nvarchar" MaxLength="4000" />
@@ -332,22 +348,16 @@
     <Parameter Name="name" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-  <Function Name="OrderInfoById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="idOrder" Type="int" Mode="In" />
+  <Function Name="IncomeByMonthAndYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="month" Type="int" Mode="In" />
+    <Parameter Name="year" Type="int" Mode="In" />
     <ReturnType>
       <CollectionType>
         <RowType>
           <Property Name="IdOrder" Type="int" Nullable="false" />
           <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="PhoneNumber" Type="char" MaxLength="11" Nullable="false" />
-          <Property Name="ReceiptDate" Type="smalldatetime" Nullable="false" />
-          <Property Name="DefectDescription" Type="nvarchar" MaxLength="1000" Nullable="false" />
-          <Property Name="SerialNumber" Type="nvarchar" MaxLength="30" />
-          <Property Name="Completed" Type="bit" />
-          <Property Name="ServiceNames" Type="nvarchar" MaxLength="4000" />
-          <Property Name="MasterNames" Type="nvarchar" MaxLength="4000" />
-          <Property Name="IdPart" Type="int" />
-          <Property Name="PartName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CompletionDate" Type="date" />
+          <Property Name="TotalPrice" Type="decimal" Precision="9" Scale="2" />
         </RowType>
       </CollectionType>
     </ReturnType>
@@ -428,6 +438,7 @@
     [FullOrderInfoWhenNotCompleted].[FullName] AS [FullName], 
     [FullOrderInfoWhenNotCompleted].[PhoneNumber] AS [PhoneNumber], 
     [FullOrderInfoWhenNotCompleted].[ReceiptDate] AS [ReceiptDate], 
+    [FullOrderInfoWhenNotCompleted].[CompletionDate] AS [CompletionDate], 
     [FullOrderInfoWhenNotCompleted].[DefectDescription] AS [DefectDescription], 
     [FullOrderInfoWhenNotCompleted].[SerialNumber] AS [SerialNumber], 
     [FullOrderInfoWhenNotCompleted].[Completed] AS [Completed], 
@@ -435,9 +446,18 @@
     [FullOrderInfoWhenNotCompleted].[MasterNames] AS [MasterNames], 
     [FullOrderInfoWhenNotCompleted].[IdPart] AS [IdPart], 
     [FullOrderInfoWhenNotCompleted].[PartName] AS [PartName], 
-    [FullOrderInfoWhenNotCompleted].[IdCustomer] AS [IdCustomer], 
-    [FullOrderInfoWhenNotCompleted].[CompletionDate] AS [CompletionDate]
+    [FullOrderInfoWhenNotCompleted].[IdCustomer] AS [IdCustomer]
     FROM [dbo].[FullOrderInfoWhenNotCompleted] AS [FullOrderInfoWhenNotCompleted]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Income" EntityType="Self.Income" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Income].[IdOrder] AS [IdOrder], 
+    [Income].[FullName] AS [FullName], 
+    [Income].[CompletionDate] AS [CompletionDate], 
+    [Income].[TotalPrice] AS [TotalPrice], 
+    [Income].[Month] AS [Month], 
+    [Income].[Year] AS [Year]
+    FROM [dbo].[Income] AS [Income]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="MasterInfo" EntityType="Self.MasterInfo" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 

@@ -19,7 +19,7 @@ namespace CompService
         {
             InitializeComponent();
             presenter = new LoginPresenter(this);
-            Core.LoadConnectionData();
+            Core.LoadConnectionData(); 
         }
 
         private void ToRegistrationButton_Click(object sender, EventArgs e)
@@ -45,6 +45,11 @@ namespace CompService
             RecoveryForm recoveryForm = new RecoveryForm();
             recoveryForm.Show();
             Hide();
+        }
+
+        private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

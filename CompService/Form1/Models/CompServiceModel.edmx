@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище CompServiceModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище CompServiceModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="IdCustomer" />
@@ -121,6 +121,7 @@
             <PropertyRef Name="PhoneNumber" />
             <PropertyRef Name="ReceiptDate" />
             <PropertyRef Name="DefectDescription" />
+            <PropertyRef Name="Completed" />
           </Key>
           <Property Name="IdOrder" Type="int" Nullable="false" />
           <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -129,7 +130,7 @@
           <Property Name="CompletionDate" Type="date" />
           <Property Name="DefectDescription" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="SerialNumber" Type="nvarchar" MaxLength="30" />
-          <Property Name="Completed" Type="bit" />
+          <Property Name="Completed" Type="bit" Nullable="false" />
           <Property Name="ServiceNames" Type="nvarchar" MaxLength="4000" />
           <Property Name="MasterNames" Type="nvarchar" MaxLength="4000" />
           <Property Name="IdPart" Type="nvarchar" MaxLength="4000" />
@@ -145,20 +146,35 @@
             <PropertyRef Name="PhoneNumber" />
             <PropertyRef Name="ReceiptDate" />
             <PropertyRef Name="DefectDescription" />
+            <PropertyRef Name="Completed" />
           </Key>
           <Property Name="IdOrder" Type="int" Nullable="false" />
           <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PhoneNumber" Type="char" MaxLength="11" Nullable="false" />
           <Property Name="ReceiptDate" Type="date" Nullable="false" />
+          <Property Name="CompletionDate" Type="date" />
           <Property Name="DefectDescription" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="SerialNumber" Type="nvarchar" MaxLength="30" />
-          <Property Name="Completed" Type="bit" />
+          <Property Name="Completed" Type="bit" Nullable="false" />
           <Property Name="ServiceNames" Type="nvarchar" MaxLength="4000" />
           <Property Name="MasterNames" Type="nvarchar" MaxLength="4000" />
           <Property Name="IdPart" Type="nvarchar" MaxLength="4000" />
           <Property Name="PartName" Type="nvarchar" MaxLength="4000" />
           <Property Name="IdCustomer" Type="int" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "CompService.dbo.Income" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Income">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+            <PropertyRef Name="FullName" />
+          </Key>
+          <Property Name="IdOrder" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CompletionDate" Type="date" />
+          <Property Name="TotalPrice" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="Month" Type="int" />
+          <Property Name="Year" Type="int" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "CompService.dbo.MasterInfo" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
@@ -183,6 +199,7 @@
             <PropertyRef Name="PhoneNumber" />
             <PropertyRef Name="ReceiptDate" />
             <PropertyRef Name="DefectDescription" />
+            
           </Key>
           <Property Name="IdOrder" Type="int" Nullable="false" />
           <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -191,7 +208,7 @@
           <Property Name="CompletionDate" Type="date" />
           <Property Name="DefectDescription" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="SerialNumber" Type="nvarchar" MaxLength="30" />
-          <Property Name="Completed" Type="bit" />
+          <Property Name="Completed" Type="bit" Nullable="false" />
           <Property Name="ServiceNames" Type="nvarchar" MaxLength="4000" />
           <Property Name="IdPart" Type="nvarchar" MaxLength="4000" />
           <Property Name="PartName" Type="nvarchar" MaxLength="4000" />
@@ -337,22 +354,16 @@
           <Parameter Name="name" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-        <Function Name="OrderInfoById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="idOrder" Type="int" Mode="In" />
+        <Function Name="IncomeByMonthAndYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="month" Type="int" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
           <ReturnType>
             <CollectionType>
               <RowType>
                 <Property Name="IdOrder" Type="int" Nullable="false" />
                 <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
-                <Property Name="PhoneNumber" Type="char" MaxLength="11" Nullable="false" />
-                <Property Name="ReceiptDate" Type="smalldatetime" Nullable="false" />
-                <Property Name="DefectDescription" Type="nvarchar" MaxLength="1000" Nullable="false" />
-                <Property Name="SerialNumber" Type="nvarchar" MaxLength="30" />
-                <Property Name="Completed" Type="bit" />
-                <Property Name="ServiceNames" Type="nvarchar" MaxLength="4000" />
-                <Property Name="MasterNames" Type="nvarchar" MaxLength="4000" />
-                <Property Name="IdPart" Type="int" />
-                <Property Name="PartName" Type="nvarchar" MaxLength="50" />
+                <Property Name="CompletionDate" Type="date" />
+                <Property Name="TotalPrice" Type="decimal" Precision="9" Scale="2" />
               </RowType>
             </CollectionType>
           </ReturnType>
@@ -433,6 +444,7 @@
     [FullOrderInfoWhenNotCompleted].[FullName] AS [FullName], 
     [FullOrderInfoWhenNotCompleted].[PhoneNumber] AS [PhoneNumber], 
     [FullOrderInfoWhenNotCompleted].[ReceiptDate] AS [ReceiptDate], 
+    [FullOrderInfoWhenNotCompleted].[CompletionDate] AS [CompletionDate], 
     [FullOrderInfoWhenNotCompleted].[DefectDescription] AS [DefectDescription], 
     [FullOrderInfoWhenNotCompleted].[SerialNumber] AS [SerialNumber], 
     [FullOrderInfoWhenNotCompleted].[Completed] AS [Completed], 
@@ -440,9 +452,18 @@
     [FullOrderInfoWhenNotCompleted].[MasterNames] AS [MasterNames], 
     [FullOrderInfoWhenNotCompleted].[IdPart] AS [IdPart], 
     [FullOrderInfoWhenNotCompleted].[PartName] AS [PartName], 
-    [FullOrderInfoWhenNotCompleted].[IdCustomer] AS [IdCustomer], 
-    [FullOrderInfoWhenNotCompleted].[CompletionDate] AS [CompletionDate]
+    [FullOrderInfoWhenNotCompleted].[IdCustomer] AS [IdCustomer]
     FROM [dbo].[FullOrderInfoWhenNotCompleted] AS [FullOrderInfoWhenNotCompleted]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Income" EntityType="Self.Income" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Income].[IdOrder] AS [IdOrder], 
+    [Income].[FullName] AS [FullName], 
+    [Income].[CompletionDate] AS [CompletionDate], 
+    [Income].[TotalPrice] AS [TotalPrice], 
+    [Income].[Month] AS [Month], 
+    [Income].[Year] AS [Year]
+    FROM [dbo].[Income] AS [Income]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="MasterInfo" EntityType="Self.MasterInfo" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -521,8 +542,7 @@
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CompServiceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -654,50 +674,6 @@
           <Property Name="PhoneNumber" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="FullOrderInfo">
-          <Key>
-            <PropertyRef Name="IdOrder" />
-            <PropertyRef Name="FullName" />
-            <PropertyRef Name="PhoneNumber" />
-            <PropertyRef Name="ReceiptDate" />
-            <PropertyRef Name="DefectDescription" />
-          </Key>
-          <Property Name="IdOrder" Type="Int32" Nullable="false" />
-          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="ReceiptDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="CompletionDate" Type="DateTime" Precision="0" />
-          <Property Name="DefectDescription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SerialNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="Completed" Type="Boolean" />
-          <Property Name="ServiceNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="MasterNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="IdPart" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="PartName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="IdCustomer" Type="Int32" />
-        </EntityType>
-        <EntityType Name="FullOrderInfoWhenNotCompleted">
-          <Key>
-            <PropertyRef Name="IdOrder" />
-            <PropertyRef Name="FullName" />
-            <PropertyRef Name="PhoneNumber" />
-            <PropertyRef Name="ReceiptDate" />
-            <PropertyRef Name="DefectDescription" />
-          </Key>
-          <Property Name="IdOrder" Type="Int32" Nullable="false" />
-          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="ReceiptDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="DefectDescription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SerialNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="Completed" Type="Boolean" />
-          <Property Name="ServiceNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="MasterNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="IdPart" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="PartName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="IdCustomer" Type="Int32" />
-          <Property Name="CompletionDate" Type="DateTime" Precision="0" />
-        </EntityType>
         <EntityType Name="MasterInfo">
           <Key>
             <PropertyRef Name="IdMaster" />
@@ -725,7 +701,7 @@
           <Property Name="CompletionDate" Type="DateTime" Precision="0" />
           <Property Name="DefectDescription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SerialNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="Completed" Type="Boolean" />
+          <Property Name="Completed" Type="Boolean" Nullable="false" />
           <Property Name="ServiceNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="IdPart" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="PartName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
@@ -835,8 +811,6 @@
           <EntitySet Name="Services" EntityType="Self.Service" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="CustomerInfoes" EntityType="Self.CustomerInfo" />
-          <EntitySet Name="FullOrderInfoes" EntityType="Self.FullOrderInfo" />
-          <EntitySet Name="FullOrderInfoWhenNotCompleteds" EntityType="Self.FullOrderInfoWhenNotCompleted" />
           <EntitySet Name="MasterInfoes" EntityType="Self.MasterInfo" />
           <EntitySet Name="OrderInfoes" EntityType="Self.OrderInfo" />
           <EntitySet Name="OrderInfoWithParts" EntityType="Self.OrderInfoWithPart" />
@@ -869,22 +843,93 @@
             <End Role="Service" EntitySet="Services" />
           </AssociationSet>
           <FunctionImport Name="OrderInfoById" IsComposable="true" ReturnType="Collection(CompServiceModel.OrderInfoById_Result)">
-            <Parameter Name="idOrder" Mode="In" Type="Int32" />
+          <Parameter Name="idOrder" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="PartsByIdOrder" IsComposable="true" ReturnType="Collection(CompServiceModel.PartsByIdOrder_Result)">
-            <Parameter Name="idOrder" Mode="In" Type="Int32" />
+          <Parameter Name="idOrder" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ServicesByIdOrder" IsComposable="true" ReturnType="Collection(CompServiceModel.ServicesByIdOrder_Result)">
-            <Parameter Name="idOrder" Mode="In" Type="Int32" />
+          <Parameter Name="idOrder" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="DeleteService">
-            <Parameter Name="name" Mode="In" Type="String" />
+          <Parameter Name="name" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="WindowsSale">
             <Parameter Name="discount" Mode="In" Type="Int32" />
             <Parameter Name="rowCount" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Incomes" EntityType="CompServiceModel.Income" />
+          <FunctionImport Name="IncomeByMonthAndYear" IsComposable="true" ReturnType="Collection(CompServiceModel.IncomeByMonthAndYear_Result)">
+            <Parameter Name="month" Mode="In" Type="Int32" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="FullOrderInfoes" EntityType="CompServiceModel.FullOrderInfo" />
+          <EntitySet Name="FullOrderInfoWhenNotCompleteds" EntityType="CompServiceModel.FullOrderInfoWhenNotCompleted" />
         </EntityContainer>
+        <EntityType Name="Income">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+            <PropertyRef Name="FullName" />
+          </Key>
+          <Property Name="IdOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompletionDate" Type="DateTime" Precision="0" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="Month" Type="Int32" />
+          <Property Name="Year" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="IncomeByMonthAndYear_Result">
+          <Property Type="Int32" Name="IdOrder" Nullable="false" />
+          <Property Type="String" Name="FullName" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="CompletionDate" Nullable="true" Precision="10" />
+          <Property Type="Decimal" Name="TotalPrice" Nullable="true" Precision="9" Scale="2" />
+        </ComplexType>
+        <EntityType Name="FullOrderInfo">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="PhoneNumber" />
+            <PropertyRef Name="ReceiptDate" />
+            <PropertyRef Name="DefectDescription" />
+            <PropertyRef Name="Completed" />
+          </Key>
+          <Property Name="IdOrder" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="ReceiptDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CompletionDate" Type="DateTime" Precision="0" />
+          <Property Name="DefectDescription" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="SerialNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Completed" Type="Boolean" Nullable="false" />
+          <Property Name="ServiceNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="MasterNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="IdPart" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="PartName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="IdCustomer" Type="Int32" />
+        </EntityType>
+        <EntityType Name="FullOrderInfoWhenNotCompleted">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="PhoneNumber" />
+            <PropertyRef Name="ReceiptDate" />
+            <PropertyRef Name="DefectDescription" />
+            <PropertyRef Name="Completed" />
+          </Key>
+          <Property Name="IdOrder" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="ReceiptDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CompletionDate" Type="DateTime" Precision="0" />
+          <Property Name="DefectDescription" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="SerialNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Completed" Type="Boolean" Nullable="false" />
+          <Property Name="ServiceNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="MasterNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="IdPart" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="PartName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="IdCustomer" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -986,44 +1031,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="FullOrderInfoes">
-            <EntityTypeMapping TypeName="CompServiceModel.FullOrderInfo">
-              <MappingFragment StoreEntitySet="FullOrderInfo">
-                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
-                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
-                <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
-                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
-                <ScalarProperty Name="Completed" ColumnName="Completed" />
-                <ScalarProperty Name="ServiceNames" ColumnName="ServiceNames" />
-                <ScalarProperty Name="MasterNames" ColumnName="MasterNames" />
-                <ScalarProperty Name="IdPart" ColumnName="IdPart" />
-                <ScalarProperty Name="PartName" ColumnName="PartName" />
-                <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FullOrderInfoWhenNotCompleteds">
-            <EntityTypeMapping TypeName="CompServiceModel.FullOrderInfoWhenNotCompleted">
-              <MappingFragment StoreEntitySet="FullOrderInfoWhenNotCompleted">
-                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
-                <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
-                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
-                <ScalarProperty Name="Completed" ColumnName="Completed" />
-                <ScalarProperty Name="ServiceNames" ColumnName="ServiceNames" />
-                <ScalarProperty Name="MasterNames" ColumnName="MasterNames" />
-                <ScalarProperty Name="IdPart" ColumnName="IdPart" />
-                <ScalarProperty Name="PartName" ColumnName="PartName" />
-                <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
-                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="MasterInfoes">
             <EntityTypeMapping TypeName="CompServiceModel.MasterInfo">
               <MappingFragment StoreEntitySet="MasterInfo">
@@ -1086,23 +1093,6 @@
               <ScalarProperty Name="IdService" ColumnName="IdService" />
             </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionName="Хранилище CompServiceModel.OrderInfoById" FunctionImportName="OrderInfoById">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="CompServiceModel.OrderInfoById_Result">
-                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
-                <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
-                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
-                <ScalarProperty Name="Completed" ColumnName="Completed" />
-                <ScalarProperty Name="ServiceNames" ColumnName="ServiceNames" />
-                <ScalarProperty Name="MasterNames" ColumnName="MasterNames" />
-                <ScalarProperty Name="IdPart" ColumnName="IdPart" />
-                <ScalarProperty Name="PartName" ColumnName="PartName" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionName="Хранилище CompServiceModel.PartsByIdOrder" FunctionImportName="PartsByIdOrder">
             <ResultMapping>
               <ComplexTypeMapping TypeName="CompServiceModel.PartsByIdOrder_Result">
@@ -1125,7 +1115,67 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="DeleteService" FunctionName="Хранилище CompServiceModel.DeleteService" />
           <FunctionImportMapping FunctionImportName="WindowsSale" FunctionName="Хранилище CompServiceModel.WindowsSale" />
-        </EntityContainerMapping>
+          <EntitySetMapping Name="Incomes">
+            <EntityTypeMapping TypeName="CompServiceModel.Income">
+              <MappingFragment StoreEntitySet="Income">
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="IncomeByMonthAndYear" FunctionName="Хранилище CompServiceModel.IncomeByMonthAndYear">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CompServiceModel.IncomeByMonthAndYear_Result">
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="FullOrderInfoes">
+            <EntityTypeMapping TypeName="CompServiceModel.FullOrderInfo">
+              <MappingFragment StoreEntitySet="FullOrderInfo">
+                <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
+                <ScalarProperty Name="PartName" ColumnName="PartName" />
+                <ScalarProperty Name="IdPart" ColumnName="IdPart" />
+                <ScalarProperty Name="MasterNames" ColumnName="MasterNames" />
+                <ScalarProperty Name="ServiceNames" ColumnName="ServiceNames" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+                <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FullOrderInfoWhenNotCompleteds">
+            <EntityTypeMapping TypeName="CompServiceModel.FullOrderInfoWhenNotCompleted">
+              <MappingFragment StoreEntitySet="FullOrderInfoWhenNotCompleted">
+                <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
+                <ScalarProperty Name="PartName" ColumnName="PartName" />
+                <ScalarProperty Name="IdPart" ColumnName="IdPart" />
+                <ScalarProperty Name="MasterNames" ColumnName="MasterNames" />
+                <ScalarProperty Name="ServiceNames" ColumnName="ServiceNames" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+                <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

@@ -22,23 +22,20 @@ namespace CompService.Supporting
 			}
 
 			string cryptedByteString = Convert.ToBase64String(encrypted);
-
 			return cryptedByteString;
 		}
 
 		public static string Decrypt(string data)
 		{
-			var decoded = Convert.FromBase64String(data);
+			var decrypted = Convert.FromBase64String(data);
+			byte[] encrypted = new byte[decrypted.Length];
 
-			byte[] result = new byte[decoded.Length];
-
-			for (int i = 0; i < decoded.Length; i++)
+			for (int i = 0; i < decrypted.Length; i++)
 			{
-				result[i] = (byte)(decoded[i] ^ cryptoKey);
+				encrypted[i] = (byte)(decrypted[i] ^ cryptoKey);
 			}
 
-			string decryptedByteString = Encoding.UTF8.GetString(result);
-
+			string decryptedByteString = Encoding.UTF8.GetString(encrypted);
 			return decryptedByteString;
 		}
 	}

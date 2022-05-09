@@ -78,7 +78,7 @@ namespace CompService
             this.loginTextBox.Name = "loginTextBox";
             this.loginTextBox.Size = new System.Drawing.Size(355, 47);
             this.loginTextBox.TabIndex = 3;
-            this.loginTextBox.Text = "meckbaig";
+            this.loginTextBox.Text = "qwerqwer";
             this.loginTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
             // 
             // passwordTextBox
@@ -88,7 +88,7 @@ namespace CompService
             this.passwordTextBox.PasswordChar = '*';
             this.passwordTextBox.Size = new System.Drawing.Size(355, 47);
             this.passwordTextBox.TabIndex = 4;
-            this.passwordTextBox.Text = "MeckbAdmin";
+            this.passwordTextBox.Text = "qwerqwer";
             this.passwordTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
             // 
             // loginButton
@@ -159,7 +159,8 @@ namespace CompService
             this.MaximumSize = new System.Drawing.Size(395, 521);
             this.MinimumSize = new System.Drawing.Size(395, 521);
             this.Name = "LoginForm";
-            this.Text = "LoginForm";
+            this.Text = "Авторизация";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LoginForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

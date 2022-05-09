@@ -28,9 +28,9 @@ namespace CompService.Presenters
                 view.Login = connectionData[2];
                 view.Password = connectionData[3];
             }
-            catch (Exception)
-            { 
-
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -2,12 +2,10 @@
 using CompService.Views;
 using CompService.Supporting;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Word = Microsoft.Office.Interop.Word;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace CompService.Presenters
 {
@@ -26,6 +24,7 @@ namespace CompService.Presenters
             this.view = view;
         }
 
+        #region SearchOrder
         public void OrdersLoad()
         {
             try
@@ -39,6 +38,63 @@ namespace CompService.Presenters
             }
         }
 
+        public void SearchOrder(string idSearchOrder, string fullNameSearch, string phoneNumberSearch,
+                                bool allowDateCheckBox, DateTime receiptDateSearch, bool allowCompletionDate,
+                                DateTime completionDateSearch, string defectDescriptionSearch,
+                                string serialNumberSearch, bool completedSearchCheckBox)
+        {
+            try
+            {
+                view.SearchData = model.SearchOrder(idSearchOrder, fullNameSearch, phoneNumberSearch, allowDateCheckBox,
+                                                    receiptDateSearch, allowCompletionDate, completionDateSearch,
+                                                    defectDescriptionSearch, serialNumberSearch, completedSearchCheckBox);
+                view.CurrentPage = view.CurrentPageMin = 1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        internal void Navigation(int pageSize, int currentPage)
+        {
+            try
+            {
+                var data = model.ReturnOrders();
+                var count = data.Count();
+                int amountPages = count / pageSize + (count % pageSize > 0 ? 1 : 0);
+                var skip = pageSize * (currentPage - 1);
+                var take = model.SearchDataOrderBy(skip, pageSize);
+                view.SearchData = take;
+                view.CurrentPageMax = amountPages;
+                view.ResultsAmount = Convert.ToString(count);
+                view.TotalPages = amountPages.ToString();
+                LockButtons(currentPage, amountPages);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        internal void LockButtons(int currentPage, int amountPages)
+        {
+            try
+            {
+                view.FirstPage = view.LeftPage = currentPage > 1;
+                if (view.CurrentPageMax == 1 || currentPage >= amountPages)
+                    view.LastPage = view.RightPage = false;
+                else
+                    view.LastPage = view.RightPage = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        #endregion
+
+        # region NewOrder/EditOrder
         public void EditOrdersLoad(int selectedId)
         {
             try
@@ -64,6 +120,45 @@ namespace CompService.Presenters
                 view.EditMasters = model.GetMastersNotInOrder(currentOrder.Masters);
                 view.EditParts = currentOrder.Parts.ToArray();
                 parceCustomerId = currentOrder.IdCustomer;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void ParceCustomer()
+        {
+            try
+            {
+                view.FullName = ParceCustomerIntoOrder.User.FullName;
+                view.PhoneNumber = ParceCustomerIntoOrder.User.PhoneNumber;
+                parceCustomerId = ParceCustomerIntoOrder.User.IdCustomer;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void ClearOrder()
+        {
+            try
+            {
+                view.FullName = null;
+                view.PhoneNumber = null;
+                view.ReceiptDate = DateTime.Now;
+                view.CompletionDate = DateTime.Now;
+                view.EnableCompletionDate = false;
+                view.CompletedSearch = false;
+                view.DefectDescription = null;
+                view.SerialNumber = null;
+                view.EditServicesInOrder = null;
+                view.EditMastersInOrder = null;
+                view.EditServices = Core.Context.Services.ToArray();
+                view.EditMasters = Core.Context.Masters.ToArray();
+                view.EditParts = null;
+                parceCustomerId = null;
             }
             catch (Exception ex)
             {
@@ -98,76 +193,23 @@ namespace CompService.Presenters
                 MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        #endregion
 
-        public void ClearOrder()
-        {
-            try
-            {
-                view.FullName = null;
-                view.PhoneNumber = null;
-                view.ReceiptDate = DateTime.Now;
-                view.CompletionDate = DateTime.Now;
-                view.EnableCompletionDate = false;
-                view.CompletedSearch = false;
-                view.DefectDescription = null;
-                view.SerialNumber = null;
-                view.EditServicesInOrder = null;
-                view.EditMastersInOrder = null;
-                view.EditServices = Core.Context.Services.ToArray();
-                view.EditMasters = Core.Context.Masters.ToArray();
-                view.EditParts = null;
-                parceCustomerId = null;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
+        #region Sort
         public void SortOrders(bool checkBoxChecked)
         {
             try
             {
-                view.SortData = model.SortOrders(checkBoxChecked);
+                view.SortData = model.SortOrders(checkBoxChecked, view.DateAscending, view.DateDescending);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        #endregion
 
-        public void SearchOrder(string idSearchOrder, string fullNameSearch, string phoneNumberSearch,
-                                bool allowDateCheckBox, DateTime receiptDateSearch, bool allowCompletionDate,
-                                DateTime completionDateSearch, string defectDescriptionSearch,
-                                string serialNumberSearch, bool completedSearchCheckBox)
-        {
-            try
-            {
-                view.SearchData = model.SearchOrder(idSearchOrder, fullNameSearch, phoneNumberSearch, allowDateCheckBox,
-                                                    receiptDateSearch, allowCompletionDate, completionDateSearch,
-                                                    defectDescriptionSearch, serialNumberSearch, completedSearchCheckBox);
-                view.CurrentPage = 1;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        public void ParceCustomer()
-        {
-            try
-            {
-                view.FullName = ParceCustomerIntoOrder.User.FullName;
-                view.PhoneNumber = ParceCustomerIntoOrder.User.PhoneNumber;
-                parceCustomerId = ParceCustomerIntoOrder.User.IdCustomer;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
+        #region MasterEdit
         public void SortMasters(string search, bool byName)
         {
             try
@@ -230,6 +272,33 @@ namespace CompService.Presenters
                 MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        #endregion
+
+        #region CheckOut
+        internal void CheckOutLoad(int selectedId)
+        {
+            try
+            {
+                view.ServicesInOrderData = Core.Context.ServicesByIdOrder(selectedId).ToList();
+                view.PartsInOrderData = Core.Context.PartsByIdOrder(selectedId).ToList();
+                checkOrder = Core.Context.Orders.FirstOrDefault(o => o.IdOrder == selectedId);
+                view.CheckIdOrder = Convert.ToString(checkOrder.IdOrder);
+                view.CheckReceiptDate = Convert.ToString(checkOrder.ReceiptDate.ToShortDateString());
+                if (checkOrder.CompletionDate == null)
+                    view.CheckCompletionDate = Convert.ToString(DateTime.Now);
+                else
+                    view.CheckCompletionDate = Convert.ToString(Convert.ToDateTime(checkOrder.CompletionDate.Value).ToShortDateString());
+                view.CheckFullName = checkOrder.FullName;
+                view.CheckPhoneNumber = checkOrder.PhoneNumber;
+                view.CheckSerialNumber = checkOrder.SerialNumber;
+                HideIfCompleted();
+                HideParts();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         internal void RecalculateTotalPrice()
         {
@@ -250,28 +319,6 @@ namespace CompService.Presenters
                     }
                 }
                 view.CheckTotalPrice = totalPrice.ToString();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        internal void CheckOutLoad(int selectedId)
-        {
-            try
-            {
-                view.ServicesInOrderData = Core.Context.ServicesByIdOrder(selectedId).ToList();
-                view.PartsInOrderData = Core.Context.PartsByIdOrder(selectedId).ToList();
-                checkOrder = Core.Context.Orders.FirstOrDefault(o => o.IdOrder == selectedId);
-                view.CheckIdOrder = Convert.ToString(checkOrder.IdOrder);
-                view.CheckReceiptDate = Convert.ToString(checkOrder.ReceiptDate.ToShortDateString());
-                view.CheckCompletionDate = Convert.ToString(DateTime.Now);
-                view.CheckFullName = checkOrder.FullName;
-                view.CheckPhoneNumber = checkOrder.PhoneNumber;
-                view.CheckSerialNumber = checkOrder.SerialNumber;
-                HideIfCompleted();
-                HideParts();
             }
             catch (Exception ex)
             {
@@ -314,57 +361,47 @@ namespace CompService.Presenters
         {
             try
             {
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
-                saveFileDialog.Filter = "DOCX|*.docx";
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                int rub = (int)Convert.ToDouble(view.CheckTotalPrice);
+                int cop = (int)((Convert.ToDouble(view.CheckTotalPrice) - rub) * 100);
+                var wordApp = new Word.Application();
+                var document = wordApp.Documents.Add(Environment.CurrentDirectory + @"\templates\template.docx");
+                document.Content.Find.Execute(FindText: "%IdOrder", ReplaceWith: view.CheckIdOrder, Replace: Word.WdReplace.wdReplaceOne);
+                document.Content.Find.Execute(FindText: "%CompletionDate", ReplaceWith: view.CheckCompletionDate, Replace: Word.WdReplace.wdReplaceOne);
+                document.Content.Find.Execute(FindText: "%FullName", ReplaceWith: view.CheckFullName, Replace: Word.WdReplace.wdReplaceOne);
+                document.Content.Find.Execute(FindText: "%ReceiptDate", ReplaceWith: view.CheckReceiptDate, Replace: Word.WdReplace.wdReplaceOne);
+                document.Content.Find.Execute(FindText: "%PhoneNumber", ReplaceWith: view.CheckPhoneNumber, Replace: Word.WdReplace.wdReplaceOne);
+                document.Content.Find.Execute(FindText: "%SerialNumber", ReplaceWith: view.CheckSerialNumber, Replace: Word.WdReplace.wdReplaceOne);
+                document.Content.Find.Execute(FindText: "%rubPrice", ReplaceWith: rub, Replace: Word.WdReplace.wdReplaceOne);
+                document.Content.Find.Execute(FindText: "%copPrice", ReplaceWith: cop, Replace: Word.WdReplace.wdReplaceOne);
+
+                var servicesTable = document.Tables[2];
+                var servicesData = view.ServicesInOrderData as object[][];
+                for (int i = 0; i < servicesData[1].Length; i++)
                 {
-                    int rub = (int)Convert.ToDouble(view.CheckTotalPrice);
-                    int cop = (int)((Convert.ToDouble(view.CheckTotalPrice) - rub) * 100);
-                    var wordApp = new Word.Application();
-                    wordApp.Visible = false;
-                    var document = wordApp.Documents.Add(Environment.CurrentDirectory + @"\templates\template.docx");
-                    document.Content.Find.Execute(FindText: "%IdOrder", ReplaceWith: view.CheckIdOrder, Replace: Word.WdReplace.wdReplaceOne);
-                    document.Content.Find.Execute(FindText: "%CompletionDate", ReplaceWith: view.CheckCompletionDate, Replace: Word.WdReplace.wdReplaceOne);
-                    document.Content.Find.Execute(FindText: "%FullName", ReplaceWith: view.CheckFullName, Replace: Word.WdReplace.wdReplaceOne);
-                    document.Content.Find.Execute(FindText: "%ReceiptDate", ReplaceWith: view.CheckReceiptDate, Replace: Word.WdReplace.wdReplaceOne);
-                    document.Content.Find.Execute(FindText: "%PhoneNumber", ReplaceWith: view.CheckPhoneNumber, Replace: Word.WdReplace.wdReplaceOne);
-                    document.Content.Find.Execute(FindText: "%SerialNumber", ReplaceWith: view.CheckSerialNumber, Replace: Word.WdReplace.wdReplaceOne);
-                    document.Content.Find.Execute(FindText: "%rubPrice", ReplaceWith: rub, Replace: Word.WdReplace.wdReplaceOne);
-                    document.Content.Find.Execute(FindText: "%copPrice", ReplaceWith: cop, Replace: Word.WdReplace.wdReplaceOne);
-
-                    var servicesTable = document.Tables[2];
-                    var servicesData = view.ServicesInOrderData as object[][];
-                    for (int i = 0; i < servicesData[1].Length; i++)
-                    {
-                        servicesTable.Rows.Add(servicesTable.Rows[i + 2]);
-                        servicesTable.Cell(i + 2, 1).Range.Text = servicesData[0][i].ToString();
-                        servicesTable.Cell(i + 2, 2).Range.Text = servicesData[1][i].ToString();
-                        servicesTable.Cell(i + 2, 3).Range.Text = servicesData[2][i].ToString();
-                        servicesTable.Cell(i + 2, 4).Range.Text = servicesData[3][i].ToString() + " руб.";
-                    }
-                    servicesTable.Rows.Last.Delete();
-
-                    if (view.PartsGridVisibility)
-                    {
-                        var partsTable = document.Tables[3];
-                        var partsData = view.PartsInOrderData as object[][];
-                        for (int i = 0; i < partsData[1].Length; i++)
-                        {
-                            partsTable.Rows.Add(partsTable.Rows[i + 2]);
-                            partsTable.Cell(i + 2, 1).Range.Text = partsData[0][i].ToString();
-                            partsTable.Cell(i + 2, 2).Range.Text = partsData[1][i].ToString();
-                            partsTable.Cell(i + 2, 3).Range.Text = partsData[2][i].ToString();
-                            partsTable.Cell(i + 2, 4).Range.Text = partsData[3][i].ToString() + " руб.";
-                        }
-                        partsTable.Rows.Last.Delete();
-                    }
-
-                    document.SaveAs(saveFileDialog.FileName);
-                    wordApp.Quit();
-                    MessageBox.Show("Чек сохранён", "Успешно!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    servicesTable.Rows.Add(servicesTable.Rows[i + 2]);
+                    servicesTable.Cell(i + 2, 1).Range.Text = servicesData[0][i].ToString();
+                    servicesTable.Cell(i + 2, 2).Range.Text = servicesData[1][i].ToString();
+                    servicesTable.Cell(i + 2, 3).Range.Text = servicesData[2][i].ToString();
+                    servicesTable.Cell(i + 2, 4).Range.Text = servicesData[3][i].ToString() + " руб.";
                 }
-                else
-                    MessageBox.Show("Чек не был сохранён", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                servicesTable.Rows.Last.Delete();
+
+                if (view.PartsGridVisibility)
+                {
+                    var partsTable = document.Tables[3];
+                    var partsData = view.PartsInOrderData as object[][];
+                    for (int i = 0; i < partsData[1].Length; i++)
+                    {
+                        partsTable.Rows.Add(partsTable.Rows[i + 2]);
+                        partsTable.Cell(i + 2, 1).Range.Text = partsData[0][i].ToString();
+                        partsTable.Cell(i + 2, 2).Range.Text = partsData[1][i].ToString();
+                        partsTable.Cell(i + 2, 3).Range.Text = partsData[2][i].ToString();
+                        partsTable.Cell(i + 2, 4).Range.Text = partsData[3][i].ToString() + " руб.";
+                    }
+                    partsTable.Rows.Last.Delete();
+                }
+
+                wordApp.Visible = true;
             }
             catch (Exception ex)
             {
@@ -376,9 +413,9 @@ namespace CompService.Presenters
         {
             try
             {
-                checkOrder.Completed = true;
                 checkOrder.CompletionDate = Convert.ToDateTime(view.CheckCompletionDate);
                 checkOrder.TotalPrice = Convert.ToDecimal(view.CheckTotalPrice);
+                Core.Context.Database.ExecuteSqlCommand($"DELETE FROM dbo.[Order] WHERE [Order].IdOrder = {checkOrder.IdOrder}");
                 Core.Context.SaveChanges();
                 MessageBox.Show("Заказ выдан", "Успешно!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 OrdersLoad();
@@ -388,42 +425,53 @@ namespace CompService.Presenters
                 MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        #endregion
 
-        internal void Navigation(int pageSize, int currentPage)
+        #region Report
+        internal void LoadReportData()
         {
-            try
-            {
-                var data = model.ReturnOrders();
-                var count = data.Count();
-                int amountPages = count / pageSize + (count % pageSize > 0 ? 1 : 0);
-                var skip = pageSize * (currentPage - 1);
-                var take = model.SearchDataOrderBy(skip, pageSize);
-                view.SearchData = take;
-                view.CurrentPageMax = amountPages;
-                view.ResultsAmount = Convert.ToString(count);
-                view.TotalPages = amountPages.ToString();
-                LockButtons(currentPage, amountPages);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            view.MonthlyReportData = Core.Context.IncomeByMonthAndYear((int)view.MonthReport, (int)view.YearReport);
         }
 
-        internal void LockButtons(int currentPage, int amountPages)
+        internal void ExportReport(int rowCount)
         {
-            try
+            Excel.Application excelApp = new Excel.Application();
+            Excel.Workbook workBook;
+            Excel.Worksheet workSheet;
+            workBook = excelApp.Workbooks.Add();
+            workSheet = (Excel.Worksheet)workBook.Worksheets.get_Item(1);
+
+            workSheet.Cells[1, 1] = "ID Заказа";
+            workSheet.Cells[1, 2] = "Имя заказчика";
+            workSheet.Cells[1, 3] = "Дата выполнения";
+            workSheet.Cells[1, 4] = "Выручка";
+            var reportData = view.MonthlyReportData as object[][];
+            for (int j = 1; j <= rowCount; j++)
             {
-                view.FirstPage = view.LeftPage = currentPage > 1;
-                if (view.CurrentPageMax == 1 || currentPage >= amountPages)
-                    view.LastPage = view.RightPage = false;
-                else
-                    view.LastPage = view.RightPage = true;
+                workSheet.Cells[j + 1, 1] = reportData[0][j - 1];
+                workSheet.Cells[j + 1, 2] = reportData[1][j - 1];
+                workSheet.Cells[j + 1, 3] = reportData[2][j - 1];
+                workSheet.Cells[j + 1, 4] = reportData[3][j - 1];
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            workSheet.Cells[rowCount + 2, 4].Formula = $"=SUM(D2:D{rowCount + 1})";
+            Excel.ChartObjects chartObjects = (Excel.ChartObjects)workSheet.ChartObjects();
+            Excel.ChartObject chartObject = chartObjects.Add(197, 7, 800, 200);
+            Excel.Chart xlChart = chartObject.Chart;
+            string sRange = "C1:D" + (rowCount + 1).ToString();
+            Excel.Range range = workSheet.Range[sRange];
+            xlChart.ChartType = Excel.XlChartType.xlColumnStacked;
+            xlChart.SetSourceData(range);
+
+            excelApp.Visible = true;
+            excelApp.UserControl = true;
         }
+
+        internal void LoadDateNow()
+        {
+            view.MonthReport = DateTime.Now.Month;
+            view.YearReport = DateTime.Now.Year;
+            LoadReportData();
+        }
+        #endregion
     }
 }

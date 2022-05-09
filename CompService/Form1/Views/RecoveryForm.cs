@@ -16,6 +16,9 @@ namespace CompService.Views
         public RecoveryForm()
         {
             InitializeComponent();
+            tabControl.Appearance = TabAppearance.FlatButtons;
+            tabControl.ItemSize = new Size(0, 1);
+            tabControl.SizeMode = TabSizeMode.Fixed;
         }
         Customer currentCustomer;
         public void ConfirmButton_Click(object sender, EventArgs e)
@@ -49,6 +52,14 @@ namespace CompService.Views
             }
             else
                 MessageBox.Show("Проверьте правильность ввода пароля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void RecoveryForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            {
+                LoginForm loginForm = new LoginForm();
+                loginForm.Show();
+            }
         }
     }
 }

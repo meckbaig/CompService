@@ -9,7 +9,7 @@ namespace CompService.Models
 {
     interface IMainModel
     {
-        object SortOrders(bool checkBoxChecked);
+        object SortOrders(bool checkBoxChecked, bool dateAscending, bool dateDescending);
 
         List<FullOrderInfo> SearchOrder(string idSearchOrder,
                                string fullNameSearch,

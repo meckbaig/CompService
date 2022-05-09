@@ -58,7 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core.cs" />
+    <Compile Include="Supporting\Core.cs" />
     <Compile Include="Models\CompServiceModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -87,6 +87,12 @@
       <DependentUpon>CompServiceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FullOrderInfoWhenNotCompleted.cs">
+      <DependentUpon>CompServiceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Income.cs">
+      <DependentUpon>CompServiceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IncomeByMonthAndYear_Result.cs">
       <DependentUpon>CompServiceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MainModel.cs" />
@@ -138,7 +144,7 @@
     <Compile Include="Presenters\MainPresenter.cs" />
     <Compile Include="Presenters\LoginPresenter.cs" />
     <Compile Include="Presenters\RegistrationPresenter.cs" />
-    <Compile Include="Supporting\ConnectionСryptography .cs" />
+    <Compile Include="Supporting\ConnectionСryptography.cs" />
     <Compile Include="Supporting\ParceCustomerIntoOrder.cs" />
     <Compile Include="Supporting\NewCustomer.cs" />
     <Compile Include="Supporting\CurrentUser.cs" />
@@ -283,6 +289,15 @@
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
       <VersionMajor>2</VersionMajor>
       <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>

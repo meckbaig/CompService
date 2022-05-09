@@ -40,12 +40,12 @@ namespace CompService.Views
             this.label5 = new System.Windows.Forms.Label();
             this.fullNameTextBox = new System.Windows.Forms.TextBox();
             this.newPasswordTabPage = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
             this.repeatPasswordTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.changePasswordButton = new System.Windows.Forms.Button();
             this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.userDataTabPage.SuspendLayout();
             this.newPasswordTabPage.SuspendLayout();
@@ -175,6 +175,17 @@ namespace CompService.Views
             this.newPasswordTabPage.TabIndex = 1;
             this.newPasswordTabPage.Text = "Новый пароль";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(11, 18);
+            this.label1.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(336, 39);
+            this.label1.TabIndex = 68;
+            this.label1.Text = "Введите новый пароль";
+            // 
             // repeatPasswordTextBox
             // 
             this.repeatPasswordTextBox.Location = new System.Drawing.Point(8, 207);
@@ -221,17 +232,6 @@ namespace CompService.Views
             this.label3.TabIndex = 24;
             this.label3.Text = "Пароль";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(11, 18);
-            this.label1.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(336, 39);
-            this.label1.TabIndex = 68;
-            this.label1.Text = "Введите новый пароль";
-            // 
             // RecoveryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
@@ -241,7 +241,8 @@ namespace CompService.Views
             this.MaximumSize = new System.Drawing.Size(395, 521);
             this.MinimumSize = new System.Drawing.Size(395, 521);
             this.Name = "RecoveryForm";
-            this.Text = "RecoveryForm";
+            this.Text = "Восстановление пароля";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.RecoveryForm_FormClosed);
             this.tabControl.ResumeLayout(false);
             this.userDataTabPage.ResumeLayout(false);
             this.userDataTabPage.PerformLayout();

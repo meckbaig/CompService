@@ -18,7 +18,7 @@ namespace CompService
         public NewPartForm(ref Part part)
         {
             InitializeComponent();
-            this.part = part;
+            this.part = part; 
         }
 
         private void SavePartButton_Click(object sender, EventArgs e)

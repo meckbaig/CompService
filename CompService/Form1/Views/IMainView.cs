@@ -13,12 +13,19 @@ namespace CompService.Views
         #region Pages
         decimal CurrentPage { set; get; }
         decimal CurrentPageMax { set; get; }
+        decimal CurrentPageMin { set; get; }
         string TotalPages { set; get; }
         string ResultsAmount { set; }
         bool FirstPage { set; }
         bool LeftPage { set; }
         bool RightPage { set; }
         bool LastPage { set; }
+        #endregion
+
+        #region Sort
+        bool DateAscending { get; }
+
+        bool DateDescending { get; }
         #endregion
 
         #region CreateOrderInterface
@@ -63,6 +70,12 @@ namespace CompService.Views
         bool PartsTitleVisibility { set; get; }
         bool IfCompletedVisibility { set; }
         bool IfCompletedTablesReadonly { set; }
+        #endregion
+
+        #region Report
+        object MonthlyReportData { set; get; }
+        decimal MonthReport { set; get; }
+        decimal YearReport { set; get; }
         #endregion
     }
 }

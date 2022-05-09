@@ -136,7 +136,7 @@ namespace CompService
             this.MaximumSize = new System.Drawing.Size(535, 330);
             this.MinimumSize = new System.Drawing.Size(535, 330);
             this.Name = "NewPartForm";
-            this.Text = "NewPartForm";
+            this.Text = "Добавление запчасти";
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

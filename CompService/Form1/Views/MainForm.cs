@@ -3,13 +3,8 @@ using CompService.Presenters;
 using CompService.Supporting;
 using CompService.Views;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CompService
@@ -17,7 +12,7 @@ namespace CompService
     public partial class MainForm : TemplateForm, IMainView
     {
         MainPresenter presenter;
-        int pageSize = 30;
+        int pageSize = 29;
         int currentPage = 1;
 
         public MainForm()
@@ -31,7 +26,11 @@ namespace CompService
         {
             set
             {
-                currentPageNumeric.Value = value;
+                try
+                {
+                    currentPageNumeric.Value = value;
+                }
+                catch (ArgumentOutOfRangeException) { }
             }
             get
             {
@@ -47,6 +46,17 @@ namespace CompService
             get
             {
                 return currentPageNumeric.Maximum;
+            }
+        }
+        public decimal CurrentPageMin
+        {
+            set
+            {
+                currentPageNumeric.Minimum = value;
+            }
+            get
+            {
+                return currentPageNumeric.Minimum;
             }
         }
         public string TotalPages
@@ -93,6 +103,24 @@ namespace CompService
             set
             {
                 lastPageButton.Enabled = value;
+            }
+        }
+        #endregion
+
+        #region Sort
+        public bool DateAscending
+        {
+            get
+            {
+                return dateAscendingRadioButton.Checked;
+            }
+        }
+
+        public bool DateDescending
+        {
+            get
+            {
+                return dateDescendingRadioButton.Checked;
             }
         }
         #endregion
@@ -532,14 +560,64 @@ namespace CompService
         }
         #endregion
 
+        #region Report
+        public object MonthlyReportData
+        {
+            set
+            {
+                monthlyReportGridView.DataSource = value;
+            }
+            get
+            {
+                object[][] result = new object[monthlyReportGridView.ColumnCount][];
+                for (int i = 0; i < monthlyReportGridView.ColumnCount; i++)
+                {
+                    result[i] = new object[monthlyReportGridView.RowCount];
+                    for (int j = 0; j < monthlyReportGridView.RowCount; j++)
+                    {
+                        result[i][j] = monthlyReportGridView[i, j].Value;
+                    }
+                }
+                return result;
+            }
+        }
+        public decimal MonthReport
+        {
+            set
+            {
+                monthNumeric.Value = value;
+            }
+            get
+            {
+                return monthNumeric.Value;
+            }
+        }
+        public decimal YearReport
+        {
+            set
+            {
+                yearNumeric.Value = value;
+            }
+            get
+            {
+                return yearNumeric.Value;
+            }
+        }
+
+        #endregion
+
         private void Form1_Load(object sender, EventArgs e)
         {
             if (CurrentUser.MasterUser?.User?.Role.ToString() == null)
-                adminFeaturesToolStripMenuItem.Visible = true;
+            {
+                adminFeaturesToolStripMenuItem.Visible = changeConnectionPropertiesButton.Visible = true;
+                Text = "Администратор";
+            }
             else
             {
                 currentUserLabel.Text = CurrentUser.MasterUser.FullName.ToString();
                 currentUserLabel.Visible = true;
+                Text = "Мастер";
             }
             tabControl.Appearance = TabAppearance.FlatButtons;
             tabControl.ItemSize = new Size(0, 1);
@@ -553,6 +631,7 @@ namespace CompService
             partsListBox.DisplayMember = "PartName";
         }
 
+        #region ToolStrips
         private void SearchOrderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             tabControl.SelectedTab = searchOrderTab;
@@ -583,24 +662,14 @@ namespace CompService
             mastersGridView.DataSource = Core.Context.MasterInfoes.ToArray();
         }
 
-        private void SortButton_Click(object sender, EventArgs e)
+        private void ToReportOutputToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            presenter.SortOrders(completedCheckBox.Checked);
+            tabControl.SelectedTab = monthlyReportTab;
+            presenter.LoadDateNow();
         }
+        #endregion
 
-        private void OrderBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-            this.orderBindingSource.EndEdit();
-        }
-
-        private void SaveButton_Click(object sender, EventArgs e)
-        {
-            presenter.SaveOrder();
-            presenter.Navigation(pageSize, currentPage);
-            tabControl.SelectedTab = searchOrderTab;
-        }
-
+        #region SearchOrder
         private void SearchButton_Click(object sender, EventArgs e)
         {
             presenter.SearchOrder(idSearchOrderTextBox.Text,
@@ -627,14 +696,13 @@ namespace CompService
                 mastersListBox.DisplayMember = "FullName";
                 mastersInOrderListBox.DisplayMember = "FullName";
                 partsListBox.DisplayMember = "PartName";
-                editLabel.Visible = true;
-                addLabel.Visible = false;
+                editLabel.Visible = enableCompletionDateCheckBox.Visible = true;
+                addLabel.Visible = accountLinkButton.Visible = false;
                 completedEditCheckBox.Visible = true;
-                enableCompletionDateCheckBox.Visible = true;
-                accountLinkButton.Visible = false;
                 tabControl.SelectedTab = newOrderTab;
             }
         }
+
         private void CheckOutOrderButton_Click(object sender, EventArgs e)
         {
             int selectedOrderId = Convert.ToInt32(searchGridView.CurrentRow.Cells[0].Value);
@@ -642,35 +710,53 @@ namespace CompService
             tabControl.SelectedTab = checkOutOrderTab;
         }
 
-        private void RecalculatePriceButton_Click(object sender, EventArgs e)
+        #endregion
+
+        #region Navigation
+        private void FirstPageButton_Click(object sender, EventArgs e)
         {
-            presenter.RecalculateTotalPrice();
+            currentPageNumeric.Value = 1;
         }
 
-        private void SearchMasterButton_Click(object sender, EventArgs e)
+        private void LeftPageButton_Click(object sender, EventArgs e)
         {
-            presenter.SortMasters(searchTextBox.Text, fullNameRadioButton.Checked);
+            if (currentPageNumeric.Value > currentPageNumeric.Minimum)
+                currentPageNumeric.Value--;
         }
 
-        private void ChooseMasterButton_Click(object sender, EventArgs e)
+        private void RightPageButton_Click(object sender, EventArgs e)
         {
-            int selectedMasterId = Convert.ToInt32(mastersGridView.CurrentRow.Cells[0].Value);
-            presenter.EditMasterLoad(selectedMasterId);
-            masterLabel.Text = "Редактирование аккаунта мастера";
-            tabControl.SelectedTab = editMasterTab;
+            if (currentPageNumeric.Value < currentPageNumeric.Maximum)
+                currentPageNumeric.Value++;
         }
-        private void CreateMasterButton_Click(object sender, EventArgs e)
+
+        private void LastPageButton_Click(object sender, EventArgs e)
         {
-            masterLabel.Text = "Создание аккаунта мастера";
-            tabControl.SelectedTab = editMasterTab;
+            currentPageNumeric.Value = currentPageNumeric.Maximum;
         }
-        private void SaveMasterInfoButton_Click(object sender, EventArgs e)
+
+        private void CurrentPageNumeric_ValueChanged(object sender, EventArgs e)
         {
-            presenter.SaveMaster();
-            MessageBox.Show("Успешко!", "Сохранено!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            presenter.OrdersLoad();
+            currentPage = (int)currentPageNumeric.Value;
             presenter.Navigation(pageSize, currentPage);
-            tabControl.SelectedTab = searchOrderTab;
+        }
+        #endregion
+
+        #region NewOrder/EditOrder
+        private void AccountLinkButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CustomerLink customerLink = new CustomerLink();
+                if (customerLink.ShowDialog() == DialogResult.OK)
+                {
+                    presenter.ParceCustomer();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void SwitchItemListBox(ListBox sender, ListBox receiver)
@@ -682,23 +768,6 @@ namespace CompService
                     var item = sender.SelectedItem;
                     receiver.Items.Add(item);
                     sender.Items.Remove(item);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        public void DeletePartListBox(ListBox sender)
-        {
-            try
-            {
-                if (sender.SelectedItem != null)
-                {
-                    var item = sender.SelectedItem;
-                    sender.Items.Remove(item);
-                    if (Core.Context.Parts.Equals(item))
-                        Core.Context.Parts.Remove(item as Part);
                 }
             }
             catch (Exception ex)
@@ -744,14 +813,16 @@ namespace CompService
             }
         }
 
-        private void AccountLinkButton_Click(object sender, EventArgs e)
+        public void DeletePartListBox(ListBox sender)
         {
             try
             {
-                CustomerLink customerLink = new CustomerLink();
-                if (customerLink.ShowDialog() == DialogResult.OK)
+                if (sender.SelectedItem != null)
                 {
-                    presenter.ParceCustomer();
+                    var item = sender.SelectedItem;
+                    sender.Items.Remove(item);
+                    if (Core.Context.Parts.Equals(item))
+                        Core.Context.Parts.Remove(item as Part);
                 }
             }
             catch (Exception ex)
@@ -760,14 +831,16 @@ namespace CompService
             }
         }
 
-        private void SaveChangesButton_Click(object sender, EventArgs e)
-        {
-            presenter.SaveOrder();
-        }
-
         private void DeletePartButton_Click(object sender, EventArgs e)
         {
             DeletePartListBox(partsListBox);
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            presenter.SaveOrder();
+            presenter.Navigation(pageSize, currentPage);
+            tabControl.SelectedTab = searchOrderTab;
         }
 
         private void EnableCompletionDateCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -776,6 +849,50 @@ namespace CompService
                 completionDateDateTimePicker.Enabled = true;
             else
                 completionDateDateTimePicker.Enabled = false;
+        }
+        #endregion
+
+        #region Sort
+        private void SortButton_Click(object sender, EventArgs e)
+        {
+            presenter.SortOrders(completedCheckBox.Checked);
+        }
+        #endregion
+
+        #region MasterEdit
+        private void SearchMasterButton_Click(object sender, EventArgs e)
+        {
+            presenter.SortMasters(searchTextBox.Text, fullNameRadioButton.Checked);
+        }
+
+        private void ChooseMasterButton_Click(object sender, EventArgs e)
+        {
+            int selectedMasterId = Convert.ToInt32(mastersGridView.CurrentRow.Cells[0].Value);
+            presenter.EditMasterLoad(selectedMasterId);
+            masterLabel.Text = "Редактирование аккаунта мастера";
+            tabControl.SelectedTab = editMasterTab;
+        }
+
+        private void CreateMasterButton_Click(object sender, EventArgs e)
+        {
+            masterLabel.Text = "Создание аккаунта мастера";
+            tabControl.SelectedTab = editMasterTab;
+        }
+
+        private void SaveMasterInfoButton_Click(object sender, EventArgs e)
+        {
+            presenter.SaveMaster();
+            MessageBox.Show("Успешко!", "Сохранено!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            presenter.OrdersLoad();
+            presenter.Navigation(pageSize, currentPage);
+            tabControl.SelectedTab = searchOrderTab;
+        }
+        #endregion
+
+        #region CheckOut
+        private void RecalculatePriceButton_Click(object sender, EventArgs e)
+        {
+            presenter.RecalculateTotalPrice();
         }
 
         private void SaveCheckButton_Click(object sender, EventArgs e)
@@ -789,34 +906,19 @@ namespace CompService
             tabControl.SelectedTab = searchOrderTab;
             presenter.Navigation(pageSize, currentPage);
         }
+        #endregion
 
-        private void FirstPageButton_Click(object sender, EventArgs e)
+        #region Report
+        private void ExportReportButton_Click(object sender, EventArgs e)
         {
-            currentPageNumeric.Value = 1;
+            presenter.ExportReport(monthlyReportGridView.RowCount);
         }
 
-        private void LeftPageButton_Click(object sender, EventArgs e)
+        private void ReportDate_ValueChanged(object sender, EventArgs e)
         {
-            if (currentPageNumeric.Value > currentPageNumeric.Minimum)
-                currentPageNumeric.Value--;
+            presenter.LoadReportData();
         }
-
-        private void RightPageButton_Click(object sender, EventArgs e)
-        {
-            if(currentPageNumeric.Value < currentPageNumeric.Maximum)
-                currentPageNumeric.Value++;
-        }
-
-        private void LastPageButton_Click(object sender, EventArgs e)
-        {
-            currentPageNumeric.Value = currentPageNumeric.Maximum;
-        }
-
-        private void CurrentPageNumeric_ValueChanged(object sender, EventArgs e)
-        {
-            currentPage = (int)currentPageNumeric.Value;
-            presenter.Navigation(pageSize, currentPage);
-        }
+        #endregion
 
         private void ChangeConnectionPropertiesButton_Click(object sender, EventArgs e)
         {
