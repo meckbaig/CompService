@@ -665,7 +665,7 @@ namespace CompService
         private void ToEditMasterToolStripMenuItem_Click(object sender, EventArgs e)
         {
             tabControl.SelectedTab = mastersTableTab;
-            mastersGridView.DataSource = Core.Context.MasterInfoes.ToArray();
+            mastersGridView.DataSource = Core.Context.MasterInfoes.AsNoTracking().ToArray();
         }
 
         private void ToReportOutputToolStripMenuItem_Click(object sender, EventArgs e)
