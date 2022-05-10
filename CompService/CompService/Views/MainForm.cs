@@ -894,11 +894,14 @@ namespace CompService
 
         private void SaveMasterInfoButton_Click(object sender, EventArgs e)
         {
-            presenter.SaveMaster();
-            MessageBox.Show("Успешно!", "Сохранено!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            presenter.OrdersLoad();
-            presenter.Navigation(pageSize, currentPage);
-            tabControl.SelectedTab = searchOrderTab;
+            if (presenter.MasterInfoChanged())
+            {
+                presenter.SaveMaster();
+                MessageBox.Show("Успешно!", "Сохранено!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                presenter.OrdersLoad();
+                presenter.Navigation(pageSize, currentPage);
+                tabControl.SelectedTab = searchOrderTab;
+            }
         }
         #endregion
 

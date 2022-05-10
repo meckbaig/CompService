@@ -295,6 +295,11 @@ namespace CompService.Presenters
                 MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        internal bool MasterInfoChanged()
+        {
+            return view.MasterName != editMaster.FullName || view.MasterLogin != editMaster.User.Login || view.MasterPassword != editMaster.User.Password;
+        }
         #endregion
 
         #region CheckOut
