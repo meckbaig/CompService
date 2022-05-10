@@ -1,0 +1,86 @@
+D:\System Programs\VisualProject\CompService\Form1\bin\Debug\CompService.exe.config
+D:\System Programs\VisualProject\CompService\Form1\bin\Debug\CompService.exe
+D:\System Programs\VisualProject\CompService\Form1\bin\Debug\CompService.pdb
+D:\System Programs\VisualProject\CompService\Form1\bin\Debug\EntityFramework.dll
+D:\System Programs\VisualProject\CompService\Form1\bin\Debug\EntityFramework.SqlServer.dll
+D:\System Programs\VisualProject\CompService\Form1\bin\Debug\EntityFramework.xml
+D:\System Programs\VisualProject\CompService\Form1\bin\Debug\EntityFramework.SqlServer.xml
+D:\System Programs\VisualProject\CompService\Form1\bin\Debug\ru\EntityFramework.resources.dll
+D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.csproj.ResolveComReference.cache
+D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.Views.CustomerLink.resources
+D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.MainForm.resources
+D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.Views.ConnectionForm.resources
+D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.CustomerForm.resources
+D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.LoginForm.resources
+D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.NewPartForm.resources
+D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.Properties.Resources.resources
+D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.Views.RecoveryForm.resources
+D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.RegistrationForm.resources
+D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.TemplateForm.resources
+D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.csproj.GenerateResource.cache
+D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.csproj.CoreCompileInputs.cache
+D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.csproj.CopyComplete
+D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.exe
+D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.pdb
+D:\System Programs\VisualProject\CompService\Form1\bin\Debug\CompService.exe.manifest
+D:\System Programs\VisualProject\CompService\Form1\bin\Debug\CompService.application
+D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.exe.manifest
+D:\System Programs\VisualProject\CompService\Form1\obj\Debug\CompService.application
+D:\System Programs\VisualProject\CompService\CompService\bin\Debug\CompService.exe.config
+D:\System Programs\VisualProject\CompService\CompService\bin\Debug\CompService.exe.manifest
+D:\System Programs\VisualProject\CompService\CompService\bin\Debug\CompService.application
+D:\System Programs\VisualProject\CompService\CompService\bin\Debug\CompService.exe
+D:\System Programs\VisualProject\CompService\CompService\bin\Debug\CompService.pdb
+D:\System Programs\VisualProject\CompService\CompService\bin\Debug\EntityFramework.dll
+D:\System Programs\VisualProject\CompService\CompService\bin\Debug\EntityFramework.SqlServer.dll
+D:\System Programs\VisualProject\CompService\CompService\bin\Debug\EntityFramework.xml
+D:\System Programs\VisualProject\CompService\CompService\bin\Debug\EntityFramework.SqlServer.xml
+D:\System Programs\VisualProject\CompService\CompService\bin\Debug\ru\EntityFramework.resources.dll
+D:\System Programs\VisualProject\CompService\CompService\obj\Debug\CompService.csproj.AssemblyReference.cache
+D:\System Programs\VisualProject\CompService\CompService\obj\Debug\CompService.csproj.ResolveComReference.cache
+D:\System Programs\VisualProject\CompService\CompService\obj\Debug\CompService.Views.CustomerLink.resources
+D:\System Programs\VisualProject\CompService\CompService\obj\Debug\CompService.MainForm.resources
+D:\System Programs\VisualProject\CompService\CompService\obj\Debug\CompService.Views.ConnectionForm.resources
+D:\System Programs\VisualProject\CompService\CompService\obj\Debug\CompService.CustomerForm.resources
+D:\System Programs\VisualProject\CompService\CompService\obj\Debug\CompService.LoginForm.resources
+D:\System Programs\VisualProject\CompService\CompService\obj\Debug\CompService.NewPartForm.resources
+D:\System Programs\VisualProject\CompService\CompService\obj\Debug\CompService.Properties.Resources.resources
+D:\System Programs\VisualProject\CompService\CompService\obj\Debug\CompService.Views.RecoveryForm.resources
+D:\System Programs\VisualProject\CompService\CompService\obj\Debug\CompService.RegistrationForm.resources
+D:\System Programs\VisualProject\CompService\CompService\obj\Debug\CompService.TemplateForm.resources
+D:\System Programs\VisualProject\CompService\CompService\obj\Debug\CompService.csproj.GenerateResource.cache
+D:\System Programs\VisualProject\CompService\CompService\obj\Debug\CompService.csproj.CoreCompileInputs.cache
+D:\System Programs\VisualProject\CompService\CompService\obj\Debug\CompService.exe.manifest
+D:\System Programs\VisualProject\CompService\CompService\obj\Debug\CompService.application
+D:\System Programs\VisualProject\CompService\CompService\obj\Debug\CompService.csproj.CopyComplete
+D:\System Programs\VisualProject\CompService\CompService\obj\Debug\CompService.exe
+D:\System Programs\VisualProject\CompService\CompService\obj\Debug\CompService.pdb
+E:\User\Downloads\cp\CompService\CompService\bin\Debug\CompService.exe.config
+E:\User\Downloads\cp\CompService\CompService\bin\Debug\CompService.exe.manifest
+E:\User\Downloads\cp\CompService\CompService\bin\Debug\CompService.application
+E:\User\Downloads\cp\CompService\CompService\bin\Debug\CompService.exe
+E:\User\Downloads\cp\CompService\CompService\bin\Debug\CompService.pdb
+E:\User\Downloads\cp\CompService\CompService\bin\Debug\EntityFramework.dll
+E:\User\Downloads\cp\CompService\CompService\bin\Debug\EntityFramework.SqlServer.dll
+E:\User\Downloads\cp\CompService\CompService\bin\Debug\EntityFramework.xml
+E:\User\Downloads\cp\CompService\CompService\bin\Debug\EntityFramework.SqlServer.xml
+E:\User\Downloads\cp\CompService\CompService\bin\Debug\ru\EntityFramework.resources.dll
+E:\User\Downloads\cp\CompService\CompService\obj\Debug\CompService.csproj.AssemblyReference.cache
+E:\User\Downloads\cp\CompService\CompService\obj\Debug\CompService.csproj.ResolveComReference.cache
+E:\User\Downloads\cp\CompService\CompService\obj\Debug\CompService.Views.CustomerLink.resources
+E:\User\Downloads\cp\CompService\CompService\obj\Debug\CompService.MainForm.resources
+E:\User\Downloads\cp\CompService\CompService\obj\Debug\CompService.Views.ConnectionForm.resources
+E:\User\Downloads\cp\CompService\CompService\obj\Debug\CompService.CustomerForm.resources
+E:\User\Downloads\cp\CompService\CompService\obj\Debug\CompService.LoginForm.resources
+E:\User\Downloads\cp\CompService\CompService\obj\Debug\CompService.NewPartForm.resources
+E:\User\Downloads\cp\CompService\CompService\obj\Debug\CompService.Properties.Resources.resources
+E:\User\Downloads\cp\CompService\CompService\obj\Debug\CompService.Views.RecoveryForm.resources
+E:\User\Downloads\cp\CompService\CompService\obj\Debug\CompService.RegistrationForm.resources
+E:\User\Downloads\cp\CompService\CompService\obj\Debug\CompService.TemplateForm.resources
+E:\User\Downloads\cp\CompService\CompService\obj\Debug\CompService.csproj.GenerateResource.cache
+E:\User\Downloads\cp\CompService\CompService\obj\Debug\CompService.csproj.CoreCompileInputs.cache
+E:\User\Downloads\cp\CompService\CompService\obj\Debug\CompService.exe.manifest
+E:\User\Downloads\cp\CompService\CompService\obj\Debug\CompService.application
+E:\User\Downloads\cp\CompService\CompService\obj\Debug\CompService.csproj.CopyComplete
+E:\User\Downloads\cp\CompService\CompService\obj\Debug\CompService.exe
+E:\User\Downloads\cp\CompService\CompService\obj\Debug\CompService.pdb

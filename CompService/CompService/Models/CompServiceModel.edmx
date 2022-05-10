@@ -1,0 +1,1201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище CompServiceModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="IdCustomer" />
+          </Key>
+          <Property Name="IdCustomer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUser" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="char" MaxLength="11" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DeletedService">
+          <Key>
+            <PropertyRef Name="IdService" />
+          </Key>
+          <Property Name="IdService" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Category" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Master">
+          <Key>
+            <PropertyRef Name="IdMaster" />
+          </Key>
+          <Property Name="IdMaster" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUser" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MasterInOrder">
+          <Key>
+            <PropertyRef Name="IdMaster" />
+            <PropertyRef Name="IdOrder" />
+          </Key>
+          <Property Name="IdMaster" Type="int" Nullable="false" />
+          <Property Name="IdOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+          </Key>
+          <Property Name="IdOrder" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCustomer" Type="int" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="ReceiptDate" Type="date" Nullable="false" />
+          <Property Name="CompletionDate" Type="date" />
+          <Property Name="DefectDescription" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="SerialNumber" Type="nvarchar" MaxLength="30" />
+          <Property Name="Completed" Type="bit" Nullable="false" />
+          <Property Name="TotalPrice" Type="decimal" Precision="9" Scale="2" />
+        </EntityType>
+        <EntityType Name="Parts">
+          <Key>
+            <PropertyRef Name="IdPart" />
+          </Key>
+          <Property Name="IdPart" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdOrder" Type="int" Nullable="false" />
+          <Property Name="PartName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SerialNumber" Type="nvarchar" MaxLength="30" />
+          <Property Name="Price" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="IdRole" />
+          </Key>
+          <Property Name="IdRole" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="IdService" />
+          </Key>
+          <Property Name="IdService" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Category" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ServiceInOrder">
+          <Key>
+            <PropertyRef Name="IdService" />
+            <PropertyRef Name="IdOrder" />
+          </Key>
+          <Property Name="IdService" Type="int" Nullable="false" />
+          <Property Name="IdOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdRole" Type="int" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "CompService.dbo.CustomerInfo" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="CustomerInfo">
+          <Key>
+            <PropertyRef Name="IdCustomer" />
+            <PropertyRef Name="IdUser" />
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="PhoneNumber" />
+          </Key>
+          <Property Name="IdCustomer" Type="int" Nullable="false" />
+          <Property Name="IdUser" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "CompService.dbo.FullOrderInfo" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="FullOrderInfo">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="PhoneNumber" />
+            <PropertyRef Name="ReceiptDate" />
+            <PropertyRef Name="DefectDescription" />
+            <PropertyRef Name="Completed" />
+          </Key>
+          <Property Name="IdOrder" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="ReceiptDate" Type="date" Nullable="false" />
+          <Property Name="CompletionDate" Type="date" />
+          <Property Name="DefectDescription" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="SerialNumber" Type="nvarchar" MaxLength="30" />
+          <Property Name="Completed" Type="bit" Nullable="false" />
+          <Property Name="ServiceNames" Type="nvarchar" MaxLength="4000" />
+          <Property Name="MasterNames" Type="nvarchar" MaxLength="4000" />
+          <Property Name="IdPart" Type="nvarchar" MaxLength="4000" />
+          <Property Name="PartName" Type="nvarchar" MaxLength="4000" />
+          <Property Name="IdCustomer" Type="int" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "CompService.dbo.FullOrderInfoWhenNotCompleted" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="FullOrderInfoWhenNotCompleted">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="PhoneNumber" />
+            <PropertyRef Name="ReceiptDate" />
+            <PropertyRef Name="DefectDescription" />
+            <PropertyRef Name="Completed" />
+          </Key>
+          <Property Name="IdOrder" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="ReceiptDate" Type="date" Nullable="false" />
+          <Property Name="CompletionDate" Type="date" />
+          <Property Name="DefectDescription" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="SerialNumber" Type="nvarchar" MaxLength="30" />
+          <Property Name="Completed" Type="bit" Nullable="false" />
+          <Property Name="ServiceNames" Type="nvarchar" MaxLength="4000" />
+          <Property Name="MasterNames" Type="nvarchar" MaxLength="4000" />
+          <Property Name="IdPart" Type="nvarchar" MaxLength="4000" />
+          <Property Name="PartName" Type="nvarchar" MaxLength="4000" />
+          <Property Name="IdCustomer" Type="int" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "CompService.dbo.Income" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Income">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+            <PropertyRef Name="FullName" />
+          </Key>
+          <Property Name="IdOrder" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CompletionDate" Type="date" />
+          <Property Name="TotalPrice" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="Month" Type="int" />
+          <Property Name="Year" Type="int" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "CompService.dbo.MasterInfo" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="MasterInfo">
+          <Key>
+            <PropertyRef Name="IdMaster" />
+            <PropertyRef Name="IdUser" />
+            <PropertyRef Name="FullName" />
+          </Key>
+          <Property Name="IdMaster" Type="int" Nullable="false" />
+          <Property Name="IdUser" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="30" />
+          <Property Name="Password" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "CompService.dbo.OrderInfo" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="OrderInfo">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="PhoneNumber" />
+            <PropertyRef Name="ReceiptDate" />
+            <PropertyRef Name="DefectDescription" />
+            
+          </Key>
+          <Property Name="IdOrder" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="ReceiptDate" Type="date" Nullable="false" />
+          <Property Name="CompletionDate" Type="date" />
+          <Property Name="DefectDescription" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="SerialNumber" Type="nvarchar" MaxLength="30" />
+          <Property Name="Completed" Type="bit" Nullable="false" />
+          <Property Name="ServiceNames" Type="nvarchar" MaxLength="4000" />
+          <Property Name="IdPart" Type="nvarchar" MaxLength="4000" />
+          <Property Name="PartName" Type="nvarchar" MaxLength="4000" />
+          <Property Name="IdCustomer" Type="int" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "CompService.dbo.OrderInfoWithParts" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="OrderInfoWithParts">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="PhoneNumber" />
+            <PropertyRef Name="ReceiptDate" />
+            <PropertyRef Name="DefectDescription" />
+          </Key>
+          <Property Name="IdOrder" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="ReceiptDate" Type="date" Nullable="false" />
+          <Property Name="CompletionDate" Type="date" />
+          <Property Name="DefectDescription" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="SerialNumber" Type="nvarchar" MaxLength="30" />
+          <Property Name="Completed" Type="bit" />
+          <Property Name="IdPart" Type="nvarchar" MaxLength="4000" />
+          <Property Name="PartName" Type="nvarchar" MaxLength="4000" />
+          <Property Name="IdCustomer" Type="int" />
+        </EntityType>
+        <Association Name="FK_Customer_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Master_User1">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Master" Type="Self.Master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Master">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MasterInOrder_Master">
+          <End Role="Master" Type="Self.Master" Multiplicity="1" />
+          <End Role="MasterInOrder" Type="Self.MasterInOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master">
+              <PropertyRef Name="IdMaster" />
+            </Principal>
+            <Dependent Role="MasterInOrder">
+              <PropertyRef Name="IdMaster" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MasterInOrder_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="MasterInOrder" Type="Self.MasterInOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="IdOrder" />
+            </Principal>
+            <Dependent Role="MasterInOrder">
+              <PropertyRef Name="IdOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="IdCustomer" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="IdCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PCParts_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Parts" Type="Self.Parts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="IdOrder" />
+            </Principal>
+            <Dependent Role="Parts">
+              <PropertyRef Name="IdOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceInOrder_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="ServiceInOrder" Type="Self.ServiceInOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="IdOrder" />
+            </Principal>
+            <Dependent Role="ServiceInOrder">
+              <PropertyRef Name="IdOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceInOrder_Service">
+          <End Role="Service" Type="Self.Service" Multiplicity="1" />
+          <End Role="ServiceInOrder" Type="Self.ServiceInOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="IdService" />
+            </Principal>
+            <Dependent Role="ServiceInOrder">
+              <PropertyRef Name="IdService" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IdRole" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="DeleteService" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="IncomeByMonthAndYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="month" Type="int" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="IdOrder" Type="int" Nullable="false" />
+                <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+                <Property Name="CompletionDate" Type="date" />
+                <Property Name="TotalPrice" Type="decimal" Precision="9" Scale="2" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="PartsByIdOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idOrder" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="IdPart" Type="int" />
+                <Property Name="PartName" Type="nvarchar" MaxLength="50" />
+                <Property Name="SerialNumber" Type="nvarchar" MaxLength="30" />
+                <Property Name="Price" Type="decimal" Precision="8" Scale="2" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="ServicesByIdOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idOrder" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="IdService" Type="int" />
+                <Property Name="ServiceName" Type="nvarchar" MaxLength="100" />
+                <Property Name="Category" Type="nvarchar" MaxLength="50" />
+                <Property Name="Price" Type="decimal" Precision="8" Scale="2" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="ServicesInOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="WindowsSale" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="discount" Type="int" Mode="In" />
+          <Parameter Name="rowCount" Type="int" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="Хранилище CompServiceModelContainer">
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DeletedService" EntityType="Self.DeletedService" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Master" EntityType="Self.Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MasterInOrder" EntityType="Self.MasterInOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parts" EntityType="Self.Parts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServiceInOrder" EntityType="Self.ServiceInOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerInfo" EntityType="Self.CustomerInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CustomerInfo].[IdCustomer] AS [IdCustomer], 
+    [CustomerInfo].[IdUser] AS [IdUser], 
+    [CustomerInfo].[FullName] AS [FullName], 
+    [CustomerInfo].[PhoneNumber] AS [PhoneNumber], 
+    [CustomerInfo].[Login] AS [Login]
+    FROM [dbo].[CustomerInfo] AS [CustomerInfo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="FullOrderInfo" EntityType="Self.FullOrderInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [FullOrderInfo].[IdOrder] AS [IdOrder], 
+    [FullOrderInfo].[FullName] AS [FullName], 
+    [FullOrderInfo].[PhoneNumber] AS [PhoneNumber], 
+    [FullOrderInfo].[ReceiptDate] AS [ReceiptDate], 
+    [FullOrderInfo].[CompletionDate] AS [CompletionDate], 
+    [FullOrderInfo].[DefectDescription] AS [DefectDescription], 
+    [FullOrderInfo].[SerialNumber] AS [SerialNumber], 
+    [FullOrderInfo].[Completed] AS [Completed], 
+    [FullOrderInfo].[ServiceNames] AS [ServiceNames], 
+    [FullOrderInfo].[MasterNames] AS [MasterNames], 
+    [FullOrderInfo].[IdPart] AS [IdPart], 
+    [FullOrderInfo].[PartName] AS [PartName], 
+    [FullOrderInfo].[IdCustomer] AS [IdCustomer]
+    FROM [dbo].[FullOrderInfo] AS [FullOrderInfo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="FullOrderInfoWhenNotCompleted" EntityType="Self.FullOrderInfoWhenNotCompleted" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [FullOrderInfoWhenNotCompleted].[IdOrder] AS [IdOrder], 
+    [FullOrderInfoWhenNotCompleted].[FullName] AS [FullName], 
+    [FullOrderInfoWhenNotCompleted].[PhoneNumber] AS [PhoneNumber], 
+    [FullOrderInfoWhenNotCompleted].[ReceiptDate] AS [ReceiptDate], 
+    [FullOrderInfoWhenNotCompleted].[CompletionDate] AS [CompletionDate], 
+    [FullOrderInfoWhenNotCompleted].[DefectDescription] AS [DefectDescription], 
+    [FullOrderInfoWhenNotCompleted].[SerialNumber] AS [SerialNumber], 
+    [FullOrderInfoWhenNotCompleted].[Completed] AS [Completed], 
+    [FullOrderInfoWhenNotCompleted].[ServiceNames] AS [ServiceNames], 
+    [FullOrderInfoWhenNotCompleted].[MasterNames] AS [MasterNames], 
+    [FullOrderInfoWhenNotCompleted].[IdPart] AS [IdPart], 
+    [FullOrderInfoWhenNotCompleted].[PartName] AS [PartName], 
+    [FullOrderInfoWhenNotCompleted].[IdCustomer] AS [IdCustomer]
+    FROM [dbo].[FullOrderInfoWhenNotCompleted] AS [FullOrderInfoWhenNotCompleted]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Income" EntityType="Self.Income" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Income].[IdOrder] AS [IdOrder], 
+    [Income].[FullName] AS [FullName], 
+    [Income].[CompletionDate] AS [CompletionDate], 
+    [Income].[TotalPrice] AS [TotalPrice], 
+    [Income].[Month] AS [Month], 
+    [Income].[Year] AS [Year]
+    FROM [dbo].[Income] AS [Income]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="MasterInfo" EntityType="Self.MasterInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MasterInfo].[IdMaster] AS [IdMaster], 
+    [MasterInfo].[IdUser] AS [IdUser], 
+    [MasterInfo].[FullName] AS [FullName], 
+    [MasterInfo].[Login] AS [Login], 
+    [MasterInfo].[Password] AS [Password]
+    FROM [dbo].[MasterInfo] AS [MasterInfo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="OrderInfo" EntityType="Self.OrderInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [OrderInfo].[IdOrder] AS [IdOrder], 
+    [OrderInfo].[FullName] AS [FullName], 
+    [OrderInfo].[PhoneNumber] AS [PhoneNumber], 
+    [OrderInfo].[ReceiptDate] AS [ReceiptDate], 
+    [OrderInfo].[CompletionDate] AS [CompletionDate], 
+    [OrderInfo].[DefectDescription] AS [DefectDescription], 
+    [OrderInfo].[SerialNumber] AS [SerialNumber], 
+    [OrderInfo].[Completed] AS [Completed], 
+    [OrderInfo].[ServiceNames] AS [ServiceNames], 
+    [OrderInfo].[IdPart] AS [IdPart], 
+    [OrderInfo].[PartName] AS [PartName], 
+    [OrderInfo].[IdCustomer] AS [IdCustomer]
+    FROM [dbo].[OrderInfo] AS [OrderInfo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="OrderInfoWithParts" EntityType="Self.OrderInfoWithParts" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [OrderInfoWithParts].[IdOrder] AS [IdOrder], 
+    [OrderInfoWithParts].[FullName] AS [FullName], 
+    [OrderInfoWithParts].[PhoneNumber] AS [PhoneNumber], 
+    [OrderInfoWithParts].[ReceiptDate] AS [ReceiptDate], 
+    [OrderInfoWithParts].[CompletionDate] AS [CompletionDate], 
+    [OrderInfoWithParts].[DefectDescription] AS [DefectDescription], 
+    [OrderInfoWithParts].[SerialNumber] AS [SerialNumber], 
+    [OrderInfoWithParts].[Completed] AS [Completed], 
+    [OrderInfoWithParts].[IdPart] AS [IdPart], 
+    [OrderInfoWithParts].[PartName] AS [PartName], 
+    [OrderInfoWithParts].[IdCustomer] AS [IdCustomer]
+    FROM [dbo].[OrderInfoWithParts] AS [OrderInfoWithParts]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Customer_User" Association="Self.FK_Customer_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Master_User1" Association="Self.FK_Master_User1">
+            <End Role="User" EntitySet="User" />
+            <End Role="Master" EntitySet="Master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MasterInOrder_Master" Association="Self.FK_MasterInOrder_Master">
+            <End Role="Master" EntitySet="Master" />
+            <End Role="MasterInOrder" EntitySet="MasterInOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MasterInOrder_Order" Association="Self.FK_MasterInOrder_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="MasterInOrder" EntitySet="MasterInOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PCParts_Order" Association="Self.FK_PCParts_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Parts" EntitySet="Parts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceInOrder_Order" Association="Self.FK_ServiceInOrder_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="ServiceInOrder" EntitySet="ServiceInOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceInOrder_Service" Association="Self.FK_ServiceInOrder_Service">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="ServiceInOrder" EntitySet="ServiceInOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CompServiceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="OrderInfoById_Result">
+          <Property Name="IdOrder" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ReceiptDate" Type="DateTime" Nullable="false" />
+          <Property Name="DefectDescription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SerialNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Completed" Type="Boolean" />
+          <Property Name="ServiceNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="MasterNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="IdPart" Type="Int32" />
+          <Property Name="PartName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </ComplexType>
+        <ComplexType Name="PartsByIdOrder_Result">
+          <Property Name="IdPart" Type="Int32" />
+          <Property Name="PartName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SerialNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="8" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="ServicesByIdOrder_Result">
+          <Property Name="IdService" Type="Int32" />
+          <Property Name="ServiceName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="8" Scale="2" />
+        </ComplexType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="IdCustomer" />
+          </Key>
+          <Property Name="IdCustomer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUser" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Customer_User" FromRole="Customer" ToRole="User" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="DeletedService">
+          <Key>
+            <PropertyRef Name="IdService" />
+          </Key>
+          <Property Name="IdService" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Master">
+          <Key>
+            <PropertyRef Name="IdMaster" />
+          </Key>
+          <Property Name="IdMaster" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdUser" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Master_User1" FromRole="Master" ToRole="User" />
+          <NavigationProperty Name="Orders" Relationship="Self.MasterInOrder" FromRole="Master" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+          </Key>
+          <Property Name="IdOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ReceiptDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CompletionDate" Type="DateTime" Precision="0" />
+          <Property Name="DefectDescription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SerialNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Completed" Type="Boolean" Nullable="false" />
+          <Property Name="IdCustomer" Type="Int32" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="9" Scale="2" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Order_Customer" FromRole="Order" ToRole="Customer" />
+          <NavigationProperty Name="Parts" Relationship="Self.FK_PCParts_Order" FromRole="Order" ToRole="Parts" />
+          <NavigationProperty Name="Masters" Relationship="Self.MasterInOrder" FromRole="Order" ToRole="Master" />
+          <NavigationProperty Name="Services" Relationship="Self.ServiceInOrder" FromRole="Order" ToRole="Service" />
+        </EntityType>
+        <EntityType Name="Part">
+          <Key>
+            <PropertyRef Name="IdPart" />
+          </Key>
+          <Property Name="IdPart" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdOrder" Type="Int32" Nullable="false" />
+          <Property Name="PartName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SerialNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_PCParts_Order" FromRole="Parts" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="IdRole" />
+          </Key>
+          <Property Name="IdRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="IdService" />
+          </Key>
+          <Property Name="IdService" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="8" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.ServiceInOrder" FromRole="Service" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdRole" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_User" FromRole="User" ToRole="Customer" />
+          <NavigationProperty Name="Masters" Relationship="Self.FK_Master_User1" FromRole="User" ToRole="Master" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="CustomerInfo">
+          <Key>
+            <PropertyRef Name="IdCustomer" />
+            <PropertyRef Name="IdUser" />
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="PhoneNumber" />
+          </Key>
+          <Property Name="IdCustomer" Type="Int32" Nullable="false" />
+          <Property Name="IdUser" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MasterInfo">
+          <Key>
+            <PropertyRef Name="IdMaster" />
+            <PropertyRef Name="IdUser" />
+            <PropertyRef Name="FullName" />
+          </Key>
+          <Property Name="IdMaster" Type="Int32" Nullable="false" />
+          <Property Name="IdUser" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="OrderInfo">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="PhoneNumber" />
+            <PropertyRef Name="ReceiptDate" />
+            <PropertyRef Name="DefectDescription" />
+          </Key>
+          <Property Name="IdOrder" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ReceiptDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CompletionDate" Type="DateTime" Precision="0" />
+          <Property Name="DefectDescription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SerialNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Completed" Type="Boolean" Nullable="false" />
+          <Property Name="ServiceNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="IdPart" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="PartName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="IdCustomer" Type="Int32" />
+        </EntityType>
+        <EntityType Name="OrderInfoWithPart">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="PhoneNumber" />
+            <PropertyRef Name="ReceiptDate" />
+            <PropertyRef Name="DefectDescription" />
+          </Key>
+          <Property Name="IdOrder" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ReceiptDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CompletionDate" Type="DateTime" Precision="0" />
+          <Property Name="DefectDescription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SerialNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Completed" Type="Boolean" />
+          <Property Name="IdPart" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="PartName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="IdCustomer" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_Customer_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="IdCustomer" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="IdCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Master_User1">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Master" Type="Self.Master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Master">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PCParts_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Parts" Type="Self.Part" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="IdOrder" />
+            </Principal>
+            <Dependent Role="Parts">
+              <PropertyRef Name="IdOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IdRole" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MasterInOrder">
+          <End Role="Master" Type="Self.Master" Multiplicity="*" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+        </Association>
+        <Association Name="ServiceInOrder">
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <End Role="Service" Type="Self.Service" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="CompServiceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="DeletedServices" EntityType="Self.DeletedService" />
+          <EntitySet Name="Masters" EntityType="Self.Master" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="Parts" EntityType="Self.Part" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Services" EntityType="Self.Service" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="CustomerInfoes" EntityType="Self.CustomerInfo" />
+          <EntitySet Name="MasterInfoes" EntityType="Self.MasterInfo" />
+          <EntitySet Name="OrderInfoes" EntityType="Self.OrderInfo" />
+          <EntitySet Name="OrderInfoWithParts" EntityType="Self.OrderInfoWithPart" />
+          <AssociationSet Name="FK_Customer_User" Association="Self.FK_Customer_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Master_User1" Association="Self.FK_Master_User1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Master" EntitySet="Masters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PCParts_Order" Association="Self.FK_PCParts_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Parts" EntitySet="Parts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="MasterInOrder" Association="Self.MasterInOrder">
+            <End Role="Master" EntitySet="Masters" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="ServiceInOrder" Association="Self.ServiceInOrder">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Service" EntitySet="Services" />
+          </AssociationSet>
+          <FunctionImport Name="OrderInfoById" IsComposable="true" ReturnType="Collection(CompServiceModel.OrderInfoById_Result)">
+          <Parameter Name="idOrder" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PartsByIdOrder" IsComposable="true" ReturnType="Collection(CompServiceModel.PartsByIdOrder_Result)">
+          <Parameter Name="idOrder" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ServicesByIdOrder" IsComposable="true" ReturnType="Collection(CompServiceModel.ServicesByIdOrder_Result)">
+          <Parameter Name="idOrder" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteService">
+          <Parameter Name="name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="WindowsSale">
+            <Parameter Name="discount" Mode="In" Type="Int32" />
+            <Parameter Name="rowCount" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Incomes" EntityType="CompServiceModel.Income" />
+          <FunctionImport Name="IncomeByMonthAndYear" IsComposable="true" ReturnType="Collection(CompServiceModel.IncomeByMonthAndYear_Result)">
+            <Parameter Name="month" Mode="In" Type="Int32" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="FullOrderInfoWhenNotCompleteds" EntityType="CompServiceModel.FullOrderInfoWhenNotCompleted" />
+          <EntitySet Name="FullOrderInfoes" EntityType="CompServiceModel.FullOrderInfo" />
+        </EntityContainer>
+        <EntityType Name="Income">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+            <PropertyRef Name="FullName" />
+          </Key>
+          <Property Name="IdOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompletionDate" Type="DateTime" Precision="0" />
+          <Property Name="TotalPrice" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="Month" Type="Int32" />
+          <Property Name="Year" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="IncomeByMonthAndYear_Result">
+          <Property Type="Int32" Name="IdOrder" Nullable="false" />
+          <Property Type="String" Name="FullName" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="CompletionDate" Nullable="true" Precision="10" />
+          <Property Type="Decimal" Name="TotalPrice" Nullable="true" Precision="9" Scale="2" />
+        </ComplexType>
+        <EntityType Name="FullOrderInfoWhenNotCompleted">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="PhoneNumber" />
+            <PropertyRef Name="ReceiptDate" />
+            <PropertyRef Name="DefectDescription" />
+            <PropertyRef Name="Completed" />
+          </Key>
+          <Property Name="IdOrder" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="ReceiptDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CompletionDate" Type="DateTime" Precision="0" />
+          <Property Name="DefectDescription" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="SerialNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Completed" Type="Boolean" Nullable="false" />
+          <Property Name="ServiceNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="MasterNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="IdPart" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="PartName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="IdCustomer" Type="Int32" />
+        </EntityType>
+        <EntityType Name="FullOrderInfo">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="PhoneNumber" />
+            <PropertyRef Name="ReceiptDate" />
+            <PropertyRef Name="DefectDescription" />
+            <PropertyRef Name="Completed" />
+          </Key>
+          <Property Name="IdOrder" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="ReceiptDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CompletionDate" Type="DateTime" Precision="0" />
+          <Property Name="DefectDescription" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="SerialNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Completed" Type="Boolean" Nullable="false" />
+          <Property Name="ServiceNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="MasterNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="IdPart" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="PartName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="IdCustomer" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище CompServiceModelContainer" CdmEntityContainer="CompServiceEntities">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="CompServiceModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DeletedServices">
+            <EntityTypeMapping TypeName="CompServiceModel.DeletedService">
+              <MappingFragment StoreEntitySet="DeletedService">
+                <ScalarProperty Name="IdService" ColumnName="IdService" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Masters">
+            <EntityTypeMapping TypeName="CompServiceModel.Master">
+              <MappingFragment StoreEntitySet="Master">
+                <ScalarProperty Name="IdMaster" ColumnName="IdMaster" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="CompServiceModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+                <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parts">
+            <EntityTypeMapping TypeName="CompServiceModel.Part">
+              <MappingFragment StoreEntitySet="Parts">
+                <ScalarProperty Name="IdPart" ColumnName="IdPart" />
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+                <ScalarProperty Name="PartName" ColumnName="PartName" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="CompServiceModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services">
+            <EntityTypeMapping TypeName="CompServiceModel.Service">
+              <MappingFragment StoreEntitySet="Service">
+                <ScalarProperty Name="IdService" ColumnName="IdService" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CompServiceModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerInfoes">
+            <EntityTypeMapping TypeName="CompServiceModel.CustomerInfo">
+              <MappingFragment StoreEntitySet="CustomerInfo">
+                <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MasterInfoes">
+            <EntityTypeMapping TypeName="CompServiceModel.MasterInfo">
+              <MappingFragment StoreEntitySet="MasterInfo">
+                <ScalarProperty Name="IdMaster" ColumnName="IdMaster" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderInfoes">
+            <EntityTypeMapping TypeName="CompServiceModel.OrderInfo">
+              <MappingFragment StoreEntitySet="OrderInfo">
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+                <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="ServiceNames" ColumnName="ServiceNames" />
+                <ScalarProperty Name="IdPart" ColumnName="IdPart" />
+                <ScalarProperty Name="PartName" ColumnName="PartName" />
+                <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderInfoWithParts">
+            <EntityTypeMapping TypeName="CompServiceModel.OrderInfoWithPart">
+              <MappingFragment StoreEntitySet="OrderInfoWithParts">
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+                <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="IdPart" ColumnName="IdPart" />
+                <ScalarProperty Name="PartName" ColumnName="PartName" />
+                <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="MasterInOrder" TypeName="CompServiceModel.MasterInOrder" StoreEntitySet="MasterInOrder">
+            <EndProperty Name="Master">
+              <ScalarProperty Name="IdMaster" ColumnName="IdMaster" />
+            </EndProperty>
+            <EndProperty Name="Order">
+              <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ServiceInOrder" TypeName="CompServiceModel.ServiceInOrder" StoreEntitySet="ServiceInOrder">
+            <EndProperty Name="Order">
+              <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+            </EndProperty>
+            <EndProperty Name="Service">
+              <ScalarProperty Name="IdService" ColumnName="IdService" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionName="Хранилище CompServiceModel.PartsByIdOrder" FunctionImportName="PartsByIdOrder">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CompServiceModel.PartsByIdOrder_Result">
+                <ScalarProperty Name="IdPart" ColumnName="IdPart" />
+                <ScalarProperty Name="PartName" ColumnName="PartName" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="Хранилище CompServiceModel.ServicesByIdOrder" FunctionImportName="ServicesByIdOrder">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CompServiceModel.ServicesByIdOrder_Result">
+                <ScalarProperty Name="IdService" ColumnName="IdService" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DeleteService" FunctionName="Хранилище CompServiceModel.DeleteService" />
+          <FunctionImportMapping FunctionImportName="WindowsSale" FunctionName="Хранилище CompServiceModel.WindowsSale" />
+          <EntitySetMapping Name="Incomes">
+            <EntityTypeMapping TypeName="CompServiceModel.Income">
+              <MappingFragment StoreEntitySet="Income">
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="IncomeByMonthAndYear" FunctionName="Хранилище CompServiceModel.IncomeByMonthAndYear">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CompServiceModel.IncomeByMonthAndYear_Result">
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="FullOrderInfoWhenNotCompleteds">
+            <EntityTypeMapping TypeName="CompServiceModel.FullOrderInfoWhenNotCompleted">
+              <MappingFragment StoreEntitySet="FullOrderInfoWhenNotCompleted">
+                <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
+                <ScalarProperty Name="PartName" ColumnName="PartName" />
+                <ScalarProperty Name="IdPart" ColumnName="IdPart" />
+                <ScalarProperty Name="MasterNames" ColumnName="MasterNames" />
+                <ScalarProperty Name="ServiceNames" ColumnName="ServiceNames" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+                <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FullOrderInfoes">
+            <EntityTypeMapping TypeName="CompServiceModel.FullOrderInfo">
+              <MappingFragment StoreEntitySet="FullOrderInfo">
+                <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
+                <ScalarProperty Name="PartName" ColumnName="PartName" />
+                <ScalarProperty Name="IdPart" ColumnName="IdPart" />
+                <ScalarProperty Name="MasterNames" ColumnName="MasterNames" />
+                <ScalarProperty Name="ServiceNames" ColumnName="ServiceNames" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="DefectDescription" ColumnName="DefectDescription" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+                <ScalarProperty Name="ReceiptDate" ColumnName="ReceiptDate" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
