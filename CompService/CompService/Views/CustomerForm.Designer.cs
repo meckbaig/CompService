@@ -44,11 +44,24 @@ namespace CompService
             this.welcomeTabPage = new System.Windows.Forms.TabPage();
             this.welcomeLabel = new System.Windows.Forms.Label();
             this.ordersCustomerTabPage = new System.Windows.Forms.TabPage();
+            this.ordersGridView = new System.Windows.Forms.DataGridView();
+            this.Order_IdOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Order_FullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Order_PhoneNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Order_ReceiptDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Order_CompletionDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Order_DefectDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Order_SerialNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Order_Completed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Order_ServiceNames = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Order_MasterNames = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Order_IdPart = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Order_PartName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Order_IdCustomer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.allowCompletionDateCheckBox = new System.Windows.Forms.CheckBox();
             this.completionDateSearchTimePicker = new System.Windows.Forms.DateTimePicker();
             this.label9 = new System.Windows.Forms.Label();
             this.allowDateCheckBox = new System.Windows.Forms.CheckBox();
-            this.ordersGridView = new System.Windows.Forms.DataGridView();
             this.searchButton = new System.Windows.Forms.Button();
             this.idSearchOrderTextBox = new System.Windows.Forms.TextBox();
             this.defectDescriptionSearchTextBox = new System.Windows.Forms.TextBox();
@@ -231,12 +244,12 @@ namespace CompService
             // ordersCustomerTabPage
             // 
             this.ordersCustomerTabPage.BackColor = System.Drawing.Color.SeaShell;
+            this.ordersCustomerTabPage.Controls.Add(this.ordersGridView);
             this.ordersCustomerTabPage.Controls.Add(this.allowCompletionDateCheckBox);
             this.ordersCustomerTabPage.Controls.Add(label1);
             this.ordersCustomerTabPage.Controls.Add(this.completionDateSearchTimePicker);
             this.ordersCustomerTabPage.Controls.Add(this.label9);
             this.ordersCustomerTabPage.Controls.Add(this.allowDateCheckBox);
-            this.ordersCustomerTabPage.Controls.Add(this.ordersGridView);
             this.ordersCustomerTabPage.Controls.Add(this.searchButton);
             this.ordersCustomerTabPage.Controls.Add(idOrderLabel1);
             this.ordersCustomerTabPage.Controls.Add(this.idSearchOrderTextBox);
@@ -254,6 +267,149 @@ namespace CompService
             this.ordersCustomerTabPage.Size = new System.Drawing.Size(1184, 528);
             this.ordersCustomerTabPage.TabIndex = 0;
             this.ordersCustomerTabPage.Text = "Заказы";
+            // 
+            // ordersGridView
+            // 
+            this.ordersGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ordersGridView.BackgroundColor = System.Drawing.Color.SeaShell;
+            this.ordersGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ordersGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Order_IdOrder,
+            this.Order_FullName,
+            this.Order_PhoneNumber,
+            this.Order_ReceiptDate,
+            this.Order_CompletionDate,
+            this.Order_DefectDescription,
+            this.Order_SerialNumber,
+            this.Order_Completed,
+            this.Order_ServiceNames,
+            this.Order_MasterNames,
+            this.Order_IdPart,
+            this.Order_PartName,
+            this.Order_IdCustomer});
+            this.ordersGridView.Location = new System.Drawing.Point(392, 3);
+            this.ordersGridView.Name = "ordersGridView";
+            this.ordersGridView.ReadOnly = true;
+            this.ordersGridView.RowHeadersVisible = false;
+            this.ordersGridView.RowHeadersWidth = 51;
+            this.ordersGridView.Size = new System.Drawing.Size(789, 548);
+            this.ordersGridView.TabIndex = 42;
+            // 
+            // Order_IdOrder
+            // 
+            this.Order_IdOrder.DataPropertyName = "IdOrder";
+            this.Order_IdOrder.FillWeight = 70F;
+            this.Order_IdOrder.HeaderText = "Номер заказа";
+            this.Order_IdOrder.Name = "Order_IdOrder";
+            this.Order_IdOrder.ReadOnly = true;
+            this.Order_IdOrder.Width = 70;
+            // 
+            // Order_FullName
+            // 
+            this.Order_FullName.DataPropertyName = "FullName";
+            this.Order_FullName.FillWeight = 200F;
+            this.Order_FullName.HeaderText = "Полное имя";
+            this.Order_FullName.Name = "Order_FullName";
+            this.Order_FullName.ReadOnly = true;
+            this.Order_FullName.Width = 200;
+            // 
+            // Order_PhoneNumber
+            // 
+            this.Order_PhoneNumber.DataPropertyName = "PhoneNumber";
+            this.Order_PhoneNumber.HeaderText = "Номер телефона";
+            this.Order_PhoneNumber.Name = "Order_PhoneNumber";
+            this.Order_PhoneNumber.ReadOnly = true;
+            // 
+            // Order_ReceiptDate
+            // 
+            this.Order_ReceiptDate.DataPropertyName = "ReceiptDate";
+            this.Order_ReceiptDate.HeaderText = "Дата поступления";
+            this.Order_ReceiptDate.Name = "Order_ReceiptDate";
+            this.Order_ReceiptDate.ReadOnly = true;
+            // 
+            // Order_CompletionDate
+            // 
+            this.Order_CompletionDate.DataPropertyName = "CompletionDate";
+            this.Order_CompletionDate.HeaderText = "Дата завершения";
+            this.Order_CompletionDate.Name = "Order_CompletionDate";
+            this.Order_CompletionDate.ReadOnly = true;
+            // 
+            // Order_DefectDescription
+            // 
+            this.Order_DefectDescription.DataPropertyName = "DefectDescription";
+            this.Order_DefectDescription.FillWeight = 200F;
+            this.Order_DefectDescription.HeaderText = "Описание дефекта";
+            this.Order_DefectDescription.Name = "Order_DefectDescription";
+            this.Order_DefectDescription.ReadOnly = true;
+            this.Order_DefectDescription.Width = 200;
+            // 
+            // Order_SerialNumber
+            // 
+            this.Order_SerialNumber.DataPropertyName = "SerialNumber";
+            this.Order_SerialNumber.FillWeight = 120F;
+            this.Order_SerialNumber.HeaderText = "Серийный номер";
+            this.Order_SerialNumber.Name = "Order_SerialNumber";
+            this.Order_SerialNumber.ReadOnly = true;
+            this.Order_SerialNumber.Width = 120;
+            // 
+            // Order_Completed
+            // 
+            this.Order_Completed.DataPropertyName = "Completed";
+            this.Order_Completed.FillWeight = 85F;
+            this.Order_Completed.HeaderText = "Завершён";
+            this.Order_Completed.Name = "Order_Completed";
+            this.Order_Completed.ReadOnly = true;
+            this.Order_Completed.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Order_Completed.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Order_Completed.Width = 85;
+            // 
+            // Order_ServiceNames
+            // 
+            this.Order_ServiceNames.DataPropertyName = "ServiceNames";
+            this.Order_ServiceNames.FillWeight = 200F;
+            this.Order_ServiceNames.HeaderText = "Услуги";
+            this.Order_ServiceNames.Name = "Order_ServiceNames";
+            this.Order_ServiceNames.ReadOnly = true;
+            this.Order_ServiceNames.Width = 200;
+            // 
+            // Order_MasterNames
+            // 
+            this.Order_MasterNames.DataPropertyName = "MasterNames";
+            this.Order_MasterNames.FillWeight = 200F;
+            this.Order_MasterNames.HeaderText = "Мастеры";
+            this.Order_MasterNames.Name = "Order_MasterNames";
+            this.Order_MasterNames.ReadOnly = true;
+            this.Order_MasterNames.Width = 200;
+            // 
+            // Order_IdPart
+            // 
+            this.Order_IdPart.DataPropertyName = "IdPart";
+            this.Order_IdPart.FillWeight = 80F;
+            this.Order_IdPart.HeaderText = "Номер запчаcти";
+            this.Order_IdPart.Name = "Order_IdPart";
+            this.Order_IdPart.ReadOnly = true;
+            this.Order_IdPart.Visible = false;
+            this.Order_IdPart.Width = 80;
+            // 
+            // Order_PartName
+            // 
+            this.Order_PartName.DataPropertyName = "PartName";
+            this.Order_PartName.FillWeight = 180F;
+            this.Order_PartName.HeaderText = "Запчасти";
+            this.Order_PartName.Name = "Order_PartName";
+            this.Order_PartName.ReadOnly = true;
+            this.Order_PartName.Width = 180;
+            // 
+            // Order_IdCustomer
+            // 
+            this.Order_IdCustomer.DataPropertyName = "IdCustomer";
+            this.Order_IdCustomer.FillWeight = 80F;
+            this.Order_IdCustomer.HeaderText = "Номер клиента";
+            this.Order_IdCustomer.Name = "Order_IdCustomer";
+            this.Order_IdCustomer.ReadOnly = true;
+            this.Order_IdCustomer.Visible = false;
+            this.Order_IdCustomer.Width = 80;
             // 
             // allowCompletionDateCheckBox
             // 
@@ -290,19 +446,6 @@ namespace CompService
             this.allowDateCheckBox.TabIndex = 2;
             this.allowDateCheckBox.Text = "Учитывать дату сдачи";
             this.allowDateCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // ordersGridView
-            // 
-            this.ordersGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ordersGridView.BackgroundColor = System.Drawing.Color.SeaShell;
-            this.ordersGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ordersGridView.Location = new System.Drawing.Point(392, 3);
-            this.ordersGridView.Name = "ordersGridView";
-            this.ordersGridView.ReadOnly = true;
-            this.ordersGridView.RowHeadersWidth = 51;
-            this.ordersGridView.Size = new System.Drawing.Size(789, 541);
-            this.ordersGridView.TabIndex = 9;
             // 
             // searchButton
             // 
@@ -624,7 +767,6 @@ namespace CompService
         private System.Windows.Forms.DateTimePicker completionDateSearchTimePicker;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox allowDateCheckBox;
-        private System.Windows.Forms.DataGridView ordersGridView;
         private System.Windows.Forms.Button searchButton;
         private System.Windows.Forms.TextBox idSearchOrderTextBox;
         private System.Windows.Forms.TextBox defectDescriptionSearchTextBox;
@@ -654,5 +796,19 @@ namespace CompService
         private System.Windows.Forms.TextBox defectDescriptionTextBox;
         private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.ToolStripMenuItem newOrderToolStripMenuItem;
+        private System.Windows.Forms.DataGridView ordersGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Order_IdOrder;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Order_FullName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Order_PhoneNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Order_ReceiptDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Order_CompletionDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Order_DefectDescription;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Order_SerialNumber;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Order_Completed;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Order_ServiceNames;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Order_MasterNames;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Order_IdPart;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Order_PartName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Order_IdCustomer;
     }
 }

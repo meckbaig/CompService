@@ -12,7 +12,7 @@ namespace CompService
     public partial class MainForm : TemplateForm, IMainView
     {
         MainPresenter presenter;
-        int pageSize = 29;
+        int pageSize = 28;
         int currentPage = 1;
 
         public MainForm()
@@ -126,7 +126,7 @@ namespace CompService
         #endregion
 
         #region NewOrder/EditOrder
-        public string FullName
+        public string EditFullName
         {
             set
             {
@@ -137,7 +137,7 @@ namespace CompService
                 return fullNameTextBox.Text;
             }
         }
-        public string PhoneNumber
+        public string EditPhoneNumber
         {
             set
             {
@@ -148,7 +148,7 @@ namespace CompService
                 return phoneNumberTextBox.Text;
             }
         }
-        public DateTime ReceiptDate
+        public DateTime EditReceiptDate
         {
             set
             {
@@ -159,7 +159,7 @@ namespace CompService
                 return receiptDateDateTimePicker.Value.Date;
             }
         }
-        public DateTime CompletionDate
+        public DateTime EditCompletionDate
         {
             set
             {
@@ -181,7 +181,7 @@ namespace CompService
                 return enableCompletionDateCheckBox.Checked;
             }
         }
-        public bool CompletedSearch
+        public bool EditCompleted
         {
             set
             {
@@ -192,7 +192,7 @@ namespace CompService
                 return completedEditCheckBox.Checked;
             }
         }
-        public string DefectDescription
+        public string EditDefectDescription
         {
             set
             {
@@ -203,7 +203,7 @@ namespace CompService
                 return defectDescriptionTextBox.Text;
             }
         }
-        public string SerialNumber
+        public string EditSerialNumber
         {
             set
             {

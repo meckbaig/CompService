@@ -101,19 +101,19 @@ namespace CompService.Presenters
             {
                 currentOrder = model.GetOrder(selectedId);
 
-                view.FullName = currentOrder.FullName;
-                view.PhoneNumber = currentOrder.PhoneNumber;
-                view.ReceiptDate = currentOrder.ReceiptDate;
+                view.EditFullName = currentOrder.FullName;
+                view.EditPhoneNumber = currentOrder.PhoneNumber;
+                view.EditReceiptDate = currentOrder.ReceiptDate;
                 if (currentOrder.CompletionDate?.Date != null)
                 {
-                    view.CompletionDate = currentOrder.CompletionDate.Value;
+                    view.EditCompletionDate = currentOrder.CompletionDate.Value;
                     view.EnableCompletionDate = true;
                 }
                 else
                     view.EnableCompletionDate = false;
-                view.CompletedSearch = currentOrder.Completed;
-                view.DefectDescription = currentOrder.DefectDescription;
-                view.SerialNumber = currentOrder.SerialNumber;
+                view.EditCompleted = currentOrder.Completed;
+                view.EditDefectDescription = currentOrder.DefectDescription;
+                view.EditSerialNumber = currentOrder.SerialNumber;
                 view.EditServicesInOrder = currentOrder.Services.ToArray();
                 view.EditMastersInOrder = currentOrder.Masters.ToArray();
                 view.EditServices = model.GetServicesNotInOrder(currentOrder.Services);
@@ -131,8 +131,8 @@ namespace CompService.Presenters
         {
             try
             {
-                view.FullName = ParceCustomerIntoOrder.User.FullName;
-                view.PhoneNumber = ParceCustomerIntoOrder.User.PhoneNumber;
+                view.EditFullName = ParceCustomerIntoOrder.User.FullName;
+                view.EditPhoneNumber = ParceCustomerIntoOrder.User.PhoneNumber;
                 parceCustomerId = ParceCustomerIntoOrder.User.IdCustomer;
             }
             catch (Exception ex)
@@ -145,14 +145,14 @@ namespace CompService.Presenters
         {
             try
             {
-                view.FullName = null;
-                view.PhoneNumber = null;
-                view.ReceiptDate = DateTime.Now;
-                view.CompletionDate = DateTime.Now;
+                view.EditFullName = null;
+                view.EditPhoneNumber = null;
+                view.EditReceiptDate = DateTime.Now;
+                view.EditCompletionDate = DateTime.Now;
                 view.EnableCompletionDate = false;
-                view.CompletedSearch = false;
-                view.DefectDescription = null;
-                view.SerialNumber = null;
+                view.EditCompleted = false;
+                view.EditDefectDescription = null;
+                view.EditSerialNumber = null;
                 view.EditServicesInOrder = null;
                 view.EditMastersInOrder = null;
                 view.EditServices = Core.Context.Services.ToArray();
@@ -171,20 +171,20 @@ namespace CompService.Presenters
         {
             try
             {
-                if (view.FullName.Length > 5 && view.PhoneNumber.Length == 11 && view.ReceiptDate <= DateTime.Now && view.DefectDescription.Length > 10)
+                if (view.EditFullName.Length > 5 && view.EditPhoneNumber.Length == 11 && view.EditReceiptDate <= DateTime.Now && view.EditDefectDescription.Length > 10)
                 {
                     if (currentOrder == null)
                         currentOrder = new Order();
-                    currentOrder.FullName = view.FullName;
-                    currentOrder.PhoneNumber = view.PhoneNumber;
-                    currentOrder.ReceiptDate = view.ReceiptDate;
+                    currentOrder.FullName = view.EditFullName;
+                    currentOrder.PhoneNumber = view.EditPhoneNumber;
+                    currentOrder.ReceiptDate = view.EditReceiptDate;
                     if (view.EnableCompletionDate)
-                        currentOrder.CompletionDate = view.CompletionDate;
+                        currentOrder.CompletionDate = view.EditCompletionDate;
                     else
                         currentOrder.CompletionDate = null;
-                    currentOrder.Completed = view.CompletedSearch;
-                    currentOrder.DefectDescription = view.DefectDescription;
-                    currentOrder.SerialNumber = view.SerialNumber;
+                    currentOrder.Completed = view.EditCompleted;
+                    currentOrder.DefectDescription = view.EditDefectDescription;
+                    currentOrder.SerialNumber = view.EditSerialNumber;
                     currentOrder.Services = view.EditServicesInOrder.Cast<Service>().ToList();
                     currentOrder.Masters = view.EditMastersInOrder.Cast<Master>().ToList();
                     currentOrder.Parts = view.EditParts.Cast<Part>().ToList();
@@ -206,7 +206,7 @@ namespace CompService.Presenters
         {
             try
             {
-                bool correctProps = view.FullName.Length > 5 && view.PhoneNumber.Length == 11 && view.ReceiptDate <= DateTime.Now && view.DefectDescription.Length > 10;
+                bool correctProps = view.EditFullName.Length > 5 && view.EditPhoneNumber.Length == 11 && view.EditReceiptDate <= DateTime.Now && view.EditDefectDescription.Length > 10;
                 return correctProps;
             }
             catch (Exception ex)

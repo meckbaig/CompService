@@ -28,14 +28,14 @@ namespace CompService.Views
         #endregion
 
         #region CreateOrderInterface
-        string FullName { set; get; }
-        string PhoneNumber { set; get; }
-        DateTime ReceiptDate { set; get; }
-        DateTime CompletionDate { set; get; }
+        string EditFullName { set; get; }
+        string EditPhoneNumber { set; get; }
+        DateTime EditReceiptDate { set; get; }
+        DateTime EditCompletionDate { set; get; }
         bool EnableCompletionDate { set; get; }
-        bool CompletedSearch { set; get; }
-        string DefectDescription { set; get; }
-        string SerialNumber { set; get; }
+        bool EditCompleted { set; get; }
+        string EditDefectDescription { set; get; }
+        string EditSerialNumber { set; get; }
         object[] EditServicesInOrder { set; get; }
         object[] EditMastersInOrder { set; get; }
         object[] EditServices { set; get; }

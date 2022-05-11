@@ -64,6 +64,19 @@ namespace CompService
             this.sortButton = new System.Windows.Forms.Button();
             this.completedCheckBox = new System.Windows.Forms.CheckBox();
             this.sortGridView = new System.Windows.Forms.DataGridView();
+            this.SortIdOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SortFullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SortPhoneNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SortReceiptDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SortCompletionDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SortDefectDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SortSerialNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SortCompleted = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SortServiceNames = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SortMasterNames = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SortIdPart = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SortPartName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SortIdCustomer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.newOrderTab = new System.Windows.Forms.TabPage();
             this.accountLinkButton = new System.Windows.Forms.Button();
             this.enableCompletionDateCheckBox = new System.Windows.Forms.CheckBox();
@@ -105,6 +118,19 @@ namespace CompService
             this.toEditOrderButton = new System.Windows.Forms.Button();
             this.allowDateCheckBox = new System.Windows.Forms.CheckBox();
             this.searchGridView = new System.Windows.Forms.DataGridView();
+            this.IdOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PhoneNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ReceiptDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CompletionDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DefectDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SerialNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Completed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ServiceNames = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MasterNames = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IdPart = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PartName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IdCustomer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.searchButton = new System.Windows.Forms.Button();
             this.idSearchOrderTextBox = new System.Windows.Forms.TextBox();
             this.fullNameSearchTextBox = new System.Windows.Forms.TextBox();
@@ -122,6 +148,11 @@ namespace CompService
             this.loginRadioButton = new System.Windows.Forms.RadioButton();
             this.fullNameRadioButton = new System.Windows.Forms.RadioButton();
             this.mastersGridView = new System.Windows.Forms.DataGridView();
+            this.Masters_IdMaster = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Masters_IdUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Masters_FullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Masters_Login = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Masters_Password = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.editMasterTab = new System.Windows.Forms.TabPage();
             this.saveMasterInfoButton = new System.Windows.Forms.Button();
             this.masterLabel = new System.Windows.Forms.Label();
@@ -162,6 +193,18 @@ namespace CompService
             this.monthNumeric = new System.Windows.Forms.NumericUpDown();
             this.currentUserLabel = new System.Windows.Forms.Label();
             this.changeConnectionPropertiesButton = new System.Windows.Forms.Button();
+            this.Check_IdService = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Check_ServiceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Check_Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Check_Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Check_IdPart = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Check_PartName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Check_SerialNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Check_PartPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Income_IdOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Income_FullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Income_CompletionDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Income_TotalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             label7 = new System.Windows.Forms.Label();
             label6 = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
@@ -513,12 +556,139 @@ namespace CompService
             | System.Windows.Forms.AnchorStyles.Right)));
             this.sortGridView.BackgroundColor = System.Drawing.Color.SeaShell;
             this.sortGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.sortGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.SortIdOrder,
+            this.SortFullName,
+            this.SortPhoneNumber,
+            this.SortReceiptDate,
+            this.SortCompletionDate,
+            this.SortDefectDescription,
+            this.SortSerialNumber,
+            this.SortCompleted,
+            this.SortServiceNames,
+            this.SortMasterNames,
+            this.SortIdPart,
+            this.SortPartName,
+            this.SortIdCustomer});
             this.sortGridView.Location = new System.Drawing.Point(160, 0);
             this.sortGridView.Name = "sortGridView";
             this.sortGridView.ReadOnly = true;
+            this.sortGridView.RowHeadersVisible = false;
             this.sortGridView.RowHeadersWidth = 51;
             this.sortGridView.Size = new System.Drawing.Size(1220, 690);
             this.sortGridView.TabIndex = 4;
+            // 
+            // SortIdOrder
+            // 
+            this.SortIdOrder.DataPropertyName = "IdOrder";
+            this.SortIdOrder.FillWeight = 70F;
+            this.SortIdOrder.HeaderText = "Номер заказа";
+            this.SortIdOrder.Name = "SortIdOrder";
+            this.SortIdOrder.ReadOnly = true;
+            this.SortIdOrder.Width = 70;
+            // 
+            // SortFullName
+            // 
+            this.SortFullName.DataPropertyName = "FullName";
+            this.SortFullName.FillWeight = 200F;
+            this.SortFullName.HeaderText = "Полное имя";
+            this.SortFullName.Name = "SortFullName";
+            this.SortFullName.ReadOnly = true;
+            this.SortFullName.Width = 200;
+            // 
+            // SortPhoneNumber
+            // 
+            this.SortPhoneNumber.DataPropertyName = "PhoneNumber";
+            this.SortPhoneNumber.HeaderText = "Номер телефона";
+            this.SortPhoneNumber.Name = "SortPhoneNumber";
+            this.SortPhoneNumber.ReadOnly = true;
+            // 
+            // SortReceiptDate
+            // 
+            this.SortReceiptDate.DataPropertyName = "ReceiptDate";
+            this.SortReceiptDate.HeaderText = "Дата поступления";
+            this.SortReceiptDate.Name = "SortReceiptDate";
+            this.SortReceiptDate.ReadOnly = true;
+            // 
+            // SortCompletionDate
+            // 
+            this.SortCompletionDate.DataPropertyName = "CompletionDate";
+            this.SortCompletionDate.HeaderText = "Дата завершения";
+            this.SortCompletionDate.Name = "SortCompletionDate";
+            this.SortCompletionDate.ReadOnly = true;
+            // 
+            // SortDefectDescription
+            // 
+            this.SortDefectDescription.DataPropertyName = "DefectDescription";
+            this.SortDefectDescription.FillWeight = 200F;
+            this.SortDefectDescription.HeaderText = "Описание дефекта";
+            this.SortDefectDescription.Name = "SortDefectDescription";
+            this.SortDefectDescription.ReadOnly = true;
+            this.SortDefectDescription.Width = 200;
+            // 
+            // SortSerialNumber
+            // 
+            this.SortSerialNumber.DataPropertyName = "SerialNumber";
+            this.SortSerialNumber.FillWeight = 120F;
+            this.SortSerialNumber.HeaderText = "Серийный номер";
+            this.SortSerialNumber.Name = "SortSerialNumber";
+            this.SortSerialNumber.ReadOnly = true;
+            this.SortSerialNumber.Width = 120;
+            // 
+            // SortCompleted
+            // 
+            this.SortCompleted.DataPropertyName = "Completed";
+            this.SortCompleted.FillWeight = 85F;
+            this.SortCompleted.HeaderText = "Завершён";
+            this.SortCompleted.Name = "SortCompleted";
+            this.SortCompleted.ReadOnly = true;
+            this.SortCompleted.Width = 85;
+            // 
+            // SortServiceNames
+            // 
+            this.SortServiceNames.DataPropertyName = "ServiceNames";
+            this.SortServiceNames.FillWeight = 200F;
+            this.SortServiceNames.HeaderText = "Услуги";
+            this.SortServiceNames.Name = "SortServiceNames";
+            this.SortServiceNames.ReadOnly = true;
+            this.SortServiceNames.Width = 200;
+            // 
+            // SortMasterNames
+            // 
+            this.SortMasterNames.DataPropertyName = "MasterNames";
+            this.SortMasterNames.FillWeight = 200F;
+            this.SortMasterNames.HeaderText = "Мастеры";
+            this.SortMasterNames.Name = "SortMasterNames";
+            this.SortMasterNames.ReadOnly = true;
+            this.SortMasterNames.Width = 200;
+            // 
+            // SortIdPart
+            // 
+            this.SortIdPart.DataPropertyName = "IdPart";
+            this.SortIdPart.FillWeight = 80F;
+            this.SortIdPart.HeaderText = "Номера запчастей";
+            this.SortIdPart.Name = "SortIdPart";
+            this.SortIdPart.ReadOnly = true;
+            this.SortIdPart.Width = 80;
+            // 
+            // SortPartName
+            // 
+            this.SortPartName.DataPropertyName = "PartName";
+            this.SortPartName.FillWeight = 180F;
+            this.SortPartName.HeaderText = "Запчасти";
+            this.SortPartName.Name = "SortPartName";
+            this.SortPartName.ReadOnly = true;
+            this.SortPartName.Width = 180;
+            // 
+            // SortIdCustomer
+            // 
+            this.SortIdCustomer.DataPropertyName = "IdCustomer";
+            this.SortIdCustomer.FillWeight = 80F;
+            this.SortIdCustomer.HeaderText = "Номер клиента";
+            this.SortIdCustomer.Name = "SortIdCustomer";
+            this.SortIdCustomer.ReadOnly = true;
+            this.SortIdCustomer.Visible = false;
+            this.SortIdCustomer.Width = 80;
             // 
             // newOrderTab
             // 
@@ -886,7 +1056,7 @@ namespace CompService
             // lastPageButton
             // 
             this.lastPageButton.Font = new System.Drawing.Font("Calibri", 10F);
-            this.lastPageButton.Location = new System.Drawing.Point(365, 634);
+            this.lastPageButton.Location = new System.Drawing.Point(362, 634);
             this.lastPageButton.Name = "lastPageButton";
             this.lastPageButton.Size = new System.Drawing.Size(32, 27);
             this.lastPageButton.TabIndex = 19;
@@ -896,7 +1066,7 @@ namespace CompService
             // 
             // rightPageButton
             // 
-            this.rightPageButton.Location = new System.Drawing.Point(328, 634);
+            this.rightPageButton.Location = new System.Drawing.Point(325, 634);
             this.rightPageButton.Name = "rightPageButton";
             this.rightPageButton.Size = new System.Drawing.Size(31, 27);
             this.rightPageButton.TabIndex = 18;
@@ -990,12 +1160,141 @@ namespace CompService
             | System.Windows.Forms.AnchorStyles.Right)));
             this.searchGridView.BackgroundColor = System.Drawing.Color.SeaShell;
             this.searchGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.searchGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IdOrder,
+            this.FullName,
+            this.PhoneNumber,
+            this.ReceiptDate,
+            this.CompletionDate,
+            this.DefectDescription,
+            this.SerialNumber,
+            this.Completed,
+            this.ServiceNames,
+            this.MasterNames,
+            this.IdPart,
+            this.PartName,
+            this.IdCustomer});
             this.searchGridView.Location = new System.Drawing.Point(399, 3);
             this.searchGridView.Name = "searchGridView";
             this.searchGridView.ReadOnly = true;
+            this.searchGridView.RowHeadersVisible = false;
             this.searchGridView.RowHeadersWidth = 51;
             this.searchGridView.Size = new System.Drawing.Size(975, 689);
             this.searchGridView.TabIndex = 20;
+            // 
+            // IdOrder
+            // 
+            this.IdOrder.DataPropertyName = "IdOrder";
+            this.IdOrder.FillWeight = 70F;
+            this.IdOrder.HeaderText = "Номер заказа";
+            this.IdOrder.Name = "IdOrder";
+            this.IdOrder.ReadOnly = true;
+            this.IdOrder.Width = 70;
+            // 
+            // FullName
+            // 
+            this.FullName.DataPropertyName = "FullName";
+            this.FullName.FillWeight = 200F;
+            this.FullName.HeaderText = "Полное имя";
+            this.FullName.Name = "FullName";
+            this.FullName.ReadOnly = true;
+            this.FullName.Width = 200;
+            // 
+            // PhoneNumber
+            // 
+            this.PhoneNumber.DataPropertyName = "PhoneNumber";
+            this.PhoneNumber.HeaderText = "Номер телефона";
+            this.PhoneNumber.Name = "PhoneNumber";
+            this.PhoneNumber.ReadOnly = true;
+            // 
+            // ReceiptDate
+            // 
+            this.ReceiptDate.DataPropertyName = "ReceiptDate";
+            this.ReceiptDate.HeaderText = "Дата поступления";
+            this.ReceiptDate.Name = "ReceiptDate";
+            this.ReceiptDate.ReadOnly = true;
+            // 
+            // CompletionDate
+            // 
+            this.CompletionDate.DataPropertyName = "CompletionDate";
+            this.CompletionDate.HeaderText = "Дата завершения";
+            this.CompletionDate.Name = "CompletionDate";
+            this.CompletionDate.ReadOnly = true;
+            // 
+            // DefectDescription
+            // 
+            this.DefectDescription.DataPropertyName = "DefectDescription";
+            this.DefectDescription.FillWeight = 200F;
+            this.DefectDescription.HeaderText = "Описание дефекта";
+            this.DefectDescription.Name = "DefectDescription";
+            this.DefectDescription.ReadOnly = true;
+            this.DefectDescription.Width = 200;
+            // 
+            // SerialNumber
+            // 
+            this.SerialNumber.DataPropertyName = "SerialNumber";
+            this.SerialNumber.FillWeight = 120F;
+            this.SerialNumber.HeaderText = "Серийный номер";
+            this.SerialNumber.Name = "SerialNumber";
+            this.SerialNumber.ReadOnly = true;
+            this.SerialNumber.Width = 120;
+            // 
+            // Completed
+            // 
+            this.Completed.DataPropertyName = "Completed";
+            this.Completed.FillWeight = 85F;
+            this.Completed.HeaderText = "Завершён";
+            this.Completed.Name = "Completed";
+            this.Completed.ReadOnly = true;
+            this.Completed.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Completed.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Completed.Width = 85;
+            // 
+            // ServiceNames
+            // 
+            this.ServiceNames.DataPropertyName = "ServiceNames";
+            this.ServiceNames.FillWeight = 200F;
+            this.ServiceNames.HeaderText = "Услуги";
+            this.ServiceNames.Name = "ServiceNames";
+            this.ServiceNames.ReadOnly = true;
+            this.ServiceNames.Width = 200;
+            // 
+            // MasterNames
+            // 
+            this.MasterNames.DataPropertyName = "MasterNames";
+            this.MasterNames.FillWeight = 200F;
+            this.MasterNames.HeaderText = "Мастеры";
+            this.MasterNames.Name = "MasterNames";
+            this.MasterNames.ReadOnly = true;
+            this.MasterNames.Width = 200;
+            // 
+            // IdPart
+            // 
+            this.IdPart.DataPropertyName = "IdPart";
+            this.IdPart.FillWeight = 80F;
+            this.IdPart.HeaderText = "Номера запчастей";
+            this.IdPart.Name = "IdPart";
+            this.IdPart.ReadOnly = true;
+            this.IdPart.Width = 80;
+            // 
+            // PartName
+            // 
+            this.PartName.DataPropertyName = "PartName";
+            this.PartName.FillWeight = 180F;
+            this.PartName.HeaderText = "Запчасти";
+            this.PartName.Name = "PartName";
+            this.PartName.ReadOnly = true;
+            this.PartName.Width = 180;
+            // 
+            // IdCustomer
+            // 
+            this.IdCustomer.DataPropertyName = "IdCustomer";
+            this.IdCustomer.FillWeight = 80F;
+            this.IdCustomer.HeaderText = "Номер клиента";
+            this.IdCustomer.Name = "IdCustomer";
+            this.IdCustomer.ReadOnly = true;
+            this.IdCustomer.Visible = false;
+            this.IdCustomer.Width = 80;
             // 
             // searchButton
             // 
@@ -1156,12 +1455,60 @@ namespace CompService
             // mastersGridView
             // 
             this.mastersGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.mastersGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Masters_IdMaster,
+            this.Masters_IdUser,
+            this.Masters_FullName,
+            this.Masters_Login,
+            this.Masters_Password});
             this.mastersGridView.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.mastersGridView.Location = new System.Drawing.Point(0, 60);
             this.mastersGridView.Name = "mastersGridView";
             this.mastersGridView.ReadOnly = true;
+            this.mastersGridView.RowHeadersVisible = false;
             this.mastersGridView.Size = new System.Drawing.Size(1376, 610);
             this.mastersGridView.TabIndex = 6;
+            // 
+            // Masters_IdMaster
+            // 
+            this.Masters_IdMaster.DataPropertyName = "IdMaster";
+            this.Masters_IdMaster.FillWeight = 75F;
+            this.Masters_IdMaster.HeaderText = "Номер мастера";
+            this.Masters_IdMaster.Name = "Masters_IdMaster";
+            this.Masters_IdMaster.ReadOnly = true;
+            this.Masters_IdMaster.Width = 75;
+            // 
+            // Masters_IdUser
+            // 
+            this.Masters_IdUser.DataPropertyName = "IdUser";
+            this.Masters_IdUser.FillWeight = 75F;
+            this.Masters_IdUser.HeaderText = "Номер аккаунта";
+            this.Masters_IdUser.Name = "Masters_IdUser";
+            this.Masters_IdUser.ReadOnly = true;
+            this.Masters_IdUser.Width = 75;
+            // 
+            // Masters_FullName
+            // 
+            this.Masters_FullName.DataPropertyName = "FullName";
+            this.Masters_FullName.FillWeight = 200F;
+            this.Masters_FullName.HeaderText = "Полное имя";
+            this.Masters_FullName.Name = "Masters_FullName";
+            this.Masters_FullName.ReadOnly = true;
+            this.Masters_FullName.Width = 200;
+            // 
+            // Masters_Login
+            // 
+            this.Masters_Login.DataPropertyName = "Login";
+            this.Masters_Login.HeaderText = "Логин";
+            this.Masters_Login.Name = "Masters_Login";
+            this.Masters_Login.ReadOnly = true;
+            // 
+            // Masters_Password
+            // 
+            this.Masters_Password.DataPropertyName = "Password";
+            this.Masters_Password.HeaderText = "Пароль";
+            this.Masters_Password.Name = "Masters_Password";
+            this.Masters_Password.ReadOnly = true;
             // 
             // editMasterTab
             // 
@@ -1472,16 +1819,28 @@ namespace CompService
             // partsInOrderGridView
             // 
             this.partsInOrderGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.partsInOrderGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Check_IdPart,
+            this.Check_PartName,
+            this.Check_SerialNumber,
+            this.Check_PartPrice});
             this.partsInOrderGridView.Location = new System.Drawing.Point(30, 432);
             this.partsInOrderGridView.Name = "partsInOrderGridView";
+            this.partsInOrderGridView.RowHeadersVisible = false;
             this.partsInOrderGridView.Size = new System.Drawing.Size(773, 167);
             this.partsInOrderGridView.TabIndex = 3;
             // 
             // servicesInOrderGridView
             // 
             this.servicesInOrderGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.servicesInOrderGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Check_IdService,
+            this.Check_ServiceName,
+            this.Check_Category,
+            this.Check_Price});
             this.servicesInOrderGridView.Location = new System.Drawing.Point(30, 119);
             this.servicesInOrderGridView.Name = "servicesInOrderGridView";
+            this.servicesInOrderGridView.RowHeadersVisible = false;
             this.servicesInOrderGridView.Size = new System.Drawing.Size(773, 278);
             this.servicesInOrderGridView.TabIndex = 2;
             // 
@@ -1514,7 +1873,7 @@ namespace CompService
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(752, 6);
+            this.label26.Location = new System.Drawing.Point(737, 6);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(31, 19);
             this.label26.TabIndex = 5;
@@ -1523,7 +1882,7 @@ namespace CompService
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(616, 6);
+            this.label25.Location = new System.Drawing.Point(601, 6);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(54, 19);
             this.label25.TabIndex = 4;
@@ -1531,7 +1890,7 @@ namespace CompService
             // 
             // exportReportButton
             // 
-            this.exportReportButton.Location = new System.Drawing.Point(620, 75);
+            this.exportReportButton.Location = new System.Drawing.Point(605, 75);
             this.exportReportButton.Name = "exportReportButton";
             this.exportReportButton.Size = new System.Drawing.Size(103, 51);
             this.exportReportButton.TabIndex = 0;
@@ -1542,15 +1901,21 @@ namespace CompService
             // monthlyReportGridView
             // 
             this.monthlyReportGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.monthlyReportGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Income_IdOrder,
+            this.Income_FullName,
+            this.Income_CompletionDate,
+            this.Income_TotalPrice});
             this.monthlyReportGridView.Location = new System.Drawing.Point(6, 6);
             this.monthlyReportGridView.Name = "monthlyReportGridView";
             this.monthlyReportGridView.ReadOnly = true;
-            this.monthlyReportGridView.Size = new System.Drawing.Size(592, 668);
+            this.monthlyReportGridView.RowHeadersVisible = false;
+            this.monthlyReportGridView.Size = new System.Drawing.Size(563, 668);
             this.monthlyReportGridView.TabIndex = 3;
             // 
             // yearNumeric
             // 
-            this.yearNumeric.Location = new System.Drawing.Point(756, 28);
+            this.yearNumeric.Location = new System.Drawing.Point(741, 28);
             this.yearNumeric.Maximum = new decimal(new int[] {
             2099,
             0,
@@ -1573,7 +1938,7 @@ namespace CompService
             // 
             // monthNumeric
             // 
-            this.monthNumeric.Location = new System.Drawing.Point(620, 28);
+            this.monthNumeric.Location = new System.Drawing.Point(605, 28);
             this.monthNumeric.Maximum = new decimal(new int[] {
             12,
             0,
@@ -1621,6 +1986,102 @@ namespace CompService
             this.changeConnectionPropertiesButton.UseVisualStyleBackColor = true;
             this.changeConnectionPropertiesButton.Visible = false;
             this.changeConnectionPropertiesButton.Click += new System.EventHandler(this.ChangeConnectionPropertiesButton_Click);
+            // 
+            // Check_IdService
+            // 
+            this.Check_IdService.DataPropertyName = "IdService";
+            this.Check_IdService.FillWeight = 75F;
+            this.Check_IdService.HeaderText = "Номер услуги";
+            this.Check_IdService.Name = "Check_IdService";
+            this.Check_IdService.Width = 75;
+            // 
+            // Check_ServiceName
+            // 
+            this.Check_ServiceName.DataPropertyName = "ServiceName";
+            this.Check_ServiceName.FillWeight = 470F;
+            this.Check_ServiceName.HeaderText = "Название услуги";
+            this.Check_ServiceName.Name = "Check_ServiceName";
+            this.Check_ServiceName.Width = 470;
+            // 
+            // Check_Category
+            // 
+            this.Check_Category.DataPropertyName = "Category";
+            this.Check_Category.FillWeight = 135F;
+            this.Check_Category.HeaderText = "Категория";
+            this.Check_Category.Name = "Check_Category";
+            this.Check_Category.Width = 135;
+            // 
+            // Check_Price
+            // 
+            this.Check_Price.DataPropertyName = "Price";
+            this.Check_Price.FillWeight = 90F;
+            this.Check_Price.HeaderText = "Стоимость";
+            this.Check_Price.Name = "Check_Price";
+            this.Check_Price.Width = 90;
+            // 
+            // Check_IdPart
+            // 
+            this.Check_IdPart.DataPropertyName = "IdPart";
+            this.Check_IdPart.FillWeight = 75F;
+            this.Check_IdPart.HeaderText = "Номер запчасти";
+            this.Check_IdPart.Name = "Check_IdPart";
+            this.Check_IdPart.Width = 75;
+            // 
+            // Check_PartName
+            // 
+            this.Check_PartName.DataPropertyName = "PartName";
+            this.Check_PartName.FillWeight = 470F;
+            this.Check_PartName.HeaderText = "Название запчасти";
+            this.Check_PartName.Name = "Check_PartName";
+            this.Check_PartName.Width = 470;
+            // 
+            // Check_SerialNumber
+            // 
+            this.Check_SerialNumber.DataPropertyName = "SerialNumber";
+            this.Check_SerialNumber.FillWeight = 135F;
+            this.Check_SerialNumber.HeaderText = "Серийный номер";
+            this.Check_SerialNumber.Name = "Check_SerialNumber";
+            this.Check_SerialNumber.Width = 135;
+            // 
+            // Check_PartPrice
+            // 
+            this.Check_PartPrice.DataPropertyName = "Price";
+            this.Check_PartPrice.FillWeight = 90F;
+            this.Check_PartPrice.HeaderText = "Стоимость";
+            this.Check_PartPrice.Name = "Check_PartPrice";
+            this.Check_PartPrice.Width = 90;
+            // 
+            // Income_IdOrder
+            // 
+            this.Income_IdOrder.DataPropertyName = "IdOrder";
+            this.Income_IdOrder.FillWeight = 70F;
+            this.Income_IdOrder.HeaderText = "Номер заказа";
+            this.Income_IdOrder.Name = "Income_IdOrder";
+            this.Income_IdOrder.ReadOnly = true;
+            this.Income_IdOrder.Width = 70;
+            // 
+            // Income_FullName
+            // 
+            this.Income_FullName.DataPropertyName = "FullName";
+            this.Income_FullName.FillWeight = 290F;
+            this.Income_FullName.HeaderText = "Полное имя";
+            this.Income_FullName.Name = "Income_FullName";
+            this.Income_FullName.ReadOnly = true;
+            this.Income_FullName.Width = 290;
+            // 
+            // Income_CompletionDate
+            // 
+            this.Income_CompletionDate.DataPropertyName = "CompletionDate";
+            this.Income_CompletionDate.HeaderText = "Дата выдачи";
+            this.Income_CompletionDate.Name = "Income_CompletionDate";
+            this.Income_CompletionDate.ReadOnly = true;
+            // 
+            // Income_TotalPrice
+            // 
+            this.Income_TotalPrice.DataPropertyName = "TotalPrice";
+            this.Income_TotalPrice.HeaderText = "Выручка";
+            this.Income_TotalPrice.Name = "Income_TotalPrice";
+            this.Income_TotalPrice.ReadOnly = true;
             // 
             // MainForm
             // 
@@ -1788,6 +2249,49 @@ namespace CompService
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.RadioButton dateAscendingRadioButton;
         private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Masters_IdMaster;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Masters_IdUser;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Masters_FullName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Masters_Login;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Masters_Password;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SortIdOrder;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SortFullName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SortPhoneNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SortReceiptDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SortCompletionDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SortDefectDescription;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SortSerialNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SortCompleted;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SortServiceNames;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SortMasterNames;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SortIdPart;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SortPartName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SortIdCustomer;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdOrder;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FullName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PhoneNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ReceiptDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CompletionDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DefectDescription;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SerialNumber;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Completed;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ServiceNames;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MasterNames;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdPart;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PartName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdCustomer;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Check_IdPart;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Check_PartName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Check_SerialNumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Check_PartPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Check_IdService;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Check_ServiceName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Check_Category;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Check_Price;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Income_IdOrder;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Income_FullName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Income_CompletionDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Income_TotalPrice;
     }
 }
 
