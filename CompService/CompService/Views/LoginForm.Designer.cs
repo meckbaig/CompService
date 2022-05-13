@@ -108,9 +108,9 @@ namespace CompService
             this.label4.Location = new System.Drawing.Point(76, 384);
             this.label4.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(226, 23);
+            this.label4.Size = new System.Drawing.Size(227, 23);
             this.label4.TabIndex = 6;
-            this.label4.Text = "Ещё не зарегестрированы?";
+            this.label4.Text = "Ещё не зарегистрированы?";
             // 
             // toRegistrationButton
             // 
@@ -132,9 +132,9 @@ namespace CompService
             this.forgotPasswordLabel.Location = new System.Drawing.Point(241, 265);
             this.forgotPasswordLabel.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
             this.forgotPasswordLabel.Name = "forgotPasswordLabel";
-            this.forgotPasswordLabel.Size = new System.Drawing.Size(123, 23);
+            this.forgotPasswordLabel.Size = new System.Drawing.Size(142, 23);
             this.forgotPasswordLabel.TabIndex = 2;
-            this.forgotPasswordLabel.Text = "Забыл пароль";
+            this.forgotPasswordLabel.Text = "Забыли пароль?";
             this.forgotPasswordLabel.Click += new System.EventHandler(this.ForgotPasswordLabel_Click);
             // 
             // saveOptionsCheckBox

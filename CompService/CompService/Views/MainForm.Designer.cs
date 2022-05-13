@@ -182,29 +182,29 @@ namespace CompService
             this.checkIdOrderLabel = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.partsInOrderGridView = new System.Windows.Forms.DataGridView();
+            this.Check_IdPart = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Check_PartName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Check_SerialNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Check_PartPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.servicesInOrderGridView = new System.Windows.Forms.DataGridView();
+            this.Check_IdService = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Check_ServiceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Check_Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Check_Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saveCheckButton = new System.Windows.Forms.Button();
             this.monthlyReportTab = new System.Windows.Forms.TabPage();
             this.label26 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.exportReportButton = new System.Windows.Forms.Button();
             this.monthlyReportGridView = new System.Windows.Forms.DataGridView();
-            this.yearNumeric = new System.Windows.Forms.NumericUpDown();
-            this.monthNumeric = new System.Windows.Forms.NumericUpDown();
-            this.currentUserLabel = new System.Windows.Forms.Label();
-            this.changeConnectionPropertiesButton = new System.Windows.Forms.Button();
-            this.Check_IdService = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Check_ServiceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Check_Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Check_Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Check_IdPart = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Check_PartName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Check_SerialNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Check_PartPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Income_IdOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Income_FullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Income_CompletionDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Income_TotalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.yearNumeric = new System.Windows.Forms.NumericUpDown();
+            this.monthNumeric = new System.Windows.Forms.NumericUpDown();
+            this.currentUserLabel = new System.Windows.Forms.Label();
+            this.changeConnectionPropertiesButton = new System.Windows.Forms.Button();
             label7 = new System.Windows.Forms.Label();
             label6 = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
@@ -455,8 +455,8 @@ namespace CompService
             this.adminFeaturesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToEditMasterToolStripMenuItem});
             this.adminFeaturesToolStripMenuItem.Name = "adminFeaturesToolStripMenuItem";
-            this.adminFeaturesToolStripMenuItem.Size = new System.Drawing.Size(172, 23);
-            this.adminFeaturesToolStripMenuItem.Text = "Возможности админа";
+            this.adminFeaturesToolStripMenuItem.Size = new System.Drawing.Size(232, 23);
+            this.adminFeaturesToolStripMenuItem.Text = "Возможности администратора";
             this.adminFeaturesToolStripMenuItem.Visible = false;
             // 
             // ToEditMasterToolStripMenuItem
@@ -1830,6 +1830,38 @@ namespace CompService
             this.partsInOrderGridView.Size = new System.Drawing.Size(773, 167);
             this.partsInOrderGridView.TabIndex = 3;
             // 
+            // Check_IdPart
+            // 
+            this.Check_IdPart.DataPropertyName = "IdPart";
+            this.Check_IdPart.FillWeight = 75F;
+            this.Check_IdPart.HeaderText = "Номер запчасти";
+            this.Check_IdPart.Name = "Check_IdPart";
+            this.Check_IdPart.Width = 75;
+            // 
+            // Check_PartName
+            // 
+            this.Check_PartName.DataPropertyName = "PartName";
+            this.Check_PartName.FillWeight = 470F;
+            this.Check_PartName.HeaderText = "Название запчасти";
+            this.Check_PartName.Name = "Check_PartName";
+            this.Check_PartName.Width = 470;
+            // 
+            // Check_SerialNumber
+            // 
+            this.Check_SerialNumber.DataPropertyName = "SerialNumber";
+            this.Check_SerialNumber.FillWeight = 135F;
+            this.Check_SerialNumber.HeaderText = "Серийный номер";
+            this.Check_SerialNumber.Name = "Check_SerialNumber";
+            this.Check_SerialNumber.Width = 135;
+            // 
+            // Check_PartPrice
+            // 
+            this.Check_PartPrice.DataPropertyName = "Price";
+            this.Check_PartPrice.FillWeight = 90F;
+            this.Check_PartPrice.HeaderText = "Стоимость";
+            this.Check_PartPrice.Name = "Check_PartPrice";
+            this.Check_PartPrice.Width = 90;
+            // 
             // servicesInOrderGridView
             // 
             this.servicesInOrderGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1843,6 +1875,38 @@ namespace CompService
             this.servicesInOrderGridView.RowHeadersVisible = false;
             this.servicesInOrderGridView.Size = new System.Drawing.Size(773, 278);
             this.servicesInOrderGridView.TabIndex = 2;
+            // 
+            // Check_IdService
+            // 
+            this.Check_IdService.DataPropertyName = "IdService";
+            this.Check_IdService.FillWeight = 75F;
+            this.Check_IdService.HeaderText = "Номер услуги";
+            this.Check_IdService.Name = "Check_IdService";
+            this.Check_IdService.Width = 75;
+            // 
+            // Check_ServiceName
+            // 
+            this.Check_ServiceName.DataPropertyName = "ServiceName";
+            this.Check_ServiceName.FillWeight = 470F;
+            this.Check_ServiceName.HeaderText = "Название услуги";
+            this.Check_ServiceName.Name = "Check_ServiceName";
+            this.Check_ServiceName.Width = 470;
+            // 
+            // Check_Category
+            // 
+            this.Check_Category.DataPropertyName = "Category";
+            this.Check_Category.FillWeight = 135F;
+            this.Check_Category.HeaderText = "Категория";
+            this.Check_Category.Name = "Check_Category";
+            this.Check_Category.Width = 135;
+            // 
+            // Check_Price
+            // 
+            this.Check_Price.DataPropertyName = "Price";
+            this.Check_Price.FillWeight = 90F;
+            this.Check_Price.HeaderText = "Стоимость";
+            this.Check_Price.Name = "Check_Price";
+            this.Check_Price.Width = 90;
             // 
             // saveCheckButton
             // 
@@ -1912,6 +1976,38 @@ namespace CompService
             this.monthlyReportGridView.RowHeadersVisible = false;
             this.monthlyReportGridView.Size = new System.Drawing.Size(563, 668);
             this.monthlyReportGridView.TabIndex = 3;
+            // 
+            // Income_IdOrder
+            // 
+            this.Income_IdOrder.DataPropertyName = "IdOrder";
+            this.Income_IdOrder.FillWeight = 70F;
+            this.Income_IdOrder.HeaderText = "Номер заказа";
+            this.Income_IdOrder.Name = "Income_IdOrder";
+            this.Income_IdOrder.ReadOnly = true;
+            this.Income_IdOrder.Width = 70;
+            // 
+            // Income_FullName
+            // 
+            this.Income_FullName.DataPropertyName = "FullName";
+            this.Income_FullName.FillWeight = 290F;
+            this.Income_FullName.HeaderText = "Полное имя";
+            this.Income_FullName.Name = "Income_FullName";
+            this.Income_FullName.ReadOnly = true;
+            this.Income_FullName.Width = 290;
+            // 
+            // Income_CompletionDate
+            // 
+            this.Income_CompletionDate.DataPropertyName = "CompletionDate";
+            this.Income_CompletionDate.HeaderText = "Дата выдачи";
+            this.Income_CompletionDate.Name = "Income_CompletionDate";
+            this.Income_CompletionDate.ReadOnly = true;
+            // 
+            // Income_TotalPrice
+            // 
+            this.Income_TotalPrice.DataPropertyName = "TotalPrice";
+            this.Income_TotalPrice.HeaderText = "Выручка";
+            this.Income_TotalPrice.Name = "Income_TotalPrice";
+            this.Income_TotalPrice.ReadOnly = true;
             // 
             // yearNumeric
             // 
@@ -1986,102 +2082,6 @@ namespace CompService
             this.changeConnectionPropertiesButton.UseVisualStyleBackColor = true;
             this.changeConnectionPropertiesButton.Visible = false;
             this.changeConnectionPropertiesButton.Click += new System.EventHandler(this.ChangeConnectionPropertiesButton_Click);
-            // 
-            // Check_IdService
-            // 
-            this.Check_IdService.DataPropertyName = "IdService";
-            this.Check_IdService.FillWeight = 75F;
-            this.Check_IdService.HeaderText = "Номер услуги";
-            this.Check_IdService.Name = "Check_IdService";
-            this.Check_IdService.Width = 75;
-            // 
-            // Check_ServiceName
-            // 
-            this.Check_ServiceName.DataPropertyName = "ServiceName";
-            this.Check_ServiceName.FillWeight = 470F;
-            this.Check_ServiceName.HeaderText = "Название услуги";
-            this.Check_ServiceName.Name = "Check_ServiceName";
-            this.Check_ServiceName.Width = 470;
-            // 
-            // Check_Category
-            // 
-            this.Check_Category.DataPropertyName = "Category";
-            this.Check_Category.FillWeight = 135F;
-            this.Check_Category.HeaderText = "Категория";
-            this.Check_Category.Name = "Check_Category";
-            this.Check_Category.Width = 135;
-            // 
-            // Check_Price
-            // 
-            this.Check_Price.DataPropertyName = "Price";
-            this.Check_Price.FillWeight = 90F;
-            this.Check_Price.HeaderText = "Стоимость";
-            this.Check_Price.Name = "Check_Price";
-            this.Check_Price.Width = 90;
-            // 
-            // Check_IdPart
-            // 
-            this.Check_IdPart.DataPropertyName = "IdPart";
-            this.Check_IdPart.FillWeight = 75F;
-            this.Check_IdPart.HeaderText = "Номер запчасти";
-            this.Check_IdPart.Name = "Check_IdPart";
-            this.Check_IdPart.Width = 75;
-            // 
-            // Check_PartName
-            // 
-            this.Check_PartName.DataPropertyName = "PartName";
-            this.Check_PartName.FillWeight = 470F;
-            this.Check_PartName.HeaderText = "Название запчасти";
-            this.Check_PartName.Name = "Check_PartName";
-            this.Check_PartName.Width = 470;
-            // 
-            // Check_SerialNumber
-            // 
-            this.Check_SerialNumber.DataPropertyName = "SerialNumber";
-            this.Check_SerialNumber.FillWeight = 135F;
-            this.Check_SerialNumber.HeaderText = "Серийный номер";
-            this.Check_SerialNumber.Name = "Check_SerialNumber";
-            this.Check_SerialNumber.Width = 135;
-            // 
-            // Check_PartPrice
-            // 
-            this.Check_PartPrice.DataPropertyName = "Price";
-            this.Check_PartPrice.FillWeight = 90F;
-            this.Check_PartPrice.HeaderText = "Стоимость";
-            this.Check_PartPrice.Name = "Check_PartPrice";
-            this.Check_PartPrice.Width = 90;
-            // 
-            // Income_IdOrder
-            // 
-            this.Income_IdOrder.DataPropertyName = "IdOrder";
-            this.Income_IdOrder.FillWeight = 70F;
-            this.Income_IdOrder.HeaderText = "Номер заказа";
-            this.Income_IdOrder.Name = "Income_IdOrder";
-            this.Income_IdOrder.ReadOnly = true;
-            this.Income_IdOrder.Width = 70;
-            // 
-            // Income_FullName
-            // 
-            this.Income_FullName.DataPropertyName = "FullName";
-            this.Income_FullName.FillWeight = 290F;
-            this.Income_FullName.HeaderText = "Полное имя";
-            this.Income_FullName.Name = "Income_FullName";
-            this.Income_FullName.ReadOnly = true;
-            this.Income_FullName.Width = 290;
-            // 
-            // Income_CompletionDate
-            // 
-            this.Income_CompletionDate.DataPropertyName = "CompletionDate";
-            this.Income_CompletionDate.HeaderText = "Дата выдачи";
-            this.Income_CompletionDate.Name = "Income_CompletionDate";
-            this.Income_CompletionDate.ReadOnly = true;
-            // 
-            // Income_TotalPrice
-            // 
-            this.Income_TotalPrice.DataPropertyName = "TotalPrice";
-            this.Income_TotalPrice.HeaderText = "Выручка";
-            this.Income_TotalPrice.Name = "Income_TotalPrice";
-            this.Income_TotalPrice.ReadOnly = true;
             // 
             // MainForm
             // 
